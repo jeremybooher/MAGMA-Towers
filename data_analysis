@@ -1,0 +1,217 @@
+/* Store and analyze results of computations
+<info, data>
+
+info: p,d, description of tower, #levels computed, # powers computed, time spent (in seconds)
+data : list of [ genus , dim ker V^1,...] 
+*/ 
+
+procedure show_entry(tower)
+	info := tower[1];
+	data := tower[2];
+	print "Tower:", info[3];
+	print "p=",info[1],"d=",info[2];
+	print "Levels:",info[4];
+	for row in data do
+		print row;
+	end for;
+	print "";
+end procedure;
+
+//get p
+function get_characteristic(tower)
+	return tower[1][1];
+end function;
+
+//get d, the ramification invariant of the first level of the tower
+function get_ramification_invariant(tower)
+	return tower[1][2];
+end function;
+
+//get description
+function get_name(tower)
+	return tower[1][3];
+end function;
+
+function get_anumber(tower,level : power:=1)
+	assert (level le tower[1][4]);
+	assert (power le tower[1][5]);
+	return tower[2][level][power+1];
+end function;
+
+function get_anumbers(tower : power:=1)
+	assert (power le tower[1][5]);
+	return [ row[power+1] : row in tower[2] ];
+end function;
+
+/* Analysis */
+
+/* Guess a formula 
+a * q^(2n) + b * q^n + c = a(n)
+based on q, and three choices of n
+*/
+guess:=function(q,ns, as)
+	v:=Vector(Rationals(),as);
+	N:=Matrix(Rationals(),[[ q^(2*n) , q^n , 1] : n in ns]);
+	sol:=Solution(Transpose(N),v);
+	return [ sol[1], sol[2], sol[3]];
+end function;
+
+//predict additional layers
+predict := function(q,n,coeff)
+	return coeff[1] * q^(2*n) + coeff[2] * q^(n) + coeff[3] ;
+end function;
+
+
+//guess a formula given p, the dimensions, and which level to start at
+function auto_guess(p,vals,start)
+	assert( #vals - start ge 0); //otherwise not enough data to guess
+		
+	v:=Vector(Rationals(),vals[start..(start+2)]);
+	N:=Matrix(Rationals(),[[ p^(2*n) , p^n , 1] : n in [start..(start+2)]]);
+	sol:=Solution(Transpose(N),v);
+	coeff := [ sol[1], sol[2], sol[3]];
+	for n in [start+3..#vals] do
+		if predict(p,n,coeff) ne vals[n] then
+			return coeff, false;
+		end if;
+	end for;
+	
+	return coeff,true;
+end function;
+
+//make and check a guess for the towers in data
+procedure make_guesses(p,data : power:=1)
+	for tower in data do
+		vals := get_anumbers(tower : power:=power);
+		coeff, bool := auto_guess(p,vals,2);
+		
+		print "Base a-number:",vals[1];
+		print "Formula:", coeff[1] ,"*", p, "^(2n)+",coeff[2],"*",p,"^n+",coeff[3];
+		print "Consistent?",bool;
+	end for;
+end procedure;
+
+//In char p >2, a-number level(n+1) = p (p-1) d/ (4 (p+1)) (p^(2n) -1 )  + level1
+function conjecture1(p,d,tower)
+	conjecture := true;
+	if p gt 2 then
+		vals := get_anumbers(tower : power:=1);
+
+		a1 := vals[1];
+		
+		for n in [2..#vals] do
+			if p * (p-1) * d / (4 * (p+1)) * (p ^(2*(n-1)) - 1) + a1 ne vals[n] then
+				print n,"Predicted:", p * (p-1) * d / (4 * (p+1)) * (p ^(2*(n-1)) - 1) + a1,"Actual:",vals[n];
+				conjecture:=false;
+			end if;
+		end for;
+		
+		return conjecture;
+	else
+		vals := get_anumbers(tower : power:=1);
+
+		a1 := vals[1];
+		
+		for n in [2..#vals] do
+			if d/6 * (p ^(2*(n-1)) - 1) + (-1)^((d-1)/2) /2 + a1 ne vals[n] then
+				print n,"Predicted:",d/6 * (p ^(2*(n-1)) - 1) + (-1)^((d-1)/2) /2 + a1, "Actual", vals[n];
+				conjecture:=false;
+			end if;
+		end for;
+
+		return conjecture;	
+	
+	end if;
+end function;
+
+procedure test_conjecture1(towers)
+	for tower in towers do
+		p := get_characteristic(tower);
+		d:= get_ramification_invariant(tower);
+		name := get_name(tower);
+		bool := conjecture1(p,d,tower);
+		print "Conjecture1:",p,name,bool;
+	end for;
+end procedure;
+
+//predict the leading constant for dim ker V^r
+//Bryden's conjecture
+function predict_leadingconstant(p,d,r)
+	if r eq 1 then
+		if p gt 2 then
+			return  p *(p-1)* d/ (4* (p+1)) ;
+		else
+			return d/6; //actually the two cases agree as formulated now
+		end if;
+	end if;
+	return (1 + 1/(r-1)) / ( 1 + 1/(r-1+(p+1)/(p-1))) * predict_leadingconstant(p,d,r-1);
+end function;
+
+//pull out specific examples
+function filter_data(data: p := -1 , d:= -1)
+	new_data := [];
+	for tower in data do
+		if ( p eq -1 or p eq get_characteristic(tower)) and ( d eq -1 or d eq get_ramification_invariant(tower)) then
+			Append(~new_data,tower);
+		end if;
+	end for;
+	return new_data;
+end function;
+
+procedure display_data(data,p,d : power:=1)
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do
+		print "Tower:", get_name(tower);
+		vals := get_anumbers(tower : power:=power);
+		print "a-Numbers:",vals;
+		pred := [ predict_leadingconstant(p,d,power)* (p ^(2*(n-1)) - 1) + vals[1] : n in [1..#vals]];
+		print "Predictions:",pred;
+		print "Deltas:",[ vals[i] - pred[i] : i in [1..#vals]];
+		print "";
+	end for;
+end procedure;
+
+procedure analyze2(data,d : power:=1)
+	p:=2;
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do
+		print "Tower:", get_name(tower);
+		vals := get_anumbers(tower : power:=power);
+		print "a-Numbers:",vals;
+		//pred := [ predict_leadingconstant(p,d,power)* (p ^(2*(n-1))) + ((d + (-1) ^ (Integers()!( (d-1)/2) )* 3)/12) : n in [1..#vals]];
+		pred := [ predict_leadingconstant(p,d,power)* (p ^(2*(n-1)) -4) + vals[1] + 2 * Floor(d/4)+1  : n in [1..#vals]];
+		print "Predictions:",pred;
+		print "Deltas:",[ vals[i] - pred[i] : i in [1..#vals]];
+		print "";
+	end for;
+end procedure;
+
+procedure display_lots_data(p)
+	for d in [2..40] do
+		if (d mod 3 ne 0) then
+			print "Data for p=",p," d=",d;			
+			display_data(p,d);
+			print "";
+		end if;
+	end for;
+
+end procedure;
+
+function find_discrepancies_d(p,d,data)
+	discrep := {};
+	for tower in data do
+		vals := get_anumbers(tower : power:=1);
+		pred := [ p * (p-1) * d / (4 * (p+1)) * (p ^(2*(n-1)) - 1) + vals[1] : n in [1..#vals]];
+		deltas := [ vals[i] - pred[i] : i in [1..#vals]];
+		for i in [2..#vals] do
+			if deltas[i] ne deltas[i-1] then
+				Include(~discrep,i);
+			end if;
+		end for;
+	end for;
+	return discrep;
+end function;
+
+function find_discrepancies(p ,data )
+	return [ <d,find_discrepancies_d(p,d,filter_data(data : p:=p, d:= d)) > : d in [2..40] | (d mod 3 ne 0) ] ; 
+end function;

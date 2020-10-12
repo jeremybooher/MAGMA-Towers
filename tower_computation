@@ -1,0 +1,533 @@
+/*Compute a-numbers for Z_p towers of P^1 totally ramified above one point
+It is much more efficient than MAGMA's built in methods, which spend most of the their time finding a basis of regular differentials.
+This requires some work to write the tower in the standard form used in Madden's paper
+
+Standard Setup:
+Working in characteristic p.
+Ground field is a finite field k of size p^r
+A tower of function fields K_0 = k(x), K_1, ... K_n
+totally ramified over infinity and unramified elsewhere
+given by ys[i]^p - ys[i] = fs[i]
+where deg(fs[i]) = ds[i] is the ramification break for level i above infinity
+
+The description produced by Artin-Schreier-Witt theory is not automatically in this form, but over the projective line can be put in this form (see Madden's paper)
+
+We represent differentials, using Madden's results, as polynomials (forgetting the dx), and can easily write down a basis
+
+The simplify function applies the Artin-Schreier relations to write polynomials in the reduced form we expect
+
+We can compute the Cartier operator, and precompute a bunch of values to avoid duplicate computations when building the matrix for Cartier.  This is by far the most computationally expensive step, as we deal individually with each monomoial and there can be thousands of them.
+
+We use MAGMA's built-in function for computing the rank
+*/
+
+/*Use Luis Finotti's algorithms for computations with Witt vectors.  They are much faster than having MAGMA try to compute the function fields using its built-in methods
+*/
+load "gt.m";
+
+
+/* Set up a general Artin-Schreier Witt tower - create the multivariable polynomial ring and do the Witt vector computations
+Work over the finite field of size p^r
+Work with n levels of the tower
+*/
+function setup_ASW(p,r,n)
+	// n eq 1 runs into some bug in WittDiff
+	if n eq 1 then
+		P<y1,x>:= PolynomialRing(GF(p^r),2);
+		ys := [y1];
+		ASW:=[y1^p -y1];
+		return P,x,ys,ASW,-1;	
+	end if;
+	
+	P:= PolynomialRing(GF(p^r),n+1);
+	x := P.(n+1);
+	ys := [];
+	
+	AssignNames(~P,[ "y" cat IntegerToString(j) : j in [n..1 by -1]] cat ["x"]);
+	
+	for index in [n..1 by -1] do
+		Append(~ys,P.index);
+	end for;
+	
+	yp := [ys[i]^p : i in [1..n]];
+	epols:=etapols(p,n-1); //characteristic p, length n
+	ASW:= WittDiff(yp,ys : pols:=epols);
+	
+	return P,x,ys,ASW,epols;
+end function;
+
+/*
+Find the leading term of f, where leadingterms are expressions for the leading terms of yn, ... y1, x 
+in terms of a uniformizer (also denoted x)
+n - level of the tower
+f polynomial defining cover y^p -y = f
+*/
+function find_leadingterm(n,f,leadingterms)
+	highest := LeadingTerm(Evaluate(f,leadingterms)) ;
+	if highest eq 0 then
+		assert(f eq 0); //something went wrong. leadingterms?
+		return 0,0;
+	end if;
+	//return the coefficient and the exponent on the highest order term in the local expansion
+	// using the last variable for a uniformizer
+	return Coefficients(highest)[1], Exponents(highest)[n+1];
+end function;
+
+/*
+Create a monomial of specific order at level
+This method assumes we're in an genus stable ASW where the ds grow quickly
+p - characteristic
+level - which level to work at
+x, ys[1], ... ys[n] : variables defining tower
+ds : ramification invariants at at each level
+exponent : the order to use
+*/
+function create_term(p,level,x,ys,ds,exponent)
+	term := Parent(ys[level])!1;
+	j := level-1;
+	remaining := exponent;
+
+	while remaining gt 0 and j gt 0 do
+		newexp:= (Integers()!(remaining/p^(level-1-j)) * Modinv(ds[j],p)) mod p ;
+		remaining := remaining - newexp * ds[j] * p^(level-1-j);
+		term := term * ys[j]^(newexp);
+		j := j-1;
+	end while;
+	
+	assert(remaining mod p^(level-1) eq 0);
+	
+	term := term * x^(Integers()! (remaining/(p^(level-1))));
+	
+	return term;
+end function;
+
+/*
+Normalize the level of the ASW Witt tower to be in standard form
+assume previous levels already dealt with
+returns the standard form for f_level and the leading term in the expansion of y_level above infinity
+p : characteristic
+n : largest level in tower
+ds : ramification invariants at at each level
+x, ys[1], ... ys[n] : variables defining tower
+f : polynomial for next level
+leadingterms: precomputed leading terms for x, ys
+level : level working at now
+*/
+function normalize_ASW_level(p,n,ds,x,ys,f,leadingterms,simplify,level)
+	coeff,deg := find_leadingterm(n,f,leadingterms);
+	y_mod :=0 ; //keep track of modifications to y_level
+	
+	while deg gt ds[level] do
+		//the leading term has degree a multiple of p. Kill it off
+		new_term := create_term(p,level,x,ys,ds,Integers()!(deg/p));
+		
+		newcoeff, newdeg := find_leadingterm(n,new_term^p - new_term,leadingterms);
+		assert( newdeg eq deg);
+		
+		new_term := Root(coeff,p) * newcoeff^(-p) * new_term;
+		//cancel out the biggest term		
+		f:= simplify(f -  (new_term^p - new_term)) ; 
+		y_mod := y_mod - new_term;
+		old_deg := deg;
+		coeff,deg := find_leadingterm(n,f,leadingterms);
+		assert ( deg lt old_deg);
+	end while;
+	
+	assert(deg eq ds[level]);
+	return f, Root(coeff,p) * x^deg , y_mod;
+end function;
+
+/*Normalize the ASW tower to put it in Madden's standard form
+p : characteristic
+n : largest level in tower
+P : multivariable polynomial ring in x, ys
+ds : ramification invariants at at each level
+x, ys[1], ... ys[n] : variables defining tower
+fs : polynomials defining each extension (not in standard form yet)
+*/
+function normalize_ASW(p,n,P,ds,x,ys,fs)
+	standard_f := [];
+	leadingterms := [0 : j in [1..n]] cat [x];
+	
+	for level in [1..n] do
+		A,g:= quo<P | [ ys[j]^p - ys[j] - standard_f[j] : j in [1..level-1]]>;
+		lift := Inverse(g); //g isn't invertible, but this picks a nice section
+	
+		//write things in standard forms using Artin-Schreier relations
+		simplify := function(poly)
+			return lift(g(poly));
+		end function;
+		
+		//make a change of variable ys'[level] = ys[level] + y_mod
+		//such that fs[level] + y_mod^p - y_mod is in standard form
+		new_f,new_u,y_mod :=normalize_ASW_level(p,n,ds,x,ys,fs[level],leadingterms,simplify,level);
+		
+		Append(~standard_f,new_f);
+		
+		//update leading terms for next level
+		for j in [n+2-level..n+1] do
+			leadingterms[j] := Evaluate( leadingterms[j], x,x^p);
+		end for;
+	
+		leadingterms[n+1-level] := new_u;
+		
+		//update later ys's based on change of variables ys[level] = ys'[level] - y_mod
+		for j in [ level+1..n] do
+			fs[j] := simplify(Evaluate(fs[j],ys[level],ys[level] - y_mod));
+		end for;
+	end for;
+	
+	return standard_f;	
+end function;
+
+/*
+Given some setup and the ASW desription of a Zp, create a description of the tower
+ ys[i]^p - ys[i] = fs[i] in Madden's standard form
+ The simplify function writes polynomials representing differentials in the standard forms we would expect
+ p - characteristic
+n : largest level in tower
+P : multivariable polynomial ring in x, ys
+ds : ramification invariants at at each level
+x, ys[1], ... ys[n] : variables defining tower
+ASW: precomputed Artin-Schreier-Witt polynomial information
+v : Witt vector describing tower
+*/
+function create_ASW_tower(p,n,P,ds,x,ys,ASW,v)
+	fs := [ ys[j]^p- ys[j] -ASW[j] + v[j] : j in [1..n] ];
+
+	//write in standard form
+	fs:= normalize_ASW(p,n,P,ds,x,ys,fs);
+	
+	simplify := [];
+	
+	
+	for level in [1..n] do
+		A,g:= quo<P | [ ys[j]^p - ys[j] - fs[j] : j in [1..level]]>;
+		lift := Inverse(g); //g isn't invertible, but this picks a nice section
+	
+		//make things simpler using Artin-Schreier relations
+
+		temp := function(poly)
+			return lift(g(poly));
+		end function;	
+		
+		Append(~simplify,temp);
+	end for;
+
+	
+	return fs,simplify;
+end function;
+
+//Produce Examples of Towers Using MAGMA's Witt vector functionality on the sequences v
+//K<t> := RationalFunctionField(GF(p^r));
+// n : how many levels
+function magma_ASW_example(K,n,v)
+	assert(n gt 0);
+	t1 := Realtime();
+	W:=WittRing(K,n);
+	L := FunctionField(W!v);
+	t2 :=Realtime();
+	print "Constructing Function Field took: ", t2-t1;
+	
+	field_list := [L];
+	count :=1 ;
+	while count lt n do
+		count +:=1;
+		L := BaseField(L);
+		field_list := [L] cat field_list;
+	end while;
+	
+	return field_list;
+end function;
+
+//Compute a-number of a function field using MAGMA's built in functions
+//Computing the genus (finding a basis of regular differentials) seems to be slowest
+function default_anumber(K : printing:=true)
+	if printing then
+		print "Computing Genus...";
+	end if;
+	t1:=Realtime();
+	g := Genus(K);
+	t2:=Realtime();
+	if printing then	
+		print "Took: ",t2-t1;
+	end if;
+	r := Rank(CartierRepresentation(K));
+	t3:=Realtime();
+	if printing then
+		print "a-number Took: ",t3-t2;
+	end if;
+	return g- r;
+end function;
+
+/*
+compute genus given ramification breaks using Riemann Hurwitz.  (Assumes base is genus 0)
+p - characteristic
+ds - ramification invariants
+*/
+function genus_tower(p,ds)
+	genus :=0;
+	for d in ds do
+	 genus := p * (genus-1) + (d+1)*(p-1)/2 +1;
+	end for;
+	return genus;
+end function;
+
+//construct a basis of differentials for level n
+// n - how many steps in tower (ramified only above infinity)
+// p - characteristic 
+// x - parameter on P^1
+//  ys[i]^p - ys[i] = fs[i], with fs[i] in standard form, but basis only depends on...
+// ds - ramification break at level i
+//represent differentials as polynomials
+function construct_basis(p,n,x,ys,ds)
+	assert ( n gt 0);
+	g := genus_tower(p,ds[1..n]);
+
+	// x^nu y_1^(a_1) ... y_n ^(a_n) dx  -- see Maddan Lemma 5
+	d0 :=  &+[p^(n-j) * ds[j] : j in [1..n]];
+	
+	tuples := CartesianProduct([{0..p-1} : j in [1..n]]);
+	
+	basis := [];
+	for as in tuples do
+		A0 :=  &+[p^(n-j) * as[j]* ds[j] : j in [1..n]]; 
+		upper_nu := Floor(((p-1)*d0 - A0 - p^n -1)/p^n);
+		for nu in [0..upper_nu] do
+			omega := x^nu * &* [ ys[j] ^(as[j]) : j in [1..n] ];
+			Append(~basis,omega );
+		end for;
+	end for;
+	
+	assert( #basis eq g);
+	return basis;
+end function;
+
+//package up several levels for use in a tower
+function construct_bases(p,n,x,ys,ds)
+	return [ construct_basis(p,level,x,ys,ds) : level in [1..n]];
+end function;
+
+/* Compute the Cartier operator on a monomial, making use of precomputed things
+This wil fail if we haven't precomputed the right thing yet
+precomputed : an associative array, indexed by the exponent of x^a ys[1]^(a1) ys[2]^(a2) ... and storing the image of that differential under the Cartier operator
+p : characteristic
+n : how many levels in tower
+monomial : monomial f(x) to compute V(f(x) dx) for
+*/
+function monomial_Cartier(precomputed,p,n,monomial)
+	//first step is to pull out p-th powers of variables, then use precomputed values
+	exps := Exponents(monomial); //the order is yn, yn-1, ... , y1,x
+	reduced_exps := [ exps[j] mod p : j in [1..n+1] ];
+	removed_exps := [ exps[j] div p : j in [1..n+1] ];
+	
+	//coefficient is in ground field, so can move outside Cartier
+	coeff := LeadingCoefficient(monomial);
+
+	//put together using precomputed value
+	return Root(coeff,p) * precomputed[reduced_exps] * Monomial(Parent(monomial), removed_exps);
+end function;
+
+
+/*
+Compute the Cartier operator of a general polynomial * dx
+precomputed : an associative array, indexed by the exponent of x^a ys[1]^(a1) ys[2]^(a2) ... and storing the image of that differential under the Cartier operator
+p : characteristic
+n : how many levels in tower
+simplify : write a polynomial/differential in the form we expect
+polynomial: the polynomial/differential to use
+*/
+function compute_Cartier(precomputed,p,n,simplify,polynomial)
+	terms := Terms(polynomial);
+	expression := 0;
+	for term in terms do
+		expression +:= monomial_Cartier(precomputed,p,n,term);
+	end for;
+	return simplify(expression);
+end function;
+
+//Compute a binomial coefficient n choose m.  need to treat choosing from 0 things as 1
+modified_binomial := function(n,m);
+    if n eq 0 then
+        return 1;
+    end if;
+    return Binomial(n,m);
+end function;
+
+/*Build the matrix representing the Cartier operator.  Given the precomputations, this is relatively fast, but takes a lot of memory
+Return the matrix and a record of all of the precomputations recorded
+
+level - which level of the tower to work at.  n is the number of levels used in the construction of the tower
+Work over a finite field of size p^r
+x, ys[1], ... ys[n] : variables defining tower
+fs : polynomials in standard form defining each Artin-Schreier extension
+simplify : write a polynomial/differential in the form we expect
+basis : a basis of regular differentials for the level
+precomputed : an associative array, indexed by the exponent of x^a ys[1]^(a1) ys[2]^(a2) ... and storing the image of that differential under the Cartier operator.  This could be empty, or might have some values loaded from a file
+printing  : whether to display some information as we go along
+*/
+function build_matrix(level,n,p,r,x,ys,fs,simplify,basis , precomputed : printing:=true)
+	g:= #basis;	
+	P:= Parent(x);
+	keys := Keys(precomputed);
+	
+	t1 :=Realtime();
+	
+	basis_ordering := AssociativeArray();
+
+	//use a dictionary to associate the basis monomials with integers
+	for count in [1..g] do
+		basis_ordering[basis[count]] := count;
+	end for;
+	
+	//create all possible exponents.  The default ordering makes x change first, then y1, etc.
+	//exponents are for yn, ..., y1, x
+	tuples := CartesianProduct([ {0} : j in [1..n-level ] ] cat [{0..p-1} : j in [1..level+1]] );
+	tuples_sequence := [];
+	
+	leading := 0; //which variable is leading
+	count:=0;
+	for t in tuples do
+		Append(~tuples_sequence, <[a : a in t], leading>);
+		count +:=1;	
+		if count eq p^(leading+1) then
+			leading +:=1;
+		end if;		
+	end for;
+
+	//do precomputations of x^nu y1^a1 ... yn^an dx with variables in [0..p-1]
+	precomputed_leading:=0;
+	binomial_coeffs := AssociativeArray();
+
+	for i in [0..p-1] do
+		for j in [0..i] do
+			binomial_coeffs[ <i,j>] := modified_binomial(i,j);
+		end for;
+	end for;	
+	
+	total_tuples := p^(level+1);
+	analyzed :=0;	
+	last_time := t1;
+	
+	for t in tuples_sequence do
+		analyzed+:=1;
+		
+		if printing and (Realtime() - last_time gt 60 * 5) then //every 5 minutes
+			print "Precomputed: ",analyzed, "out of",total_tuples,"at",Realtime();
+			last_time := Realtime();
+		end if;
+		leading := t[2];
+			
+		if leading gt precomputed_leading then
+			//precompute powers of f and binomial coefficients. 
+    
+			list_powers := [P!1];
+			power :=1;
+			f:= fs[leading];
+			for i in [1..p-1] do
+				power *:= f;
+				Append(~list_powers,power);
+			end for;
+			
+			precomputed_leading+:=1;
+		end if;
+
+		exponents := t[1];		
+		if exponents in keys then
+			continue;
+		end if;
+		
+		if leading gt 0 then
+
+			
+			//there are just a few that don't actually give regular differentials, so ignore this
+			/*if Monomial(P,exponents) notin basis then
+				print "Didn't have to compute",Monomial(P,exponents);
+				continue;
+			end if; */		
+					
+			
+			i := exponents[n+1-leading];
+			exponents[n+1-leading] := 0;
+			pieces :=0;
+		
+			for j in [0..i] do
+				// Cartier ( (-1)^(j) * binom(i,j) * f^(j) * rest of monomial ) * y^(i-j)
+				input := Monomial(P,exponents) * (-1)^(j) * binomial_coeffs[<i,j>] * list_powers[j+1];
+				pieces +:= compute_Cartier(precomputed,p,n,simplify,input) * ys[leading]^(i-j);
+			end for;
+			
+			exponents[n+1-leading] := i; //restore original
+			precomputed[exponents] := pieces;	
+		else
+			// this is x^nu
+			if t[1][n+1] eq p-1 then
+				precomputed[t[1]] := x-x+1;  //write 1 this way to make sure in right polynomial ring
+			else
+				precomputed[t[1]] := x-x; //write 0 this way to make sure in correct ring
+			end if;
+		end if;
+	end for;
+	
+	t2:=Realtime();
+	if printing then
+		print "Finished Precomputation:", t2-t1;
+	end if;
+	
+	matrix := ZeroMatrix(GF(p^r),g,g);	
+	
+	for column in [1..g] do
+		omega := compute_Cartier(precomputed,p,n,simplify,basis[column]);
+		coeffs := Coefficients(omega);
+		mons := Monomials(omega);
+		for j in [1..#coeffs] do
+			matrix[ basis_ordering[mons[j]]] [column] := coeffs[j];
+		end for;
+	end for;
+	
+	t3:=Realtime();
+	if printing then
+		print "Built Matrix:", t3-t2;
+	end if;
+	
+	return matrix,precomputed;
+end function;
+
+/*
+Given the genus and a matrix for the Cartier operator, compute dim ker V^i for 1 \leq i \leq powers
+*/
+function anumber(g,cartier : powers:=1)
+	list := [];
+	C:=1;
+
+	for n in [1..powers] do
+		C := C * cartier;
+		Append(~list,g-Rank(C));
+	end for;
+	return list;
+end function;
+
+//try an example
+function timing(n)
+	//Setup 
+	p:=3;
+	r:=1;
+	t0 := Realtime();
+	P,x,ys,ASW := setup_ASW(p,r,n);
+	K:=CoefficientRing(P);
+	d:=7;
+	v := [x^d] cat [0 : j in [1..n-1]];
+	ds := [Integers()!(d*(p^(2*j-1)+1)/(p+1)): j in [1..n]]; //recovered from genus formula KW
+	fs,simplify:= create_ASW_tower(p,n,P,ds,x,ys,ASW,v);
+	basis :=construct_basis(p,n,x,ys,ds);
+	g:=#basis;
+	t1 := Realtime();
+	print "Created Tower and Basis:", t1-t0;
+	cartier:= build_matrix(n,p,r,x,ys,fs,simplify,basis,AssociativeArray());
+	t2 := Realtime();
+	a := anumber(g,cartier);
+	t3 := Realtime();
+	print "Computed Rank:",t3-t2;
+	return a,g;
+end function;
+

@@ -1,0 +1,60 @@
+Calculations for 1*x^3
+Level:1
+dim ker V^n:
+[ 1, 1, 1, 1, 1 ]
+Genus:1
+Level:2
+dim ker V^n:
+[ 2, 3, 4, 5, 6 ]
+Genus:6
+Level:3
+dim ker V^n:
+[ 8, 13, 16, 18, 20 ]
+Genus:28
+Level:4
+dim ker V^n:
+[ 32, 51, 64, 73, 80 ]
+Genus:120
+Level:5
+dim ker V^n:
+[ 128, 205, 256, 293, 320 ]
+Genus:496
+Level:6
+dim ker V^n:
+[ 512, 819, 1024, 1170, 1280 ]
+Genus:2016
+Level:7
+dim ker V^n:
+[ 2048, 3277, 4096, 4681, 5120 ]
+Genus:8128
+
+Calculations for 1*x^3+1*x^1
+Level:1
+dim ker V^n:
+[ 1, 1, 1, 1, 1 ]
+Genus:1
+Level:2
+dim ker V^n:
+[ 2, 3, 4, 5, 6 ]
+Genus:6
+Level:3
+dim ker V^n:
+[ 8, 13, 16, 18, 20 ]
+Genus:28
+Level:4
+dim ker V^n:
+[ 32, 51, 64, 73, 80 ]
+Genus:120
+Level:5
+dim ker V^n:
+[ 128, 205, 256, 293, 320 ]
+Genus:496
+Level:6
+dim ker V^n:
+[ 512, 819, 1024, 1170, 1280 ]
+Genus:2016
+Level:7
+dim ker V^n:
+[ 2048, 3277, 4096, 4681, 5120 ]
+Genus:8128
+

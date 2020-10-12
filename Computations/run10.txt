@@ -1,0 +1,1687 @@
+Magma V2.25-6     Fri Aug 28 2020 16:55:59 on mathmagma [Seed = 3519414437]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.250
+Starting Analysis: 1*x^2
+[
+    x^2,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.840
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 1, 1, 1, 1, 1 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 7, 10, 12, 13, 14 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 61, 91, 109, 121, 130 ]
+Working on level: 4
+Finished Precomputation: 0.980
+Built Matrix: 0.060
+Computed Rank: 0.180
+Kernel Dim(s): [ 547, 820, 984, 1093, 1171 ]
+Working on level: 5
+Finished Precomputation: 417.690
+Built Matrix: 5.770
+Computed Rank: 31.810
+Kernel Dim(s): [ 4921, 7381, 8857, 9841, 10544 ]
+Storing tower: 1*x^2
+<[* 3, 2, 1*x^2 *], [ [* 1,
+    [ 1, 1, 1, 1, 1 ],
+    1, 0.000, 0.000
+*], [* 2,
+    [ 7, 10, 12, 13, 14 ],
+    16, 0.000, 0.000
+*], [* 3,
+    [ 61, 91, 109, 121, 130 ],
+    169, 0.030, 0.000
+*], [* 4,
+    [ 547, 820, 984, 1093, 1171 ],
+    1600, 1.040, 0.180
+*], [* 5,
+    [ 4921, 7381, 8857, 9841, 10544 ],
+    14641, 423.460, 31.810
+*] ]>
+[
+    <[* 3, 2, 1*x^2 *], [ [* 1,
+        [ 1, 1, 1, 1, 1 ],
+        1, 0.000, 0.000
+    *], [* 2,
+        [ 7, 10, 12, 13, 14 ],
+        16, 0.000, 0.000
+    *], [* 3,
+        [ 61, 91, 109, 121, 130 ],
+        169, 0.030, 0.000
+    *], [* 4,
+        [ 547, 820, 984, 1093, 1171 ],
+        1600, 1.040, 0.180
+    *], [* 5,
+        [ 4921, 7381, 8857, 9841, 10544 ],
+        14641, 423.460, 31.810
+    *] ]>
+]
+
+Total time: 461.110 seconds, Total memory usage: 335.62MB
+Magma V2.25-6     Fri Aug 28 2020 17:03:39 on mathmagma [Seed = 4259984066]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.330
+Starting Analysis: 1*x^4
+[
+    x^4,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.900
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 3, 3, 3, 3, 3 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 15, 20, 24, 27, 30 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.010
+Kernel Dim(s): [ 123, 183, 219, 243, 260 ]
+Working on level: 4
+Finished Precomputation: 1.000
+Built Matrix: 0.150
+Computed Rank: 0.780
+Kernel Dim(s): [ 1095, 1640, 1968, 2187, 2343 ]
+Working on level: 5
+Finished Precomputation: 432.440
+Built Matrix: 12.750
+Computed Rank: 173.630
+Kernel Dim(s): [ 9843, 14763, 17715, 19683, 21090 ]
+Storing tower: 1*x^4
+<[* 3, 4, 1*x^4 *], [ [* 1,
+    [ 3, 3, 3, 3, 3 ],
+    3, 0.010, 0.000
+*], [* 2,
+    [ 15, 20, 24, 27, 30 ],
+    36, 0.000, 0.000
+*], [* 3,
+    [ 123, 183, 219, 243, 260 ],
+    351, 0.020, 0.010
+*], [* 4,
+    [ 1095, 1640, 1968, 2187, 2343 ],
+    3240, 1.150, 0.780
+*], [* 5,
+    [ 9843, 14763, 17715, 19683, 21090 ],
+    29403, 445.190, 173.630
+*] ]>
+[
+    <[* 3, 4, 1*x^4 *], [ [* 1,
+        [ 3, 3, 3, 3, 3 ],
+        3, 0.010, 0.000
+    *], [* 2,
+        [ 15, 20, 24, 27, 30 ],
+        36, 0.000, 0.000
+    *], [* 3,
+        [ 123, 183, 219, 243, 260 ],
+        351, 0.020, 0.010
+    *], [* 4,
+        [ 1095, 1640, 1968, 2187, 2343 ],
+        3240, 1.150, 0.780
+    *], [* 5,
+        [ 9843, 14763, 17715, 19683, 21090 ],
+        29403, 445.190, 173.630
+    *] ]>
+]
+
+Total time: 625.529 seconds, Total memory usage: 1002.62MB
+Magma V2.25-6     Fri Aug 28 2020 17:14:04 on mathmagma [Seed = 3909035360]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.380
+Starting Analysis: 1*x^5
+[
+    x^5,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.970
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 2, 4, 4, 4, 4 ]
+Working on level: 2
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 19, 26, 31, 35, 39 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 154, 230, 275, 305, 326 ]
+Working on level: 4
+Finished Precomputation: 1.120
+Built Matrix: 0.200
+Computed Rank: 1.250
+Kernel Dim(s): [ 1369, 2052, 2461, 2735, 2930 ]
+Working on level: 5
+Finished Precomputation: 439.450
+Built Matrix: 15.880
+Computed Rank: 301.980
+Kernel Dim(s): [ 12304, 18456, 22145, 24605, 26365 ]
+Storing tower: 1*x^5
+<[* 3, 5, 1*x^5 *], [ [* 1,
+    [ 2, 4, 4, 4, 4 ],
+    4, 0.000, 0.000
+*], [* 2,
+    [ 19, 26, 31, 35, 39 ],
+    46, 0.010, 0.000
+*], [* 3,
+    [ 154, 230, 275, 305, 326 ],
+    442, 0.030, 0.000
+*], [* 4,
+    [ 1369, 2052, 2461, 2735, 2930 ],
+    4060, 1.320, 1.250
+*], [* 5,
+    [ 12304, 18456, 22145, 24605, 26365 ],
+    36784, 455.330, 301.980
+*] ]>
+[
+    <[* 3, 5, 1*x^5 *], [ [* 1,
+        [ 2, 4, 4, 4, 4 ],
+        4, 0.000, 0.000
+    *], [* 2,
+        [ 19, 26, 31, 35, 39 ],
+        46, 0.010, 0.000
+    *], [* 3,
+        [ 154, 230, 275, 305, 326 ],
+        442, 0.030, 0.000
+    *], [* 4,
+        [ 1369, 2052, 2461, 2735, 2930 ],
+        4060, 1.320, 1.250
+    *], [* 5,
+        [ 12304, 18456, 22145, 24605, 26365 ],
+        36784, 455.330, 301.980
+    *] ]>
+]
+
+Total time: 764.570 seconds, Total memory usage: 1497.88MB
+Magma V2.25-6     Fri Aug 28 2020 17:26:47 on mathmagma [Seed = 34982022]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.490
+Starting Analysis: 1*x^7
+[
+    x^7,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.970
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 4, 5, 6, 6, 6 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 25, 36, 43, 49, 55 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 214, 321, 385, 427, 456 ]
+Working on level: 4
+Finished Precomputation: 1.010
+Built Matrix: 0.280
+Computed Rank: 2.640
+Kernel Dim(s): [ 1915, 2872, 3446, 3829, 4102 ]
+Working on level: 5
+Finished Precomputation: 310.950
+Built Matrix: 21.780
+Computed Rank: 746.530
+Kernel Dim(s): [ 17224, 25837, 31004, 34447, 36911 ]
+Storing tower: 1*x^7
+<[* 3, 7, 1*x^7 *], [ [* 1,
+    [ 4, 5, 6, 6, 6 ],
+    6, 0.000, 0.000
+*], [* 2,
+    [ 25, 36, 43, 49, 55 ],
+    66, 0.000, 0.000
+*], [* 3,
+    [ 214, 321, 385, 427, 456 ],
+    624, 0.030, 0.000
+*], [* 4,
+    [ 1915, 2872, 3446, 3829, 4102 ],
+    5700, 1.290, 2.640
+*], [* 5,
+    [ 17224, 25837, 31004, 34447, 36911 ],
+    51546, 332.730, 746.530
+*] ]>
+[
+    <[* 3, 7, 1*x^7 *], [ [* 1,
+        [ 4, 5, 6, 6, 6 ],
+        6, 0.000, 0.000
+    *], [* 2,
+        [ 25, 36, 43, 49, 55 ],
+        66, 0.000, 0.000
+    *], [* 3,
+        [ 214, 321, 385, 427, 456 ],
+        624, 0.030, 0.000
+    *], [* 4,
+        [ 1915, 2872, 3446, 3829, 4102 ],
+        5700, 1.290, 2.640
+    *], [* 5,
+        [ 17224, 25837, 31004, 34447, 36911 ],
+        51546, 332.730, 746.530
+    *] ]>
+]
+
+Total time: 1088.029 seconds, Total memory usage: 2798.78MB
+Magma V2.25-6     Fri Aug 28 2020 17:44:54 on mathmagma [Seed = 992804350]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.530
+Starting Analysis: 1*x^8
+[
+    x^8,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.920
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 5, 6, 7, 7, 7 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 29, 41, 49, 55, 60 ]
+Working on level: 3
+Finished Precomputation: 0.030
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 245, 367, 439, 487, 521 ]
+Working on level: 4
+Finished Precomputation: 1.020
+Built Matrix: 0.340
+Computed Rank: 3.670
+Kernel Dim(s): [ 2189, 3282, 3938, 4375, 4688 ]
+Working on level: 5
+Finished Precomputation: 347.660
+Built Matrix: 25.380
+Computed Rank: 1024.480
+Kernel Dim(s): [ 19685, 29528, 35432, 39367, 42181 ]
+Storing tower: 1*x^8
+<[* 3, 8, 1*x^8 *], [ [* 1,
+    [ 5, 6, 7, 7, 7 ],
+    7, 0.000, 0.000
+*], [* 2,
+    [ 29, 41, 49, 55, 60 ],
+    76, 0.000, 0.000
+*], [* 3,
+    [ 245, 367, 439, 487, 521 ],
+    715, 0.040, 0.000
+*], [* 4,
+    [ 2189, 3282, 3938, 4375, 4688 ],
+    6520, 1.360, 3.670
+*], [* 5,
+    [ 19685, 29528, 35432, 39367, 42181 ],
+    58927, 373.040, 1024.480
+*] ]>
+[
+    <[* 3, 8, 1*x^8 *], [ [* 1,
+        [ 5, 6, 7, 7, 7 ],
+        7, 0.000, 0.000
+    *], [* 2,
+        [ 29, 41, 49, 55, 60 ],
+        76, 0.000, 0.000
+    *], [* 3,
+        [ 245, 367, 439, 487, 521 ],
+        715, 0.040, 0.000
+    *], [* 4,
+        [ 2189, 3282, 3938, 4375, 4688 ],
+        6520, 1.360, 3.670
+    *], [* 5,
+        [ 19685, 29528, 35432, 39367, 42181 ],
+        58927, 373.040, 1024.480
+    *] ]>
+]
+
+Total time: 1407.309 seconds, Total memory usage: 3657.22MB
+Magma V2.25-6     Fri Aug 28 2020 18:08:20 on mathmagma [Seed = 1598594840]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.600
+Starting Analysis: 1*x^10
+[
+    x^10,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.930
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 5, 9, 9, 9, 9 ]
+Working on level: 2
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 37, 52, 62, 71, 80 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.010
+Computed Rank: 0.010
+Kernel Dim(s): [ 307, 461, 551, 611, 652 ]
+Working on level: 4
+Finished Precomputation: 1.030
+Built Matrix: 0.420
+Computed Rank: 5.840
+Kernel Dim(s): [ 2737, 4104, 4923, 5471, 5861 ]
+Working on level: 5
+Finished Precomputation: 361.450
+Built Matrix: 34.510
+Computed Rank: 1892.220
+Kernel Dim(s): [ 24607, 36913, 44292, 49211, 52732 ]
+Storing tower: 1*x^10
+<[* 3, 10, 1*x^10 *], [ [* 1,
+    [ 5, 9, 9, 9, 9 ],
+    9, 0.000, 0.000
+*], [* 2,
+    [ 37, 52, 62, 71, 80 ],
+    96, 0.010, 0.000
+*], [* 3,
+    [ 307, 461, 551, 611, 652 ],
+    897, 0.030, 0.010
+*], [* 4,
+    [ 2737, 4104, 4923, 5471, 5861 ],
+    8160, 1.450, 5.840
+*], [* 5,
+    [ 24607, 36913, 44292, 49211, 52732 ],
+    73689, 395.960, 1892.220
+*] ]>
+[
+    <[* 3, 10, 1*x^10 *], [ [* 1,
+        [ 5, 9, 9, 9, 9 ],
+        9, 0.000, 0.000
+    *], [* 2,
+        [ 37, 52, 62, 71, 80 ],
+        96, 0.010, 0.000
+    *], [* 3,
+        [ 307, 461, 551, 611, 652 ],
+        897, 0.030, 0.010
+    *], [* 4,
+        [ 2737, 4104, 4923, 5471, 5861 ],
+        8160, 1.450, 5.840
+    *], [* 5,
+        [ 24607, 36913, 44292, 49211, 52732 ],
+        73689, 395.960, 1892.220
+    *] ]>
+]
+
+Total time: 2299.929 seconds, Total memory usage: 5641.81MB
+Magma V2.25-6     Fri Aug 28 2020 18:46:39 on mathmagma [Seed = 2037288506]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.660
+Starting Analysis: 1*x^11
+[
+    x^11,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.930
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 6, 9, 10, 10, 10 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 39, 57, 68, 78, 87 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.010
+Computed Rank: 0.020
+Kernel Dim(s): [ 338, 506, 606, 672, 717 ]
+Working on level: 4
+Finished Precomputation: 1.020
+Built Matrix: 0.460
+Computed Rank: 7.620
+Kernel Dim(s): [ 3011, 4514, 5416, 6018, 6447 ]
+Working on level: 5
+Finished Precomputation: 338.900
+Built Matrix: 35.010
+Computed Rank: 2501.840
+Kernel Dim(s): [ 27068, 40603, 48722, 54132, 58004 ]
+Storing tower: 1*x^11
+<[* 3, 11, 1*x^11 *], [ [* 1,
+    [ 6, 9, 10, 10, 10 ],
+    10, 0.010, 0.000
+*], [* 2,
+    [ 39, 57, 68, 78, 87 ],
+    106, 0.000, 0.000
+*], [* 3,
+    [ 338, 506, 606, 672, 717 ],
+    988, 0.030, 0.020
+*], [* 4,
+    [ 3011, 4514, 5416, 6018, 6447 ],
+    8980, 1.480, 7.620
+*], [* 5,
+    [ 27068, 40603, 48722, 54132, 58004 ],
+    81070, 373.910, 2501.840
+*] ]>
+[
+    <[* 3, 11, 1*x^11 *], [ [* 1,
+        [ 6, 9, 10, 10, 10 ],
+        10, 0.010, 0.000
+    *], [* 2,
+        [ 39, 57, 68, 78, 87 ],
+        106, 0.000, 0.000
+    *], [* 3,
+        [ 338, 506, 606, 672, 717 ],
+        988, 0.030, 0.020
+    *], [* 4,
+        [ 3011, 4514, 5416, 6018, 6447 ],
+        8980, 1.480, 7.620
+    *], [* 5,
+        [ 27068, 40603, 48722, 54132, 58004 ],
+        81070, 373.910, 2501.840
+    *] ]>
+]
+
+Total time: 2889.480 seconds, Total memory usage: 6799.41MB
+Magma V2.25-6     Fri Aug 28 2020 19:34:48 on mathmagma [Seed = 2157407243]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.760
+Starting Analysis: 1*x^13
+[
+    x^13,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 3.030
+Working on level: 1
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 8, 12, 12, 12, 12 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 47, 67, 80, 92, 102 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.020
+Computed Rank: 0.090
+Kernel Dim(s): [ 398, 598, 716, 794, 847 ]
+Working on level: 4
+Finished Precomputation: 1.030
+Built Matrix: 0.580
+Computed Rank: 11.540
+Kernel Dim(s): [ 3557, 5334, 6400, 7112, 7619 ]
+Working on level: 5
+Finished Precomputation: 350.560
+Built Matrix: 46.000
+Computed Rank: 3837.630
+Kernel Dim(s): [ 31988, 47985, 57580, 63974, 68549 ]
+Storing tower: 1*x^13
+<[* 3, 13, 1*x^13 *], [ [* 1,
+    [ 8, 12, 12, 12, 12 ],
+    12, 0.010, 0.000
+*], [* 2,
+    [ 47, 67, 80, 92, 102 ],
+    126, 0.000, 0.000
+*], [* 3,
+    [ 398, 598, 716, 794, 847 ],
+    1170, 0.040, 0.090
+*], [* 4,
+    [ 3557, 5334, 6400, 7112, 7619 ],
+    10620, 1.610, 11.540
+*], [* 5,
+    [ 31988, 47985, 57580, 63974, 68549 ],
+    95832, 396.560, 3837.630
+*] ]>
+[
+    <[* 3, 13, 1*x^13 *], [ [* 1,
+        [ 8, 12, 12, 12, 12 ],
+        12, 0.010, 0.000
+    *], [* 2,
+        [ 47, 67, 80, 92, 102 ],
+        126, 0.000, 0.000
+    *], [* 3,
+        [ 398, 598, 716, 794, 847 ],
+        1170, 0.040, 0.090
+    *], [* 4,
+        [ 3557, 5334, 6400, 7112, 7619 ],
+        10620, 1.610, 11.540
+    *], [* 5,
+        [ 31988, 47985, 57580, 63974, 68549 ],
+        95832, 396.560, 3837.630
+    *] ]>
+]
+
+Total time: 4251.880 seconds, Total memory usage: 9450.34MB
+Magma V2.25-6     Fri Aug 28 2020 20:45:40 on mathmagma [Seed = 3552856308]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.780
+Starting Analysis: 1*x^14
+[
+    x^14,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.940
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 7, 10, 13, 13, 13 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 51, 73, 87, 100, 113 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.020
+Computed Rank: 0.090
+Kernel Dim(s): [ 429, 643, 772, 856, 913 ]
+Working on level: 4
+Finished Precomputation: 1.010
+Built Matrix: 0.590
+Computed Rank: 13.240
+Kernel Dim(s): [ 3831, 5745, 6892, 7660, 8206 ]
+Working on level: 5
+Finished Precomputation: 339.350
+Built Matrix: 46.700
+Computed Rank: 4875.840
+Kernel Dim(s): [ 34449, 51675, 62009, 68896, 73825 ]
+Storing tower: 1*x^14
+<[* 3, 14, 1*x^14 *], [ [* 1,
+    [ 7, 10, 13, 13, 13 ],
+    13, 0.000, 0.000
+*], [* 2,
+    [ 51, 73, 87, 100, 113 ],
+    136, 0.010, 0.000
+*], [* 3,
+    [ 429, 643, 772, 856, 913 ],
+    1261, 0.040, 0.090
+*], [* 4,
+    [ 3831, 5745, 6892, 7660, 8206 ],
+    11440, 1.600, 13.240
+*], [* 5,
+    [ 34449, 51675, 62009, 68896, 73825 ],
+    103213, 386.060, 4875.840
+*] ]>
+[
+    <[* 3, 14, 1*x^14 *], [ [* 1,
+        [ 7, 10, 13, 13, 13 ],
+        13, 0.000, 0.000
+    *], [* 2,
+        [ 51, 73, 87, 100, 113 ],
+        136, 0.010, 0.000
+    *], [* 3,
+        [ 429, 643, 772, 856, 913 ],
+        1261, 0.040, 0.090
+    *], [* 4,
+        [ 3831, 5745, 6892, 7660, 8206 ],
+        11440, 1.600, 13.240
+    *], [* 5,
+        [ 34449, 51675, 62009, 68896, 73825 ],
+        103213, 386.060, 4875.840
+    *] ]>
+]
+
+Total time: 5280.590 seconds, Total memory usage: 10939.25MB
+Magma V2.25-6     Fri Aug 28 2020 22:13:41 on mathmagma [Seed = 4026034217]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.010
+Starting Analysis: 1*x^16
+[
+    x^16,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 3.210
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 9, 13, 15, 15, 15 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 59, 83, 99, 113, 124 ]
+Working on level: 3
+Finished Precomputation: 0.030
+Built Matrix: 0.020
+Computed Rank: 0.140
+Kernel Dim(s): [ 491, 736, 881, 977, 1043 ]
+Working on level: 4
+Finished Precomputation: 1.150
+Built Matrix: 0.750
+Computed Rank: 19.770
+Kernel Dim(s): [ 4379, 6566, 7877, 8753, 9378 ]
+Working on level: 5
+Finished Precomputation: 355.610
+Built Matrix: 59.900
+Computed Rank: 7023.300
+Kernel Dim(s): [ 39371, 59059, 70867, 78737, 84367 ]
+Storing tower: 1*x^16
+<[* 3, 16, 1*x^16 *], [ [* 1,
+    [ 9, 13, 15, 15, 15 ],
+    15, 0.000, 0.000
+*], [* 2,
+    [ 59, 83, 99, 113, 124 ],
+    156, 0.000, 0.000
+*], [* 3,
+    [ 491, 736, 881, 977, 1043 ],
+    1443, 0.050, 0.140
+*], [* 4,
+    [ 4379, 6566, 7877, 8753, 9378 ],
+    13080, 1.900, 19.770
+*], [* 5,
+    [ 39371, 59059, 70867, 78737, 84367 ],
+    117975, 415.520, 7023.300
+*] ]>
+[
+    <[* 3, 16, 1*x^16 *], [ [* 1,
+        [ 9, 13, 15, 15, 15 ],
+        15, 0.000, 0.000
+    *], [* 2,
+        [ 59, 83, 99, 113, 124 ],
+        156, 0.000, 0.000
+    *], [* 3,
+        [ 491, 736, 881, 977, 1043 ],
+        1443, 0.050, 0.140
+    *], [* 4,
+        [ 4379, 6566, 7877, 8753, 9378 ],
+        13080, 1.900, 19.770
+    *], [* 5,
+        [ 39371, 59059, 70867, 78737, 84367 ],
+        117975, 415.520, 7023.300
+    *] ]>
+]
+
+Total time: 7464.229 seconds, Total memory usage: 14248.84MB
+Magma V2.25-6     Sat Aug 29 2020 00:18:06 on mathmagma [Seed = 1702023049]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 0.920
+Starting Analysis: 1*x^17
+[
+    x^17,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 3.000
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 10, 13, 15, 16, 16 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 61, 88, 105, 121, 133 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.020
+Computed Rank: 0.150
+Kernel Dim(s): [ 522, 781, 936, 1039, 1108 ]
+Working on level: 4
+Finished Precomputation: 1.020
+Built Matrix: 0.730
+Computed Rank: 21.670
+Kernel Dim(s): [ 4653, 6976, 8369, 9302, 9964 ]
+Working on level: 5
+Finished Precomputation: 340.420
+Built Matrix: 59.360
+Computed Rank: 8495.960
+Kernel Dim(s): [ 41832, 62749, 75296, 83660, 89641 ]
+Storing tower: 1*x^17
+<[* 3, 17, 1*x^17 *], [ [* 1,
+    [ 10, 13, 15, 16, 16 ],
+    16, 0.010, 0.000
+*], [* 2,
+    [ 61, 88, 105, 121, 133 ],
+    166, 0.000, 0.000
+*], [* 3,
+    [ 522, 781, 936, 1039, 1108 ],
+    1534, 0.040, 0.150
+*], [* 4,
+    [ 4653, 6976, 8369, 9302, 9964 ],
+    13900, 1.750, 21.670
+*], [* 5,
+    [ 41832, 62749, 75296, 83660, 89641 ],
+    125356, 399.790, 8495.960
+*] ]>
+[
+    <[* 3, 17, 1*x^17 *], [ [* 1,
+        [ 10, 13, 15, 16, 16 ],
+        16, 0.010, 0.000
+    *], [* 2,
+        [ 61, 88, 105, 121, 133 ],
+        166, 0.000, 0.000
+    *], [* 3,
+        [ 522, 781, 936, 1039, 1108 ],
+        1534, 0.040, 0.150
+    *], [* 4,
+        [ 4653, 6976, 8369, 9302, 9964 ],
+        13900, 1.750, 21.670
+    *], [* 5,
+        [ 41832, 62749, 75296, 83660, 89641 ],
+        125356, 399.790, 8495.960
+    *] ]>
+]
+
+Total time: 8921.819 seconds, Total memory usage: 16068.81MB
+Magma V2.25-6     Sat Aug 29 2020 02:46:50 on mathmagma [Seed = 3654262289]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.000
+Starting Analysis: 1*x^19
+[
+    x^19,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.890
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 10, 16, 18, 18, 18 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 69, 99, 118, 136, 154 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.030
+Computed Rank: 0.190
+Kernel Dim(s): [ 582, 875, 1048, 1162, 1239 ]
+Working on level: 4
+Finished Precomputation: 1.050
+Built Matrix: 0.800
+Computed Rank: 27.960
+Kernel Dim(s): [ 5199, 7797, 9354, 10396, 11137 ]
+Working on level: 5
+Finished Precomputation: 341.690
+Built Matrix: 69.610
+Computed Rank: 11626.610
+Kernel Dim(s): [ 46752, 70133, 84156, 93502, 100192 ]
+Storing tower: 1*x^19
+<[* 3, 19, 1*x^19 *], [ [* 1,
+    [ 10, 16, 18, 18, 18 ],
+    18, 0.010, 0.000
+*], [* 2,
+    [ 69, 99, 118, 136, 154 ],
+    186, 0.000, 0.000
+*], [* 3,
+    [ 582, 875, 1048, 1162, 1239 ],
+    1716, 0.050, 0.190
+*], [* 4,
+    [ 5199, 7797, 9354, 10396, 11137 ],
+    15540, 1.860, 27.960
+*], [* 5,
+    [ 46752, 70133, 84156, 93502, 100192 ],
+    140118, 411.300, 11626.610
+*] ]>
+[
+    <[* 3, 19, 1*x^19 *], [ [* 1,
+        [ 10, 16, 18, 18, 18 ],
+        18, 0.010, 0.000
+    *], [* 2,
+        [ 69, 99, 118, 136, 154 ],
+        186, 0.000, 0.000
+    *], [* 3,
+        [ 582, 875, 1048, 1162, 1239 ],
+        1716, 0.050, 0.190
+    *], [* 4,
+        [ 5199, 7797, 9354, 10396, 11137 ],
+        15540, 1.860, 27.960
+    *], [* 5,
+        [ 46752, 70133, 84156, 93502, 100192 ],
+        140118, 411.300, 11626.610
+    *] ]>
+]
+
+Total time: 12069.540 seconds, Total memory usage: 20040.97MB
+Magma V2.25-6     Sat Aug 29 2020 06:08:02 on mathmagma [Seed = 1885759331]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.060
+Starting Analysis: 1*x^20
+[
+    x^20,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.870
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 11, 17, 19, 19, 19 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 73, 104, 124, 141, 156 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.030
+Computed Rank: 0.210
+Kernel Dim(s): [ 613, 920, 1101, 1221, 1304 ]
+Working on level: 4
+Finished Precomputation: 1.020
+Built Matrix: 0.870
+Computed Rank: 31.500
+Kernel Dim(s): [ 5473, 8208, 9846, 10941, 11723 ]
+Working on level: 5
+Finished Precomputation: 326.190
+Built Matrix: 75.890
+Computed Rank: 13136.230
+Kernel Dim(s): [ 49213, 73824, 88583, 98421, 105460 ]
+Storing tower: 1*x^20
+<[* 3, 20, 1*x^20 *], [ [* 1,
+    [ 11, 17, 19, 19, 19 ],
+    19, 0.000, 0.000
+*], [* 2,
+    [ 73, 104, 124, 141, 156 ],
+    196, 0.000, 0.000
+*], [* 3,
+    [ 613, 920, 1101, 1221, 1304 ],
+    1807, 0.050, 0.210
+*], [* 4,
+    [ 5473, 8208, 9846, 10941, 11723 ],
+    16360, 1.890, 31.500
+*], [* 5,
+    [ 49213, 73824, 88583, 98421, 105460 ],
+    147499, 402.080, 13136.230
+*] ]>
+[
+    <[* 3, 20, 1*x^20 *], [ [* 1,
+        [ 11, 17, 19, 19, 19 ],
+        19, 0.000, 0.000
+    *], [* 2,
+        [ 73, 104, 124, 141, 156 ],
+        196, 0.000, 0.000
+    *], [* 3,
+        [ 613, 920, 1101, 1221, 1304 ],
+        1807, 0.050, 0.210
+    *], [* 4,
+        [ 5473, 8208, 9846, 10941, 11723 ],
+        16360, 1.890, 31.500
+    *], [* 5,
+        [ 49213, 73824, 88583, 98421, 105460 ],
+        147499, 402.080, 13136.230
+    *] ]>
+]
+
+Total time: 13572.850 seconds, Total memory usage: 22192.03MB
+Magma V2.25-6     Sat Aug 29 2020 09:54:18 on mathmagma [Seed = 51716377]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.160
+Starting Analysis: 1*x^22
+[
+    x^22,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.980
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 13, 18, 20, 21, 21 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 79, 114, 136, 157, 172 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.030
+Computed Rank: 0.260
+Kernel Dim(s): [ 675, 1012, 1212, 1345, 1434 ]
+Working on level: 4
+Finished Precomputation: 1.030
+Built Matrix: 0.990
+Computed Rank: 41.190
+Kernel Dim(s): [ 6021, 9028, 10831, 12038, 12895 ]
+Working on level: 5
+Finished Precomputation: 350.820
+Built Matrix: 85.570
+Computed Rank: 17449.160
+Kernel Dim(s): [ 54135, 81206, 97443, 108266, 116006 ]
+Storing tower: 1*x^22
+<[* 3, 22, 1*x^22 *], [ [* 1,
+    [ 13, 18, 20, 21, 21 ],
+    21, 0.000, 0.000
+*], [* 2,
+    [ 79, 114, 136, 157, 172 ],
+    216, 0.000, 0.000
+*], [* 3,
+    [ 675, 1012, 1212, 1345, 1434 ],
+    1989, 0.050, 0.260
+*], [* 4,
+    [ 6021, 9028, 10831, 12038, 12895 ],
+    18000, 2.020, 41.190
+*], [* 5,
+    [ 54135, 81206, 97443, 108266, 116006 ],
+    162261, 436.400, 17449.160
+*] ]>
+[
+    <[* 3, 22, 1*x^22 *], [ [* 1,
+        [ 13, 18, 20, 21, 21 ],
+        21, 0.000, 0.000
+    *], [* 2,
+        [ 79, 114, 136, 157, 172 ],
+        216, 0.000, 0.000
+    *], [* 3,
+        [ 675, 1012, 1212, 1345, 1434 ],
+        1989, 0.050, 0.260
+    *], [* 4,
+        [ 6021, 9028, 10831, 12038, 12895 ],
+        18000, 2.020, 41.190
+    *], [* 5,
+        [ 54135, 81206, 97443, 108266, 116006 ],
+        162261, 436.400, 17449.160
+    *] ]>
+]
+
+Total time: 17928.600 seconds, Total memory usage: 26826.62MB
+Magma V2.25-6     Sat Aug 29 2020 14:53:12 on mathmagma [Seed = 2864461474]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.230
+Starting Analysis: 1*x^23
+[
+    x^23,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.980
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 12, 19, 21, 22, 22 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.010
+Kernel Dim(s): [ 83, 120, 143, 164, 182 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.030
+Computed Rank: 0.290
+Kernel Dim(s): [ 706, 1059, 1267, 1406, 1500 ]
+Working on level: 4
+Finished Precomputation: 1.050
+Built Matrix: 1.030
+Computed Rank: 46.090
+Kernel Dim(s): [ 6295, 9439, 11324, 12584, 13482 ]
+Working on level: 5
+Finished Precomputation: 335.130
+Built Matrix: 88.410
+Computed Rank: 19306.690
+Kernel Dim(s): [ 56596, 84898, 101872, 113186, 121281 ]
+Storing tower: 1*x^23
+<[* 3, 23, 1*x^23 *], [ [* 1,
+    [ 12, 19, 21, 22, 22 ],
+    22, 0.000, 0.000
+*], [* 2,
+    [ 83, 120, 143, 164, 182 ],
+    226, 0.000, 0.010
+*], [* 3,
+    [ 706, 1059, 1267, 1406, 1500 ],
+    2080, 0.050, 0.290
+*], [* 4,
+    [ 6295, 9439, 11324, 12584, 13482 ],
+    18820, 2.080, 46.090
+*], [* 5,
+    [ 56596, 84898, 101872, 113186, 121281 ],
+    169642, 423.540, 19306.690
+*] ]>
+[
+    <[* 3, 23, 1*x^23 *], [ [* 1,
+        [ 12, 19, 21, 22, 22 ],
+        22, 0.000, 0.000
+    *], [* 2,
+        [ 83, 120, 143, 164, 182 ],
+        226, 0.000, 0.010
+    *], [* 3,
+        [ 706, 1059, 1267, 1406, 1500 ],
+        2080, 0.050, 0.290
+    *], [* 4,
+        [ 6295, 9439, 11324, 12584, 13482 ],
+        18820, 2.080, 46.090
+    *], [* 5,
+        [ 56596, 84898, 101872, 113186, 121281 ],
+        169642, 423.540, 19306.690
+    *] ]>
+]
+
+Total time: 19779.189 seconds, Total memory usage: 29341.06MB
+Magma V2.25-6     Sat Aug 29 2020 20:22:55 on mathmagma [Seed = 2224147412]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.310
+Starting Analysis: 1*x^25
+[
+    x^25,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.970
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 14, 21, 22, 23, 24 ]
+Working on level: 2
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 91, 130, 155, 178, 198 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.030
+Computed Rank: 0.350
+Kernel Dim(s): [ 766, 1150, 1377, 1528, 1630 ]
+Working on level: 4
+Finished Precomputation: 1.040
+Built Matrix: 1.160
+Computed Rank: 56.020
+Kernel Dim(s): [ 6841, 10260, 12308, 13678, 14654 ]
+Working on level: 5
+Finished Precomputation: 376.280
+Built Matrix: 100.580
+
+Current total memory usage: 32583.2MB, failed memory request: 2027.3MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 7351.640 seconds, Total memory usage: 32583.19MB
+Magma V2.25-6     Sat Aug 29 2020 22:25:28 on mathmagma [Seed = 3737889992]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.370
+Starting Analysis: 1*x^26
+[
+    x^26,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 3.050
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 15, 22, 23, 24, 25 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 95, 135, 161, 183, 201 ]
+Working on level: 3
+Finished Precomputation: 0.030
+Built Matrix: 0.030
+Computed Rank: 0.390
+Kernel Dim(s): [ 797, 1195, 1430, 1587, 1695 ]
+Working on level: 4
+Finished Precomputation: 1.070
+Built Matrix: 1.240
+Computed Rank: 64.040
+Kernel Dim(s): [ 7115, 10670, 12801, 14223, 15239 ]
+Working on level: 5
+Finished Precomputation: 368.830
+Built Matrix: 108.310
+./data_collection_jeremy.sh: line 7: 20688 Done                    echo "load tower_data;  data_collection($p,1,$d,5,[[<1,$d>]] ,$run_num: printing:=true,store:=true, powers:=5);"
+     20689 Killed                  | magma
+Magma V2.25-6     Sun Aug 30 2020 00:28:11 on mathmagma [Seed = 352322496]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.450
+Starting Analysis: 1*x^28
+[
+    x^28,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.980
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.120
+Computed Rank: 0.000
+Kernel Dim(s): [ 15, 22, 27, 27, 27 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 101, 146, 174, 201, 228 ]
+Working on level: 3
+Finished Precomputation: 0.030
+Built Matrix: 0.030
+Computed Rank: 0.430
+Kernel Dim(s): [ 859, 1288, 1545, 1713, 1826 ]
+Working on level: 4
+Finished Precomputation: 1.020
+Built Matrix: 1.290
+Computed Rank: 74.650
+Kernel Dim(s): [ 7663, 11490, 13785, 15321, 16413 ]
+Working on level: 5
+Finished Precomputation: 378.880
+Built Matrix: 120.560
+
+Current total memory usage: 34183.7MB, failed memory request: 159.2MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 8387.500 seconds, Total memory usage: 34242.56MB
+Magma V2.25-6     Sun Aug 30 2020 02:48:02 on mathmagma [Seed = 1753046468]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.480
+Starting Analysis: 1*x^29
+[
+    x^29,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.970
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 16, 23, 27, 28, 28 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 105, 151, 180, 208, 234 ]
+Working on level: 3
+Finished Precomputation: 0.030
+Built Matrix: 0.030
+Computed Rank: 0.390
+Kernel Dim(s): [ 888, 1333, 1599, 1774, 1891 ]
+Working on level: 4
+Finished Precomputation: 1.050
+Built Matrix: 1.350
+Computed Rank: 84.660
+Kernel Dim(s): [ 7937, 11901, 14277, 15869, 16999 ]
+Working on level: 5
+Finished Precomputation: 359.560
+Built Matrix: 125.040
+
+Current total memory usage: 32886.8MB, failed memory request: 2729.0MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 1939.349 seconds, Total memory usage: 32886.84MB
+Magma V2.25-6     Sun Aug 30 2020 03:20:21 on mathmagma [Seed = 2207690424]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.600
+Starting Analysis: 1*x^31
+[
+    x^31,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 3.040
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 18, 25, 30, 30, 30 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 113, 161, 192, 222, 249 ]
+Working on level: 3
+Finished Precomputation: 0.030
+Built Matrix: 0.040
+Computed Rank: 0.440
+Kernel Dim(s): [ 950, 1425, 1710, 1896, 2021 ]
+Working on level: 4
+Finished Precomputation: 1.090
+Built Matrix: 1.480
+Computed Rank: 99.770
+Kernel Dim(s): [ 8483, 12721, 15262, 16963, 18171 ]
+Working on level: 5
+Finished Precomputation: 351.470
+Built Matrix: 134.640
+
+Current total memory usage: 31832.8MB, failed memory request: 3117.9MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 1067.599 seconds, Total memory usage: 32884.97MB
+Magma V2.25-6     Sun Aug 30 2020 03:38:07 on mathmagma [Seed = 3470518175]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.620
+Starting Analysis: 1*x^32
+[
+    x^32,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.930
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 17, 26, 30, 31, 31 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 117, 167, 199, 229, 256 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.040
+Computed Rank: 0.470
+Kernel Dim(s): [ 981, 1473, 1764, 1957, 2087 ]
+Working on level: 4
+Finished Precomputation: 1.050
+Built Matrix: 1.480
+Computed Rank: 106.670
+Kernel Dim(s): [ 8757, 13132, 15755, 17509, 18758 ]
+Working on level: 5
+Finished Precomputation: 354.870
+Built Matrix: 135.860
+
+Current total memory usage: 34200.1MB, failed memory request: 831.2MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 1071.359 seconds, Total memory usage: 34200.12MB
+Magma V2.25-6     Sun Aug 30 2020 03:55:58 on mathmagma [Seed = 3687775835]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.700
+Starting Analysis: 1*x^34
+[
+    x^34,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.950
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 19, 27, 32, 33, 33 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 123, 177, 211, 244, 271 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.050
+Computed Rank: 0.410
+Kernel Dim(s): [ 1043, 1564, 1875, 2080, 2217 ]
+Working on level: 4
+Finished Precomputation: 1.050
+Built Matrix: 1.580
+Computed Rank: 124.890
+Kernel Dim(s): [ 9305, 13953, 16739, 18605, 19930 ]
+Working on level: 5
+Finished Precomputation: 348.070
+Built Matrix: 149.950
+
+Current total memory usage: 33902.2MB, failed memory request: 937.7MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 698.879 seconds, Total memory usage: 33902.16MB
+Magma V2.25-6     Sun Aug 30 2020 04:07:35 on mathmagma [Seed = 4193049520]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.760
+Starting Analysis: 1*x^35
+[
+    x^35,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 2.970
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 20, 28, 32, 33, 34 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.010
+Kernel Dim(s): [ 127, 182, 217, 249, 278 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.040
+Computed Rank: 0.450
+Kernel Dim(s): [ 1072, 1608, 1928, 2139, 2282 ]
+Working on level: 4
+Finished Precomputation: 1.070
+Built Matrix: 1.670
+Computed Rank: 135.590
+Kernel Dim(s): [ 9579, 14363, 17231, 19150, 20516 ]
+Working on level: 5
+Finished Precomputation: 358.240
+Built Matrix: 153.190
+
+Current total memory usage: 31940.5MB, failed memory request: 3975.5MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 669.990 seconds, Total memory usage: 31940.47MB
+Magma V2.25-6     Sun Aug 30 2020 04:18:44 on mathmagma [Seed = 68232429]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.860
+Starting Analysis: 1*x^37
+[
+    x^37,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 3.000
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 20, 31, 36, 36, 36 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.010
+Kernel Dim(s): [ 135, 193, 230, 265, 297 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.050
+Computed Rank: 0.510
+Kernel Dim(s): [ 1134, 1704, 2041, 2263, 2413 ]
+Working on level: 4
+Finished Precomputation: 1.090
+Built Matrix: 1.780
+Computed Rank: 154.660
+Kernel Dim(s): [ 10125, 15184, 18217, 20246, 21689 ]
+Working on level: 5
+Finished Precomputation: 365.820
+Built Matrix: 171.920
+
+Current total memory usage: 17918.3MB, failed memory request: 17769.1MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 703.990 seconds, Total memory usage: 17933.16MB
+Magma V2.25-6     Sun Aug 30 2020 04:30:27 on mathmagma [Seed = 268815806]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 1.910
+Starting Analysis: 1*x^38
+[
+    x^38,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 3.040
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 21, 31, 36, 37, 37 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 137, 198, 236, 272, 305 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.050
+Computed Rank: 0.540
+Kernel Dim(s): [ 1165, 1748, 2095, 2324, 2478 ]
+Working on level: 4
+Finished Precomputation: 1.050
+Built Matrix: 1.800
+Computed Rank: 130.810
+Kernel Dim(s): [ 10399, 15594, 18709, 20792, 22275 ]
+Working on level: 5
+Finished Precomputation: 357.240
+Built Matrix: 173.320
+
+Current total memory usage: 18890.7MB, failed memory request: 18741.5MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 673.080 seconds, Total memory usage: 18905.56MB
+Magma V2.25-6     Sun Aug 30 2020 04:41:39 on mathmagma [Seed = 1009378930]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "tower_data"
+Loading "towers"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Setup 2.000
+Starting Analysis: 1*x^40
+[
+    x^40,
+    0,
+    0,
+    0,
+    0
+]
+Put tower in Standard form: 3.040
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 23, 34, 39, 39, 39 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+Kernel Dim(s): [ 145, 208, 248, 282, 311 ]
+Working on level: 3
+Finished Precomputation: 0.020
+Built Matrix: 0.050
+Computed Rank: 0.280
+Kernel Dim(s): [ 1227, 1839, 2202, 2442, 2608 ]
+Working on level: 4
+Finished Precomputation: 1.060
+Built Matrix: 1.930
+Computed Rank: 121.020
+Kernel Dim(s): [ 10947, 16415, 19693, 21882, 23447 ]
+Working on level: 5
+Finished Precomputation: 347.440
+Built Matrix: 186.270
+
+Current total memory usage: 20917.8MB, failed memory request: 20768.6MB
+System error: Out of memory.
+All virtual memory has been exhausted so Magma cannot perform this statement.
+
+Total time: 666.679 seconds, Total memory usage: 20932.62MB

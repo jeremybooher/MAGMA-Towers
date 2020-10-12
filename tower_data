@@ -1,0 +1,219 @@
+/*
+Using the methods introduced in towers, setup and compute invariants in various Zp towers
+The serious computation is in towers.  This deals with data collection and storing some of the expensive precomputations
+
+The standard description of a tower is:
+Working in characteristic p.
+Ground field is a finite field k of size p^r
+A tower of function fields K_0 = k(x), K_1, ... K_n
+totally ramified over infinity and unramified elsewhere
+given by ys[i]^p - ys[i] = fs[i]
+where deg(fs[i]) = ds[i] is the ramification break for level i above infinity
+
+precomp : An associative array, indexed by the exponent of x^a ys[1]^(a1) ys[2]^(a2) ... and storing the image of that differential under the Cartier operator
+*/
+
+load towers_computation;
+
+/* 
+Work at a particular level of the tower, and compute invariants.  Pass back collection of precomputations in case we've done new ones
+simplify: simplify form of differentials
+basis : a basis for regular differentials at that level
+printing: whether or not to print updates as computations progress
+powers : how many powers of the Cartier operator to also analyze
+*/
+function analyze(level,n,p,r,x,ys,fs,simplify,basis,precomp : printing:= false, powers:=1)
+	g := #basis;
+	t1 := Realtime();
+	cartier,precomp:= build_matrix(level,n,p,r,x,ys,fs,simplify,basis, precomp : printing:=printing);
+	t2 := Realtime();
+	a := anumber(g,cartier: powers := powers);
+	t3 := Realtime();
+	if printing then
+		print "Computed Rank:",t3-t2;
+	end if;
+	return [g] cat a,precomp;
+end function;
+
+/*Compute invariants going up a tower
+
+
+*/
+function collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify: printing := false,store:=false,printform:="",powers:=1 )
+	data := [];
+	precomp := AssociativeArray();
+	
+	for level in [1..n] do
+		if printing then
+			print "Working on level:",level;
+		end if;
+		results,precomp := analyze(level,n,p,r,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing :=printing, powers:=powers);
+		if printing then
+			print "genus, dim ker V^1...", results;
+		end if;
+		Append(~data,results);
+	end for;
+	
+	if store then
+		if printing then
+			print "Storing tower:",printform;
+		end if;
+		I := Open("Precomputed/p" cat IntegerToString(p) cat "n" cat IntegerToString(n) cat "_" cat printform cat ".dat","w");
+		WriteObject(I,"v1");
+		WriteObject(I,printform);
+		WriteObject(I,n);
+		WriteObject(I,p);
+		WriteObject(I,r);
+		WriteObject(I,d);
+		WriteObject(I,fs);
+		WriteObject(I,[<k,v> : k-> v in precomp]); //bug serializing associative array
+
+		delete I; //closes file
+
+	end if;
+
+	return data;
+end function;
+
+/*Save Results Nicely for a Tower
+*/
+procedure save_computations(out,header, calculations)
+	PrintFile(out, "Calculations for " cat header[3]);
+	PrintFile(out, "p=" cat IntegerToString(header[1]));
+	PrintFile(out, "genus, dim ker V^1, ...");
+	counter :=1;
+	for data in calculations do
+		Write(out,"Level " cat IntegerToString(counter) cat ":");
+		Write(out,data);	
+		counter +:= 1;		
+	end for;
+	PrintFile(out,""); //blank line
+	
+	machine_out := out cat ".magma";
+	//also dump in MAGMA readable format to
+	header[3] := "\"" cat header[3] cat "\"";
+	PrintFile(machine_out,",");
+	Write(machine_out,<header,calculations>);
+end procedure;
+
+
+/* We want towers determined by \sum [b_i x^i] for i in [0..d] stored as [ [ <coefficient, degree>]]
+to turn off printing timing info, use data_collection(p,r,d,n,polys : printing := false)
+the parameter store indicates whether to store precomputations for later use
+
+Output : Store the results in a file
+and returns a list of data
+*/
+function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, powers:=1)
+	//Setup 
+	t1 := Realtime();
+	P,x,ys,ASW,epols := setup_ASW(p,r,n); 
+	
+	storing_output := run_num ge 0;
+	
+	ds := [Integers()!(d * (p^(2*j-1) +1)/(p+1) ): j in [1..n]]; //recovered from genus formula KW
+	bases :=construct_bases(p,n,x,ys,ds); //it is cheap to compute this
+	
+	if printing then
+		print "Setup" , Realtime()-t1;	
+	end if;	
+	
+	out := "Computations/computations" cat IntegerToString(run_num) cat ".txt";
+	calculations := [];
+
+	for list in polys do
+		t2:= Realtime();
+		count :=2;
+		v:= [list[1][1] * x^(list[1][2])] cat [0 : j in [1..n-1]];
+		printform := IntegerToString(list[1][1]) cat "*x^" cat IntegerToString(list[1][2]);
+		
+		while count le #list do
+			if n eq 1 then
+				//WittSum doesn't like length 1
+				v := [v[1]+ list[count][1] * x^(list[count][2])];
+			else
+				v:= WittSum(v, [list[count][1] * x^(list[count][2])] cat [0 : j in [1..n-1]]  : pols:=epols);
+			end if;
+			printform cat:= "+" cat IntegerToString(list[count][1]) cat "*x^" cat IntegerToString(list[count][2]) ;
+			count +:=1;
+		end while;
+
+		if printing then
+			print "Starting Analysis:",printform;
+			print v;
+		end if;
+		fs,simplify:= create_ASW_tower(p,n,P,ds,x,ys,ASW,v);
+		t3:=Realtime();
+		if printing then
+			print "Put tower in Standard form:",t3-t2;
+		end if;
+
+		data := collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify:printing:=printing,store:=store,printform:=printform,powers:=powers);
+
+		t4 :=Realtime();
+		header := [*p,d,printform,n,powers,t4-t2*];
+		print <header, data>;
+		Append(~calculations, <header, data>); 
+		if storing_output then	
+			save_computations(out,header,data);	
+		end if;
+	end for;
+	return calculations;
+end function;
+
+//version 1
+function reconstruct_tower(filename)
+	I := Open(filename,"r");
+	version :=ReadObject(I);
+	assert (version eq "v1");
+	printform:=ReadObject(I);
+	n:= ReadObject(I);
+	p:= ReadObject(I);
+	r:= ReadObject(I);
+	d:=ReadObject(I);
+	fs:=ReadObject(I);
+	precomputed_seq:=ReadObject(I); //can't serialize associative arrays
+	precomp := AssociativeArray();
+	for pair in precomputed_seq do
+		precomp[pair[1]] := pair[2];
+	end for;
+
+	delete I; //closes file
+
+	P := Parent(Random(precomp));
+	x := P.(n+1);
+	ys := [ P.j : j in [n..1 by -1]];
+
+	//serializing also loses track of the fact that the fs and precomputed values are in the same polynomial ring
+	fs := [ P! fs[j] : j in [1..n]];
+
+	ds := [Integers()!(d * (p^(2*j-1) +1)/(p+1) ): j in [1..n]]; //recovered from genus formula KW
+	bases :=construct_bases(p,n,x,ys,ds); 
+
+	simplify := [];
+	
+	for level in [1..n] do
+		A,g:= quo<P | [ ys[j]^p - ys[j] - fs[j] : j in [1..level]]>;
+		lift := Inverse(g); //g isn't invertible, but this picks a nice section
+	
+		//make things simpler using Artin-Schreier relations
+
+		temp := function(poly)
+			return lift(g(poly));
+		end function;	
+		
+		Append(~simplify,temp);
+	end for;
+	return printform,n,p,r,d,x,ys,fs,simplify,bases,precomp;
+end function;
+
+/* Do further computations with a precomputed tower stored in filename
+*/
+function further_computations(filename : printing:= false, powers:=1)
+	printform,n,p,r,d,x,ys,fs,simplify,bases,precomp:= reconstruct_tower(filename);	
+	print "Reloaded Tower ",printform;
+
+	return [ analyze(level,n,p,r,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing:=false , powers:=powers) : level in [1..n]];
+end function;
+
+	

@@ -1,0 +1,60 @@
+Calculations for 1*x^5
+Level:1
+dim ker V^n:
+[ 1, 2, 2, 2, 2 ]
+Genus:2
+Level:2
+dim ker V^n:
+[ 4, 6, 8, 9, 10 ]
+Genus:11
+Level:3
+dim ker V^n:
+[ 14, 23, 28, 31, 34 ]
+Genus:49
+Level:4
+dim ker V^n:
+[ 54, 86, 108, 123, 134 ]
+Genus:205
+Level:5
+dim ker V^n:
+[ 214, 343, 428, 490, 534 ]
+Genus:837
+Level:6
+dim ker V^n:
+[ 854, 1367, 1708, 1952, 2134 ]
+Genus:3381
+Level:7
+dim ker V^n:
+[ 3414, 5464, 6828, 7804, 8534 ]
+Genus:13589
+
+Calculations for 1*x^5+1*x^3+1*x^1
+Level:1
+dim ker V^n:
+[ 1, 2, 2, 2, 2 ]
+Genus:2
+Level:2
+dim ker V^n:
+[ 4, 6, 8, 10, 11 ]
+Genus:11
+Level:3
+dim ker V^n:
+[ 14, 23, 28, 31, 34 ]
+Genus:49
+Level:4
+dim ker V^n:
+[ 54, 86, 108, 123, 134 ]
+Genus:205
+Level:5
+dim ker V^n:
+[ 214, 343, 428, 490, 534 ]
+Genus:837
+Level:6
+dim ker V^n:
+[ 854, 1367, 1708, 1952, 2134 ]
+Genus:3381
+Level:7
+dim ker V^n:
+[ 3414, 5464, 6828, 7804, 8534 ]
+Genus:13589
+

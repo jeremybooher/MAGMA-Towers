@@ -1,0 +1,75 @@
+Setup 0.000
+Starting Analysis: 1*x^8+2*x^7+1*x^2
+[
+    x^8 + 2*x^7 + x^2,
+    x^23 + 2*x^22 + 2*x^18 + 2*x^17 + 2*x^16 + 2*x^12 + x^11,
+    x^71 + 2*x^70 + 2*x^68 + x^67 + 2*x^66 + 2*x^64 + x^63 + 2*x^62 + x^61 + 
+        2*x^60 + 2*x^59 + 2*x^58 + x^57 + 2*x^56 + 2*x^53 + 2*x^52 + 2*x^50 + 
+        x^49 + 2*x^48 + x^47 + 2*x^46 + x^45 + 2*x^44 + x^43 + 2*x^42 + x^41 + 
+        x^39 + 2*x^38 + 2*x^30 + 2*x^29 + 2*x^28 + 2*x^24 + x^23
+]
+Put tower in Standard form: 0.010
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 5, 6, 7, 7, 7 ]
+Working on level: 2
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 29, 41, 49, 55, 60 ]
+Working on level: 3
+Finished Precomputation: 0.370
+Built Matrix: 0.040
+Computed Rank: 0.010
+Kernel Dim(s): [ 245, 367, 439, 487, 521 ]
+<"1*x^8+2*x^7+1*x^2", [ [* 1,
+    [ 5, 6, 7, 7, 7 ],
+    7, 0.000, 0.000
+*], [* 2,
+    [ 29, 41, 49, 55, 60 ],
+    76, 0.010, 0.000
+*], [* 3,
+    [ 245, 367, 439, 487, 521 ],
+    715, 0.410, 0.010
+*] ]>
+
+Total time: 1.980 seconds, Total memory usage: 32.09MB
+Setup 0.010
+Starting Analysis: 1*x^8+2*x^7+1*x^2
+[
+    x^8 + 2*x^7 + x^2,
+    x^23 + 2*x^22 + 2*x^18 + 2*x^17 + 2*x^16 + 2*x^12 + x^11,
+    x^71 + 2*x^70 + 2*x^68 + x^67 + 2*x^66 + 2*x^64 + x^63 + 2*x^62 + x^61 + 
+        2*x^60 + 2*x^59 + 2*x^58 + x^57 + 2*x^56 + 2*x^53 + 2*x^52 + 2*x^50 + 
+        x^49 + 2*x^48 + x^47 + 2*x^46 + x^45 + 2*x^44 + x^43 + 2*x^42 + x^41 + 
+        x^39 + 2*x^38 + 2*x^30 + 2*x^29 + 2*x^28 + 2*x^24 + x^23
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 5, 6, 7, 7, 7 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+Kernel Dim(s): [ 29, 41, 49, 55, 60 ]
+Working on level: 3
+Finished Precomputation: 0.370
+Built Matrix: 0.040
+Computed Rank: 0.010
+Kernel Dim(s): [ 245, 367, 439, 487, 521 ]
+Storing tower: 1*x^8+2*x^7+1*x^2
+<"1*x^8+2*x^7+1*x^2", [ [* 1,
+    [ 5, 6, 7, 7, 7 ],
+    7, 0.010, 0.000
+*], [* 2,
+    [ 29, 41, 49, 55, 60 ],
+    76, 0.000, 0.000
+*], [* 3,
+    [ 245, 367, 439, 487, 521 ],
+    715, 0.410, 0.010
+*] ]>

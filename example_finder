@@ -1,0 +1,348 @@
+//Compute a-numbers for covers of P^1 ramified at one point to compare with efficiency of MAGMA's built in stuff
+
+//Covers of P^1 ramified at one point (assumed to be infinity) in characteristic p with equation y^p - y = f with ord_0(f) = -d, p not dividing d
+
+load tower_data;
+
+
+//Use Realtime(); for timing
+
+
+//Warning: MAGMA using 1-based array indexing
+
+//compute the maximal order of a pole for y^i term
+pole_order := function(i,d,p);
+	return Ceiling( (p-1-i)*d /p);
+end function;
+
+// maximum j with t^j dt y^i regular, or -1 if none.
+function max_exponent(i,d,p)
+	return Max(pole_order(i,d,p)-2,-1);
+end function;
+
+//genus
+compute_genus := function(d,p);
+    return Integers()!((d+1-2) * (p-1)/2);
+end function;
+
+//need to treat choosing from 0 things as 1
+modified_binomial := function(n,m);
+    if n eq 0 then
+        return 1;
+    end if;
+    return Binomial(n,m);
+end function;
+
+//function f defining extension, d, prime p, K coefficient field
+//order the basis of differentials as dt, t dt, ..., dt y, t dt y, ...
+build_matrix := function(f,d,p,K,FF);
+    t := FF.1;  //generator of function field
+    g := compute_genus(d,p);
+    
+    matrix := ZeroMatrix(K,g,g);
+
+    indexes := [ ]; //the index of where the y^i differentials start
+    count := 0;
+    for i in [0..(p-1)] do
+        Append(~indexes, count+1 ); // add one because of 1-based array indexing.
+        count := count + Max(pole_order(i,d,p)-1,0);
+    end for;
+    
+    if count ne g then
+        print "Genus seems incompatible",count,g;
+    end if;
+    
+    //precompute powers of f and binomial coefficients. 
+    
+    //Note that coefficient of degree i term in f^j is coefficients_of_powers[j][i+1] b/c of 1-based indexing
+    coefficients_of_powers := [];
+    power :=1;
+    //d:= Degree(f); //already have
+        for i in [1..p-1] do
+    	power *:= f;
+    	Append(~coefficients_of_powers,Coefficients(power));
+    end for;
+    
+    binomial_coeffs := AssociativeArray();
+    
+    for i in [0..p-1] do
+    	for j in [0..i] do
+    		binomial_coeffs[ <i,j>] := modified_binomial(i,j);
+    	end for;
+    end for;
+    
+    for i in [0..p-1] do
+        for m in [0..max_exponent(i,d,p)] do
+            //get the part of Cartier( t^m dt y^i) involving y^j
+            for j in [0..i] do    
+            
+            	constant := (-1)^(i-j) * binomial_coeffs[<i,j>];
+            	largest_coeff := d * (i-j);
+            	if (i-j eq 0) then
+            		the_coeffs := [1];
+            	else
+            		the_coeffs := coefficients_of_powers[i-j];
+            	end if;
+            	// t^k dt y^j coefficient
+            	for k in [0.. max_exponent(j,d,p)] do
+            		new_exp := (p-1) + p*k-m;
+            		if new_exp gt largest_coeff or new_exp lt 0 then
+            			matrix [indexes[j+1]+k ] [indexes[i+1]+m ] := 0;
+            		else
+            			matrix[indexes[j+1]+k ] [indexes[i+1]+m ] := constant * the_coeffs[new_exp+1];
+            		end if;
+            	end for;
+            end for;
+        end for;
+    end for;
+    
+       
+    return matrix;
+end function;
+
+//Compute the a-number of y^p -y = f, where f has a pole of degree d at 0
+anumber := function(f,d,p,K,FF);
+
+    A := build_matrix(f,d,p,K,FF);
+    g := compute_genus(d,p);
+    
+    rank := Rank(A);
+	// Realtime();
+    return g-rank;
+end function;
+
+//use built-in functions to check
+builtin_anumber := function(FF,f,p);
+    P<y> := PolynomialRing(FF);
+    F<alpha> := FunctionField(y^p - y - f);
+    return Dimension(Kernel(CartierRepresentation(F)));
+end function;
+
+//Compute n_{Q,i}
+compute_n := function(i,d,p);
+	return Ceiling( (p-1-i)*d /p);
+end function;
+
+//numbers n = -1 mod p with -a \geq n \geq -b 
+negative_ones := function(a,b,p);
+    return Ceiling(b/p)-Ceiling((a-1)/p);
+end function;
+
+//dim H^0(P^1,\ker V(n Q))
+dim_kerVX := function(n,p); 
+    return n - Ceiling(n/p);
+end function;
+    
+//is a + d*k = 1 mod p for k<=i, for use in computing T
+check_mults := function(a,d,i,p);
+    k :=( (1-a)* Modinv(d,p)) mod p ;
+    return not (k gt i);
+end function;
+
+lower_bound := function(d,p);
+    lowerbound:= 0;
+    optimum:=0;
+    
+    for i in [0..p-1] do
+        //dim of space
+        domain:=0;
+        
+        //relations
+        relations := 0;
+        
+        ai := compute_n(i,d,p);
+        for j in [0..i] do
+            domain:=domain+dim_kerVX(compute_n(j,d,p),p);
+            relations := relations + negative_ones(compute_n(j,d,p)+1,ai + (i-j) * d,p);
+    	end for;
+        if domain-relations gt lowerbound then
+            lowerbound := domain-relations; 
+            optimum := i;   
+    	end if;
+            
+    end for;
+    return lowerbound;
+end function;
+
+//upper bound over P^1: bound U(P^1,\pi) via computing #T
+
+upper_bound := function(d,p);
+    count := 0; //not in kernel
+
+    for i in [0..p-1] do
+        n:= compute_n(i,d,p);
+        for j in [2..n] do
+            if (j mod p ne 1) and check_mults(j,d,i,p) then
+                count := count+1;
+	        end if;	
+	    end for;
+    end for;
+
+    dimension := 0;
+    for i in [0..p-1] do
+        dimension := dimension + dim_kerVX(compute_n(i,d,p),p);
+    end for;
+
+    upperbound :=  dimension - count;
+    return upperbound;
+end function;
+
+//get random f
+rand_poly:=function(t,d,p) ;
+    K:=GF(p);
+    poly := t^(d) ;
+    for i in [1..d-1] do
+        if (i mod p ne 0) then
+            poly := poly + Random(K)*t^(i);
+        end if;
+    end for;
+    return poly;
+end function;
+
+//can we find disagreement?
+testing:=function(d,p)
+    K := GF(p);
+    FF<t>:=PolynomialRing(K);
+
+    count :=0;
+    while count le 100 do
+        f:=rand_poly(t,d,p);
+        a1 := anumber(f,d,p,K,FF);
+        a2 := builtin_anumber(FF,f,p);
+        if a1 ne a2 then
+            print f,a1,a2;
+            return false;
+        end if;
+        count := count+1;
+        if count mod 10 eq 0 then
+            print count;
+        end if;
+    end while;
+    return true;
+end function;
+
+//collect statistics
+sample_old:=function(d,p,count);
+    K:=GF(p);
+    FF<t>:=FunctionField(K);
+
+    anumbers:= AssociativeArray();
+
+    if (d mod p eq 0) then
+	    return "Invalid";
+    end if;
+
+    max:=0;
+    pol:=0;
+    n :=0;
+    while (n lt count) do
+        n := n+1;
+        if n mod 500 eq 0 then
+            print "Finished",n;
+        end if;
+        f := rand_poly(t,d,p);
+        a:=builtin_anumber(FF,f,p); 
+        if IsDefined(anumbers,a) then
+	        anumbers[a] := anumbers[a]+1;
+        else
+	        anumbers[a] := 1;
+        end if;
+        if (a gt max) then
+	        max:=a;
+	        pol:=f;
+        end if;
+        
+    end while;
+
+    "Statistics",d,p;
+    for n in [0..max] do
+        if IsDefined(anumbers,n) then
+		    print n, anumbers[n];
+	    end if;
+    end for;
+    return f;
+end function;
+
+
+create_poly:=function(f);
+	d:=Degree(f);
+	list:=[];
+	for i in [0..d] do
+	   coeff:=Coefficient(f,d-i);
+	   if not (coeff eq 0) then
+	   	list:=list cat [<Integers()!coeff,d-i>];
+	   end if;
+	end for;
+	return list;
+end function;
+
+
+//Create a bunch of examples...
+create_examples:=function(d,p,count);
+    K:=GF(p);
+    FF<t>:=PolynomialRing(K);
+
+    anumbers:= AssociativeArray();
+    polist:= AssociativeArray();
+
+    if (d mod p eq 0) then
+	    return -1;
+    end if;
+
+    max:=0;
+    pol:=0;
+    n :=0;
+    while (n lt count) do
+        n := n+1;
+        if n mod 500 eq 0 then
+            print "Finished",n;
+        end if;
+        f := rand_poly(t,d,p);
+        a:=anumber(f,d,p,K,FF); 
+	polc:=create_poly(f);
+        if IsDefined(anumbers,a) then
+	        anumbers[a] := anumbers[a]+1;
+		polist[a]:=polist[a] cat [polc];
+        else
+	        anumbers[a] := 1;
+		polist[a]:=[polc];
+        end if;
+ 
+ 
+        if (a gt max) then
+	        max:=a;
+        end if;
+        
+    end while;
+
+    /*"Statistics",d,p;
+    for n in [0..max] do
+        if IsDefined(anumbers,n) then
+		    print n, anumbers[n],polist[n];
+	    end if;
+    end for;
+    */
+    
+    print "Bounds:", lower_bound(d,p), upper_bound(d,p);
+    print Keys(anumbers);
+    
+    return anumbers,polist;
+end function;
+
+//Pick some examples.  Depth is how many levels in tower
+analyze_examples := function(d,p,total,freq : depth:=3 ,run_num:=-1 , storing:=false, powers:=5)
+	anumbers,polist := create_examples(d,p,total);
+	
+	master_list := [];
+	for anum in Keys(anumbers) do
+		master_list cat:= [ Random(polist[anum]) : j in [1..freq]];
+	end for;
+	
+	return data_collection(p,1,d,depth,master_list ,run_num: printing:=true,store:=storing, powers:=powers);
+end function;
+
+
+
+
+
+

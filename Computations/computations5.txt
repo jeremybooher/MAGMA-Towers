@@ -1,0 +1,90 @@
+Calculations for 1*x^7
+Level:1
+dim ker V^n:
+[ 2, 3, 3, 3, 3 ]
+Genus:3
+Level:2
+dim ker V^n:
+[ 5, 8, 10, 12, 13 ]
+Genus:16
+Level:3
+dim ker V^n:
+[ 19, 31, 38, 43, 47 ]
+Genus:70
+Level:4
+dim ker V^n:
+[ 75, 121, 150, 172, 187 ]
+Genus:290
+Level:5
+dim ker V^n:
+[ 299, 480, 598, 685, 747 ]
+Genus:1178
+Level:6
+dim ker V^n:
+[ 1195, 1914, 2390, 2732, 2987 ]
+Genus:4746
+Level:7
+dim ker V^n:
+[ 4779, 7649, 9558, 10925, 11947 ]
+Genus:19050
+
+Calculations for 1*x^7+1*x^3
+Level:1
+dim ker V^n:
+[ 2, 3, 3, 3, 3 ]
+Genus:3
+Level:2
+dim ker V^n:
+[ 5, 8, 10, 12, 13 ]
+Genus:16
+Level:3
+dim ker V^n:
+[ 19, 31, 38, 43, 47 ]
+Genus:70
+Level:4
+dim ker V^n:
+[ 75, 121, 150, 172, 187 ]
+Genus:290
+Level:5
+dim ker V^n:
+[ 299, 480, 598, 685, 747 ]
+Genus:1178
+Level:6
+dim ker V^n:
+[ 1195, 1914, 2390, 2732, 2987 ]
+Genus:4746
+Level:7
+dim ker V^n:
+[ 4779, 7649, 9558, 10925, 11947 ]
+Genus:19050
+
+Calculations for 1*x^7+1*x^5+1*x^3
+Level:1
+dim ker V^n:
+[ 2, 3, 3, 3, 3 ]
+Genus:3
+Level:2
+dim ker V^n:
+[ 5, 8, 10, 12, 13 ]
+Genus:16
+Level:3
+dim ker V^n:
+[ 19, 31, 38, 43, 47 ]
+Genus:70
+Level:4
+dim ker V^n:
+[ 75, 121, 150, 172, 187 ]
+Genus:290
+Level:5
+dim ker V^n:
+[ 299, 480, 598, 685, 747 ]
+Genus:1178
+Level:6
+dim ker V^n:
+[ 1195, 1914, 2390, 2732, 2987 ]
+Genus:4746
+Level:7
+dim ker V^n:
+[ 4779, 7649, 9558, 10925, 11947 ]
+Genus:19050
+
