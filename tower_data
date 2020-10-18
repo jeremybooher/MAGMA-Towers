@@ -22,10 +22,29 @@ basis : a basis for regular differentials at that level
 printing: whether or not to print updates as computations progress
 powers : how many powers of the Cartier operator to also analyze
 */
-function analyze(level,n,p,r,x,ys,fs,simplify,basis,precomp : printing:= false, powers:=1)
+function analyze(level,n,p,r,x,ys,fs,simplify,basis,precomp : printing:= false, store:=false, powers:=1)
 	g := #basis;
 	t1 := Realtime();
 	cartier,precomp:= build_matrix(level,n,p,r,x,ys,fs,simplify,basis, precomp : printing:=printing);
+	if store then
+		if printing then
+			print "Storing tower and Precomputations:",printform;
+		end if;
+		I := Open("Precomputed/p" cat IntegerToString(p) cat "n" cat IntegerToString(n) cat "_" cat printform cat ".dat","w");
+		WriteObject(I,"v1");
+		WriteObject(I,printform);
+		WriteObject(I,n);
+		WriteObject(I,p);
+		WriteObject(I,r);
+		WriteObject(I,d);
+		WriteObject(I,fs);
+		WriteObject(I,[<k,v> : k-> v in precomp]); //bug serializing associative array
+
+		delete I; //closes file
+
+	end if;
+	
+	
 	t2 := Realtime();
 	a := anumber(g,cartier: powers := powers);
 	t3 := Realtime();
@@ -47,30 +66,14 @@ function collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify: printing := false,st
 		if printing then
 			print "Working on level:",level;
 		end if;
-		results,precomp := analyze(level,n,p,r,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing :=printing, powers:=powers);
+		results,precomp := analyze(level,n,p,r,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing :=printing, store:=store,powers:=powers);
 		if printing then
 			print "genus, dim ker V^1...", results;
 		end if;
 		Append(~data,results);
 	end for;
 	
-	if store then
-		if printing then
-			print "Storing tower:",printform;
-		end if;
-		I := Open("Precomputed/p" cat IntegerToString(p) cat "n" cat IntegerToString(n) cat "_" cat printform cat ".dat","w");
-		WriteObject(I,"v1");
-		WriteObject(I,printform);
-		WriteObject(I,n);
-		WriteObject(I,p);
-		WriteObject(I,r);
-		WriteObject(I,d);
-		WriteObject(I,fs);
-		WriteObject(I,[<k,v> : k-> v in precomp]); //bug serializing associative array
-
-		delete I; //closes file
-
-	end if;
+	
 
 	return data;
 end function;
