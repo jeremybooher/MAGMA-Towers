@@ -13,7 +13,7 @@ where deg(fs[i]) = ds[i] is the ramification break for level i above infinity
 precomp : An associative array, indexed by the exponent of x^a ys[1]^(a1) ys[2]^(a2) ... and storing the image of that differential under the Cartier operator
 */
 
-load towers_computation;
+load tower_computation;
 
 /* 
 Work at a particular level of the tower, and compute invariants.  Pass back collection of precomputations in case we've done new ones
@@ -22,10 +22,11 @@ basis : a basis for regular differentials at that level
 printing: whether or not to print updates as computations progress
 powers : how many powers of the Cartier operator to also analyze
 */
-function analyze(level,n,p,r,x,ys,fs,simplify,basis,precomp : printing:= false, store:=false, powers:=1)
+function analyze(level,n,p,r,d,x,ys,fs,simplify,basis,precomp : printing:= false, store:=false,printform:="", powers:=1)
 	g := #basis;
 	t1 := Realtime();
 	cartier,precomp:= build_matrix(level,n,p,r,x,ys,fs,simplify,basis, precomp : printing:=printing);
+	
 	if store then
 		if printing then
 			print "Storing tower and Precomputations:",printform;
@@ -66,7 +67,7 @@ function collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify: printing := false,st
 		if printing then
 			print "Working on level:",level;
 		end if;
-		results,precomp := analyze(level,n,p,r,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing :=printing, store:=store,powers:=powers);
+		results,precomp := analyze(level,n,p,r,d,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing :=printing, store:=store,printform:=printform,powers:=powers);
 		if printing then
 			print "genus, dim ker V^1...", results;
 		end if;
@@ -216,7 +217,7 @@ function further_computations(filename : printing:= false, powers:=1)
 	printform,n,p,r,d,x,ys,fs,simplify,bases,precomp:= reconstruct_tower(filename);	
 	print "Reloaded Tower ",printform;
 
-	return [ analyze(level,n,p,r,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing:=false , powers:=powers) : level in [1..n]];
+	return [ analyze(level,n,p,r,d,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing:=false , powers:=powers) : level in [1..n]];
 end function;
 
 	
