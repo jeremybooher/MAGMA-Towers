@@ -1,0 +1,549 @@
+Magma V2.25-6     Fri Oct 23 2020 14:26:13 on mathmagma [Seed = 3255807122]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "example_finder"
+Loading "tower_data"
+Loading "tower_computation"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Finished 500
+Finished 1000
+Bounds: 2 2
+{ 2 }
+Setup 0.370
+Starting Analysis: 1*x^5+2*x^2
+[
+    x^5 + 2*x^2,
+    x^12 + 2*x^9,
+    x^42 + 2*x^39 + 2*x^33 + x^30 + x^24 + 2*x^21,
+    x^132 + 2*x^129 + 2*x^123 + x^120 + x^114 + 2*x^111 + 2*x^105 + x^102 + x^96
+        + 2*x^93 + 2*x^87 + x^84 + x^78 + 2*x^75 + 2*x^69 + x^66 + x^60 + 
+        2*x^57,
+    x^402 + 2*x^399 + 2*x^393 + x^390 + x^384 + 2*x^381 + 2*x^375 + x^372 + 
+        x^366 + 2*x^363 + 2*x^360 + 2*x^357 + x^354 + 2*x^351 + x^348 + 2*x^345 
+        + 2*x^339 + x^336 + 2*x^333 + x^330 + 2*x^327 + 2*x^321 + x^318 + x^312 
+        + 2*x^309 + x^306 + 2*x^303 + x^300 + x^297 + x^294 + 2*x^291 + 2*x^288 
+        + 2*x^285 + x^282 + x^279 + x^276 + 2*x^273 + 2*x^270 + 2*x^267 + x^264 
+        + 2*x^261 + x^258 + 2*x^255 + 2*x^249 + x^246 + x^240 + 2*x^237 + x^234 
+        + 2*x^231 + x^228 + x^222 + 2*x^219 + x^216 + 2*x^213 + x^210 + x^207 + 
+        x^204 + 2*x^201 + 2*x^195 + x^192 + x^186 + 2*x^183 + 2*x^177 + x^174 + 
+        x^168 + 2*x^165
+]
+Put tower in Standard form: 2976.830
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Storing tower and Precomputations: 1*x^5+2*x^2
+Computed Rank: 0.000
+genus, dim ker V^1... [ 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4 ]
+Working on level: 2
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Storing tower and Precomputations: 1*x^5+2*x^2
+Computed Rank: 0.000
+genus, dim ker V^1... [ 46, 19, 26, 31, 35, 39, 42, 45, 46, 46, 46 ]
+Working on level: 3
+Finished Precomputation: 0.190
+Built Matrix: 0.010
+Storing tower and Precomputations: 1*x^5+2*x^2
+Computed Rank: 0.000
+genus, dim ker V^1... [ 442, 154, 230, 275, 305, 326, 344, 362, 368, 374, 380 ]
+Working on level: 4
+Finished Precomputation: 114.370
+Built Matrix: 1.920
+Storing tower and Precomputations: 1*x^5+2*x^2
+Computed Rank: 2.830
+genus, dim ker V^1... [ 4060, 1369, 2052, 2461, 2735, 2930, 3076, 3197, 3281, 
+3358, 3422 ]
+Working on level: 5
+Precomputed:  302 out of 729 at 1603419775.630
+Precomputed:  345 out of 729 at 1603420078.670
+Precomputed:  379 out of 729 at 1603420379.900
+Precomputed:  416 out of 729 at 1603420682.350
+Precomputed:  456 out of 729 at 1603420990.620
+Precomputed:  488 out of 729 at 1603421428.820
+Precomputed:  490 out of 729 at 1603421780.110
+Precomputed:  492 out of 729 at 1603422146.650
+Precomputed:  494 out of 729 at 1603422534.240
+Precomputed:  496 out of 729 at 1603422934.470
+Precomputed:  498 out of 729 at 1603423269.370
+Precomputed:  500 out of 729 at 1603423607.970
+Precomputed:  502 out of 729 at 1603423952.560
+Precomputed:  504 out of 729 at 1603424358.260
+Precomputed:  506 out of 729 at 1603424757.110
+Precomputed:  508 out of 729 at 1603425142.660
+Precomputed:  510 out of 729 at 1603425542.660
+Precomputed:  512 out of 729 at 1603425982.420
+Precomputed:  514 out of 729 at 1603426456.770
+Precomputed:  516 out of 729 at 1603426810.800
+Precomputed:  518 out of 729 at 1603427167.850
+Precomputed:  520 out of 729 at 1603427528.990
+Precomputed:  522 out of 729 at 1603427958.170
+Precomputed:  524 out of 729 at 1603428357.750
+Precomputed:  526 out of 729 at 1603428724.630
+Precomputed:  528 out of 729 at 1603429102.080
+Precomputed:  530 out of 729 at 1603429519.920
+Precomputed:  532 out of 729 at 1603429974.640
+Precomputed:  534 out of 729 at 1603430414.230
+Precomputed:  536 out of 729 at 1603430863.270
+Precomputed:  538 out of 729 at 1603431316.670
+Precomputed:  540 out of 729 at 1603431853.400
+Precomputed:  542 out of 729 at 1603432322.390
+Precomputed:  544 out of 729 at 1603432715.130
+Precomputed:  546 out of 729 at 1603433123.120
+Precomputed:  548 out of 729 at 1603433572.380
+Precomputed:  550 out of 729 at 1603434061.910
+Precomputed:  552 out of 729 at 1603434482.240
+Precomputed:  554 out of 729 at 1603434911.690
+Precomputed:  556 out of 729 at 1603435342.990
+Precomputed:  558 out of 729 at 1603435851.470
+Precomputed:  560 out of 729 at 1603436342.100
+Precomputed:  562 out of 729 at 1603436823.400
+Precomputed:  564 out of 729 at 1603437324.290
+Precomputed:  566 out of 729 at 1603437873.190
+Precomputed:  568 out of 729 at 1603438472.800
+Precomputed:  570 out of 729 at 1603438900.680
+Precomputed:  572 out of 729 at 1603439325.460
+Precomputed:  574 out of 729 at 1603439761.010
+Precomputed:  576 out of 729 at 1603440287.480
+Precomputed:  578 out of 729 at 1603440775.720
+Precomputed:  580 out of 729 at 1603441228.850
+Precomputed:  582 out of 729 at 1603441699.370
+Precomputed:  584 out of 729 at 1603442215.730
+Precomputed:  586 out of 729 at 1603442776.760
+Precomputed:  588 out of 729 at 1603443308.710
+Precomputed:  590 out of 729 at 1603443847.380
+Precomputed:  592 out of 729 at 1603444397.250
+Precomputed:  593 out of 729 at 1603444724.550
+Precomputed:  594 out of 729 at 1603445047.200
+Precomputed:  595 out of 729 at 1603445369.380
+Precomputed:  597 out of 729 at 1603445848.990
+Precomputed:  599 out of 729 at 1603446340.050
+Precomputed:  601 out of 729 at 1603446845.830
+Precomputed:  603 out of 729 at 1603447438.710
+Precomputed:  604 out of 729 at 1603447744.490
+Precomputed:  606 out of 729 at 1603448273.230
+Precomputed:  608 out of 729 at 1603448814.310
+Precomputed:  610 out of 729 at 1603449358.120
+Precomputed:  611 out of 729 at 1603449675.960
+Precomputed:  612 out of 729 at 1603449994.270
+Precomputed:  613 out of 729 at 1603450310.160
+Precomputed:  615 out of 729 at 1603450911.440
+Precomputed:  616 out of 729 at 1603451213.290
+Precomputed:  617 out of 729 at 1603451531.570
+Precomputed:  618 out of 729 at 1603451849.850
+Precomputed:  619 out of 729 at 1603452165.470
+Precomputed:  620 out of 729 at 1603452544.120
+Precomputed:  621 out of 729 at 1603452919.790
+Precomputed:  622 out of 729 at 1603453300.420
+Precomputed:  624 out of 729 at 1603453861.760
+Precomputed:  626 out of 729 at 1603454425.660
+Precomputed:  628 out of 729 at 1603454998.350
+Precomputed:  629 out of 729 at 1603455341.390
+Precomputed:  630 out of 729 at 1603455685.040
+Precomputed:  631 out of 729 at 1603456028.040
+Precomputed:  633 out of 729 at 1603456623.370
+Precomputed:  635 out of 729 at 1603457231.560
+Precomputed:  636 out of 729 at 1603457541.120
+Precomputed:  637 out of 729 at 1603457851.530
+Precomputed:  638 out of 729 at 1603458219.750
+Precomputed:  639 out of 729 at 1603458584.890
+Precomputed:  640 out of 729 at 1603458951.370
+Precomputed:  641 out of 729 at 1603459305.290
+Precomputed:  642 out of 729 at 1603459660.150
+Precomputed:  643 out of 729 at 1603460016.920
+Precomputed:  644 out of 729 at 1603460386.720
+Precomputed:  645 out of 729 at 1603460755.020
+Precomputed:  646 out of 729 at 1603461120.370
+Precomputed:  647 out of 729 at 1603461560.830
+Precomputed:  648 out of 729 at 1603461998.680
+Precomputed:  649 out of 729 at 1603462432.670
+Precomputed:  651 out of 729 at 1603462888.970
+Precomputed:  653 out of 729 at 1603463338.450
+Precomputed:  655 out of 729 at 1603463806.220
+Precomputed:  657 out of 729 at 1603464363.790
+Precomputed:  659 out of 729 at 1603464884.380
+Precomputed:  661 out of 729 at 1603465374.170
+Precomputed:  663 out of 729 at 1603465888.340
+Precomputed:  665 out of 729 at 1603466449.420
+Precomputed:  666 out of 729 at 1603466754.450
+Precomputed:  667 out of 729 at 1603467060.230
+Precomputed:  669 out of 729 at 1603467639.490
+Precomputed:  671 out of 729 at 1603468232.920
+Precomputed:  672 out of 729 at 1603468534.390
+Precomputed:  673 out of 729 at 1603468836.360
+Precomputed:  674 out of 729 at 1603469198.500
+Precomputed:  675 out of 729 at 1603469557.400
+Precomputed:  676 out of 729 at 1603469917.320
+Precomputed:  678 out of 729 at 1603470488.060
+Precomputed:  680 out of 729 at 1603471067.070
+Precomputed:  682 out of 729 at 1603471647.430
+Precomputed:  683 out of 729 at 1603471994.230
+Precomputed:  684 out of 729 at 1603472345.440
+Precomputed:  685 out of 729 at 1603472695.900
+Precomputed:  686 out of 729 at 1603473005.680
+Precomputed:  687 out of 729 at 1603473314.730
+Precomputed:  688 out of 729 at 1603473623.100
+Precomputed:  689 out of 729 at 1603473943.800
+Precomputed:  690 out of 729 at 1603474263.900
+Precomputed:  691 out of 729 at 1603474579.360
+Precomputed:  692 out of 729 at 1603474958.870
+Precomputed:  693 out of 729 at 1603475335.650
+Precomputed:  694 out of 729 at 1603475720.810
+Precomputed:  695 out of 729 at 1603476084.580
+Precomputed:  696 out of 729 at 1603476450.970
+Precomputed:  697 out of 729 at 1603476815.030
+Precomputed:  698 out of 729 at 1603477192.100
+Precomputed:  699 out of 729 at 1603477571.350
+Precomputed:  700 out of 729 at 1603477953.490
+Precomputed:  701 out of 729 at 1603478410.370
+Precomputed:  702 out of 729 at 1603478857.890
+Precomputed:  703 out of 729 at 1603479309.550
+Precomputed:  704 out of 729 at 1603479626.640
+Precomputed:  705 out of 729 at 1603479942.880
+Precomputed:  706 out of 729 at 1603480258.460
+Precomputed:  707 out of 729 at 1603480592.210
+Precomputed:  708 out of 729 at 1603480921.850
+Precomputed:  709 out of 729 at 1603481253.230
+Precomputed:  710 out of 729 at 1603481648.490
+Precomputed:  711 out of 729 at 1603482044.540
+Precomputed:  712 out of 729 at 1603482440.880
+Precomputed:  713 out of 729 at 1603482784.590
+Precomputed:  714 out of 729 at 1603483126.140
+Precomputed:  715 out of 729 at 1603483469.560
+Precomputed:  716 out of 729 at 1603483826.860
+Precomputed:  717 out of 729 at 1603484179.170
+Precomputed:  718 out of 729 at 1603484535.750
+Precomputed:  719 out of 729 at 1603484959.260
+Precomputed:  720 out of 729 at 1603485382.650
+Precomputed:  721 out of 729 at 1603485809.760
+Precomputed:  722 out of 729 at 1603486220.790
+Precomputed:  723 out of 729 at 1603486628.580
+Precomputed:  724 out of 729 at 1603487038.000
+Precomputed:  725 out of 729 at 1603487462.120
+Precomputed:  726 out of 729 at 1603487882.630
+Precomputed:  727 out of 729 at 1603488300.110
+Precomputed:  728 out of 729 at 1603488807.870
+Precomputed:  729 out of 729 at 1603489308.850
+Finished Precomputation: 70344.110
+Built Matrix: 175.890
+Storing tower and Precomputations: 1*x^5+2*x^2
+Computed Rank: 947.990
+genus, dim ker V^1... [ 36784, 12304, 18456, 22145, 24605, 26365, 27680, 28712, 
+29525, 30197, 30756 ]
+<[* 3, 5, 1*x^5+2*x^2, 5, 10, 74566.720 *], [
+    [ 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4 ],
+    [ 46, 19, 26, 31, 35, 39, 42, 45, 46, 46, 46 ],
+    [ 442, 154, 230, 275, 305, 326, 344, 362, 368, 374, 380 ],
+    [ 4060, 1369, 2052, 2461, 2735, 2930, 3076, 3197, 3281, 3358, 3422 ],
+    [ 36784, 12304, 18456, 22145, 24605, 26365, 27680, 28712, 29525, 30197, 
+    30756 ]
+]>
+Starting Analysis: 1*x^5+2*x^4+2*x^1
+[
+    x^5 + 2*x^4 + 2*x,
+    x^14 + 2*x^13 + x^11 + x^10 + x^9 + 2*x^7 + x^6,
+    x^44 + 2*x^43 + 2*x^40 + 2*x^37 + 2*x^36 + 2*x^34 + 2*x^32 + x^31 + x^30 + 
+        2*x^27 + x^26 + 2*x^22 + x^21 + x^17 + x^16 + x^15 + 2*x^13 + x^12,
+    x^134 + 2*x^133 + 2*x^130 + x^125 + 2*x^124 + x^122 + 2*x^121 + 2*x^120 + 
+        2*x^119 + x^118 + x^115 + 2*x^114 + 2*x^113 + x^112 + x^110 + x^109 + 
+        2*x^107 + x^106 + x^105 + 2*x^104 + 2*x^103 + x^101 + 2*x^100 + x^98 + 
+        2*x^97 + 2*x^95 + x^94 + 2*x^93 + 2*x^92 + 2*x^90 + x^89 + x^88 + 2*x^86
+        + x^85 + x^84 + x^81 + 2*x^76 + 2*x^74 + 2*x^72 + x^71 + 2*x^70 + 2*x^68
+        + 2*x^67 + 2*x^66 + 2*x^65 + 2*x^64 + x^63 + 2*x^61 + 2*x^56 + 2*x^55 + 
+        2*x^53 + x^51 + 2*x^50 + x^49 + x^48 + 2*x^47 + 2*x^46 + 2*x^45 + x^44 +
+        2*x^43 + 2*x^40 + x^39 + x^35 + x^34 + x^33 + 2*x^31 + x^30,
+    x^404 + 2*x^403 + 2*x^400 + 2*x^393 + 2*x^392 + x^391 + x^390 + x^389 + 
+        2*x^388 + 2*x^386 + 2*x^385 + 2*x^383 + x^379 + 2*x^376 + x^374 + 
+        2*x^372 + x^371 + x^370 + 2*x^368 + 2*x^367 + x^366 + x^365 + 2*x^364 + 
+        2*x^363 + 2*x^361 + 2*x^359 + 2*x^357 + x^356 + 2*x^355 + x^353 + x^352 
+        + x^351 + 2*x^350 + x^348 + x^345 + x^344 + 2*x^343 + 2*x^342 + x^341 + 
+        2*x^338 + 2*x^336 + 2*x^334 + 2*x^332 + x^329 + x^327 + x^326 + 2*x^324 
+        + x^322 + x^321 + x^319 + 2*x^318 + 2*x^317 + 2*x^316 + x^315 + 2*x^314 
+        + 2*x^312 + x^309 + x^308 + 2*x^307 + x^306 + 2*x^305 + 2*x^303 + x^302 
+        + x^301 + 2*x^298 + 2*x^297 + x^296 + x^295 + x^294 + 2*x^293 + 2*x^292 
+        + 2*x^291 + 2*x^289 + x^288 + 2*x^286 + 2*x^285 + 2*x^284 + x^283 + 
+        x^282 + x^281 + 2*x^280 + 2*x^277 + x^276 + 2*x^275 + x^274 + x^272 + 
+        2*x^271 + 2*x^269 + x^268 + x^267 + 2*x^266 + 2*x^265 + 2*x^263 + 
+        2*x^262 + x^260 + x^259 + x^257 + 2*x^256 + x^255 + 2*x^254 + x^253 + 
+        x^252 + x^250 + x^248 + x^247 + x^244 + 2*x^242 + x^241 + x^240 + x^239 
+        + 2*x^238 + 2*x^236 + x^235 + 2*x^234 + x^233 + x^232 + 2*x^229 + x^228 
+        + x^225 + 2*x^224 + x^222 + x^221 + 2*x^220 + x^219 + x^218 + x^217 + 
+        x^216 + 2*x^215 + 2*x^214 + x^213 + x^212 + x^211 + 2*x^209 + 2*x^208 + 
+        2*x^207 + x^206 + 2*x^202 + 2*x^201 + 2*x^200 + 2*x^199 + x^197 + 
+        2*x^196 + 2*x^195 + x^194 + x^192 + 2*x^191 + x^187 + 2*x^185 + x^183 + 
+        x^182 + 2*x^181 + x^180 + 2*x^176 + x^175 + x^174 + x^173 + x^171 + 
+        2*x^170 + x^168 + x^166 + 2*x^163 + x^161 + 2*x^160 + 2*x^156 + x^155 + 
+        x^153 + 2*x^152 + 2*x^149 + 2*x^147 + 2*x^146 + 2*x^145 + x^144 + x^143 
+        + x^141 + 2*x^140 + x^139 + 2*x^138 + x^135 + 2*x^134 + 2*x^133 + x^132 
+        + x^131 + x^130 + x^129 + 2*x^128 + x^127 + 2*x^126 + 2*x^125 + x^124 + 
+        x^123 + x^121 + 2*x^120 + x^117 + 2*x^116 + 2*x^115 + x^114 + x^112 + 
+        2*x^111 + x^109 + 2*x^108 + x^107 + 2*x^105 + 2*x^103 + x^102 + 2*x^101 
+        + 2*x^100 + 2*x^99 + x^98 + 2*x^97 + 2*x^94 + x^93 + x^89 + x^88 + x^87 
+        + 2*x^85 + x^84
+]
+Put tower in Standard form: 8104.420
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Storing tower and Precomputations: 1*x^5+2*x^4+2*x^1
+Computed Rank: 0.000
+genus, dim ker V^1... [ 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4 ]
+Working on level: 2
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Storing tower and Precomputations: 1*x^5+2*x^4+2*x^1
+Computed Rank: 0.000
+genus, dim ker V^1... [ 46, 18, 26, 31, 35, 39, 42, 45, 46, 46, 46 ]
+Working on level: 3
+Finished Precomputation: 0.270
+Built Matrix: 0.020
+Storing tower and Precomputations: 1*x^5+2*x^4+2*x^1
+Computed Rank: 0.000
+genus, dim ker V^1... [ 442, 153, 230, 275, 305, 326, 344, 360, 368, 374, 380 ]
+Working on level: 4
+Finished Precomputation: 124.820
+Built Matrix: 2.050
+Storing tower and Precomputations: 1*x^5+2*x^4+2*x^1
+Computed Rank: 2.910
+genus, dim ker V^1... [ 4060, 1368, 2052, 2461, 2735, 2930, 3076, 3195, 3281, 
+3358, 3422 ]
+Working on level: 5
+Precomputed:  304 out of 729 at 1603499480.410
+Precomputed:  349 out of 729 at 1603499782.180
+Precomputed:  385 out of 729 at 1603500086.890
+Precomputed:  423 out of 729 at 1603500394.270
+Precomputed:  460 out of 729 at 1603500698.310
+Precomputed:  488 out of 729 at 1603501125.990
+Precomputed:  490 out of 729 at 1603501502.400
+Precomputed:  492 out of 729 at 1603501895.360
+Precomputed:  494 out of 729 at 1603502330.020
+Precomputed:  496 out of 729 at 1603502803.210
+Precomputed:  498 out of 729 at 1603503210.920
+Precomputed:  500 out of 729 at 1603503624.230
+Precomputed:  502 out of 729 at 1603504046.330
+Precomputed:  504 out of 729 at 1603504546.860
+Precomputed:  506 out of 729 at 1603505036.410
+Precomputed:  508 out of 729 at 1603505511.840
+Precomputed:  510 out of 729 at 1603506000.890
+Precomputed:  512 out of 729 at 1603506525.650
+Precomputed:  514 out of 729 at 1603507109.200
+Precomputed:  516 out of 729 at 1603507539.910
+Precomputed:  518 out of 729 at 1603507977.750
+Precomputed:  520 out of 729 at 1603508420.280
+Precomputed:  522 out of 729 at 1603508943.060
+Precomputed:  524 out of 729 at 1603509432.000
+Precomputed:  526 out of 729 at 1603509883.070
+Precomputed:  528 out of 729 at 1603510348.430
+Precomputed:  530 out of 729 at 1603510856.320
+Precomputed:  532 out of 729 at 1603511407.280
+Precomputed:  534 out of 729 at 1603511934.720
+Precomputed:  536 out of 729 at 1603512473.380
+Precomputed:  538 out of 729 at 1603513017.100
+Precomputed:  539 out of 729 at 1603513341.350
+Precomputed:  540 out of 729 at 1603513667.820
+Precomputed:  541 out of 729 at 1603513987.880
+Precomputed:  543 out of 729 at 1603514458.400
+Precomputed:  545 out of 729 at 1603514940.460
+Precomputed:  547 out of 729 at 1603515433.680
+Precomputed:  549 out of 729 at 1603516014.940
+Precomputed:  551 out of 729 at 1603516557.960
+Precomputed:  553 out of 729 at 1603517059.770
+Precomputed:  555 out of 729 at 1603517584.880
+Precomputed:  557 out of 729 at 1603518153.440
+Precomputed:  558 out of 729 at 1603518458.730
+Precomputed:  559 out of 729 at 1603518761.170
+Precomputed:  561 out of 729 at 1603519353.040
+Precomputed:  563 out of 729 at 1603519953.720
+Precomputed:  564 out of 729 at 1603520258.400
+Precomputed:  565 out of 729 at 1603520565.780
+Precomputed:  566 out of 729 at 1603520925.430
+Precomputed:  567 out of 729 at 1603521287.610
+Precomputed:  568 out of 729 at 1603521651.090
+Precomputed:  570 out of 729 at 1603522181.830
+Precomputed:  572 out of 729 at 1603522718.970
+Precomputed:  574 out of 729 at 1603523271.350
+Precomputed:  575 out of 729 at 1603523600.320
+Precomputed:  576 out of 729 at 1603523930.990
+Precomputed:  577 out of 729 at 1603524262.370
+Precomputed:  579 out of 729 at 1603524834.950
+Precomputed:  581 out of 729 at 1603525420.100
+Precomputed:  583 out of 729 at 1603526014.830
+Precomputed:  584 out of 729 at 1603526367.640
+Precomputed:  585 out of 729 at 1603526715.610
+Precomputed:  586 out of 729 at 1603527069.210
+Precomputed:  587 out of 729 at 1603527409.170
+Precomputed:  588 out of 729 at 1603527748.900
+Precomputed:  589 out of 729 at 1603528088.860
+Precomputed:  590 out of 729 at 1603528438.700
+Precomputed:  591 out of 729 at 1603528792.060
+Precomputed:  592 out of 729 at 1603529143.040
+Precomputed:  593 out of 729 at 1603529561.110
+Precomputed:  594 out of 729 at 1603529985.030
+Precomputed:  595 out of 729 at 1603530408.570
+Precomputed:  596 out of 729 at 1603530723.850
+Precomputed:  597 out of 729 at 1603531036.170
+Precomputed:  598 out of 729 at 1603531343.350
+Precomputed:  599 out of 729 at 1603531667.020
+Precomputed:  600 out of 729 at 1603531985.520
+Precomputed:  601 out of 729 at 1603532303.450
+Precomputed:  602 out of 729 at 1603532687.660
+Precomputed:  603 out of 729 at 1603533072.620
+Precomputed:  604 out of 729 at 1603533453.060
+Precomputed:  605 out of 729 at 1603533787.970
+Precomputed:  606 out of 729 at 1603534124.620
+Precomputed:  607 out of 729 at 1603534458.670
+Precomputed:  608 out of 729 at 1603534804.490
+Precomputed:  609 out of 729 at 1603535157.660
+Precomputed:  610 out of 729 at 1603535507.170
+Precomputed:  611 out of 729 at 1603535918.210
+Precomputed:  612 out of 729 at 1603536330.360
+Precomputed:  613 out of 729 at 1603536737.600
+Precomputed:  614 out of 729 at 1603537124.320
+Precomputed:  615 out of 729 at 1603537518.140
+Precomputed:  616 out of 729 at 1603537915.460
+Precomputed:  617 out of 729 at 1603538321.980
+Precomputed:  618 out of 729 at 1603538729.190
+Precomputed:  619 out of 729 at 1603539130.370
+Precomputed:  620 out of 729 at 1603539611.520
+Precomputed:  621 out of 729 at 1603540101.810
+Precomputed:  622 out of 729 at 1603540589.660
+Precomputed:  623 out of 729 at 1603540953.470
+Precomputed:  624 out of 729 at 1603541311.920
+Precomputed:  625 out of 729 at 1603541671.040
+Precomputed:  626 out of 729 at 1603542045.280
+Precomputed:  627 out of 729 at 1603542417.730
+Precomputed:  628 out of 729 at 1603542789.580
+Precomputed:  629 out of 729 at 1603543232.110
+Precomputed:  630 out of 729 at 1603543675.620
+Precomputed:  631 out of 729 at 1603544121.190
+Precomputed:  632 out of 729 at 1603544504.760
+Precomputed:  633 out of 729 at 1603544879.940
+Precomputed:  634 out of 729 at 1603545262.700
+Precomputed:  635 out of 729 at 1603545658.730
+Precomputed:  636 out of 729 at 1603546061.040
+Precomputed:  637 out of 729 at 1603546463.070
+Precomputed:  638 out of 729 at 1603546939.470
+Precomputed:  639 out of 729 at 1603547414.340
+Precomputed:  640 out of 729 at 1603547886.090
+Precomputed:  641 out of 729 at 1603548342.090
+Precomputed:  642 out of 729 at 1603548807.680
+Precomputed:  643 out of 729 at 1603549274.310
+Precomputed:  644 out of 729 at 1603549744.150
+Precomputed:  645 out of 729 at 1603550219.400
+Precomputed:  646 out of 729 at 1603550693.370
+Precomputed:  647 out of 729 at 1603551259.870
+Precomputed:  648 out of 729 at 1603551833.090
+Precomputed:  649 out of 729 at 1603552407.110
+Precomputed:  651 out of 729 at 1603552995.080
+Precomputed:  653 out of 729 at 1603553582.800
+Precomputed:  654 out of 729 at 1603553885.980
+Precomputed:  655 out of 729 at 1603554191.670
+Precomputed:  656 out of 729 at 1603554551.880
+Precomputed:  657 out of 729 at 1603554915.530
+Precomputed:  658 out of 729 at 1603555275.250
+Precomputed:  659 out of 729 at 1603555602.470
+Precomputed:  660 out of 729 at 1603555928.150
+Precomputed:  661 out of 729 at 1603556250.320
+Precomputed:  662 out of 729 at 1603556579.380
+Precomputed:  663 out of 729 at 1603556909.100
+Precomputed:  664 out of 729 at 1603557239.050
+Precomputed:  665 out of 729 at 1603557636.730
+Precomputed:  666 out of 729 at 1603558036.200
+Precomputed:  667 out of 729 at 1603558431.070
+Precomputed:  668 out of 729 at 1603558812.610
+Precomputed:  669 out of 729 at 1603559190.080
+Precomputed:  670 out of 729 at 1603559565.730
+Precomputed:  671 out of 729 at 1603559956.090
+Precomputed:  672 out of 729 at 1603560344.870
+Precomputed:  673 out of 729 at 1603560739.110
+Precomputed:  674 out of 729 at 1603561212.040
+Precomputed:  675 out of 729 at 1603561683.320
+Precomputed:  676 out of 729 at 1603562152.740
+Precomputed:  677 out of 729 at 1603562531.920
+Precomputed:  678 out of 729 at 1603562911.770
+Precomputed:  679 out of 729 at 1603563278.970
+Precomputed:  680 out of 729 at 1603563669.320
+Precomputed:  681 out of 729 at 1603564060.830
+Precomputed:  682 out of 729 at 1603564450.170
+Precomputed:  683 out of 729 at 1603564919.110
+Precomputed:  684 out of 729 at 1603565375.570
+Precomputed:  685 out of 729 at 1603565841.640
+Precomputed:  686 out of 729 at 1603566252.160
+Precomputed:  687 out of 729 at 1603566666.080
+Precomputed:  688 out of 729 at 1603567079.050
+Precomputed:  689 out of 729 at 1603567507.020
+Precomputed:  690 out of 729 at 1603567933.230
+Precomputed:  691 out of 729 at 1603568350.710
+Precomputed:  692 out of 729 at 1603568862.370
+Precomputed:  693 out of 729 at 1603569365.600
+Precomputed:  694 out of 729 at 1603569871.720
+Precomputed:  695 out of 729 at 1603570364.740
+Precomputed:  696 out of 729 at 1603570852.750
+Precomputed:  697 out of 729 at 1603571344.070
+Precomputed:  698 out of 729 at 1603571851.140
+Precomputed:  699 out of 729 at 1603572367.260
+Precomputed:  700 out of 729 at 1603572875.810
+Precomputed:  701 out of 729 at 1603573488.090
+Precomputed:  702 out of 729 at 1603574088.260
+Precomputed:  703 out of 729 at 1603574694.560
+Precomputed:  704 out of 729 at 1603575109.850
+Precomputed:  705 out of 729 at 1603575531.690
+Precomputed:  706 out of 729 at 1603575950.750
+Precomputed:  707 out of 729 at 1603576386.280
+Precomputed:  708 out of 729 at 1603576820.510
+Precomputed:  709 out of 729 at 1603577259.940
+Precomputed:  710 out of 729 at 1603577781.770
+Precomputed:  711 out of 729 at 1603578304.820
+Precomputed:  712 out of 729 at 1603578827.140
+Precomputed:  713 out of 729 at 1603579278.170
+Precomputed:  714 out of 729 at 1603579742.530
+Precomputed:  715 out of 729 at 1603580202.300
+Precomputed:  716 out of 729 at 1603580672.300
+Precomputed:  717 out of 729 at 1603581147.080
+Precomputed:  718 out of 729 at 1603581620.730
+Precomputed:  719 out of 729 at 1603582184.080
+Precomputed:  720 out of 729 at 1603582749.900
+Precomputed:  721 out of 729 at 1603583316.650
+Precomputed:  722 out of 729 at 1603583862.000
+Precomputed:  723 out of 729 at 1603584411.680
+Precomputed:  724 out of 729 at 1603584961.170
+Precomputed:  725 out of 729 at 1603585526.350
+Precomputed:  726 out of 729 at 1603586089.090
+Precomputed:  727 out of 729 at 1603586654.830
+Precomputed:  728 out of 729 at 1603587337.730
+Precomputed:  729 out of 729 at 1603588018.680
+Finished Precomputation: 89521.160
+Built Matrix: 193.060
+Storing tower and Precomputations: 1*x^5+2*x^4+2*x^1
+Computed Rank: 961.260
+genus, dim ker V^1... [ 36784, 12303, 18456, 22145, 24605, 26365, 27680, 28710, 
+29525, 30197, 30756 ]
+<[* 3, 5, 1*x^5+2*x^4+2*x^1, 5, 10, 98913.300 *], [
+    [ 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4 ],
+    [ 46, 18, 26, 31, 35, 39, 42, 45, 46, 46, 46 ],
+    [ 442, 153, 230, 275, 305, 326, 344, 360, 368, 374, 380 ],
+    [ 4060, 1368, 2052, 2461, 2735, 2930, 3076, 3195, 3281, 3358, 3422 ],
+    [ 36784, 12303, 18456, 22145, 24605, 26365, 27680, 28710, 29525, 30197, 
+    30756 ]
+]>
+[
+    <[* 3, 5, 1*x^5+2*x^2, 5, 10, 74566.720 *], [
+        [ 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4 ],
+        [ 46, 19, 26, 31, 35, 39, 42, 45, 46, 46, 46 ],
+        [ 442, 154, 230, 275, 305, 326, 344, 362, 368, 374, 380 ],
+        [ 4060, 1369, 2052, 2461, 2735, 2930, 3076, 3197, 3281, 3358, 3422 ],
+        [ 36784, 12304, 18456, 22145, 24605, 26365, 27680, 28712, 29525, 30197, 
+        30756 ]
+    ]>,
+    <[* 3, 5, 1*x^5+2*x^4+2*x^1, 5, 10, 98913.300 *], [
+        [ 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4 ],
+        [ 46, 18, 26, 31, 35, 39, 42, 45, 46, 46, 46 ],
+        [ 442, 153, 230, 275, 305, 326, 344, 360, 368, 374, 380 ],
+        [ 4060, 1368, 2052, 2461, 2735, 2930, 3076, 3195, 3281, 3358, 3422 ],
+        [ 36784, 12303, 18456, 22145, 24605, 26365, 27680, 28710, 29525, 30197, 
+        30756 ]
+    ]>
+]
+
+
