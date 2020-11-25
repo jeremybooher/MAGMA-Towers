@@ -11,6 +11,7 @@ procedure show_entry(tower)
 	print "Tower:", info[3];
 	print "p=",info[1],"d=",info[2];
 	print "Levels:",info[4];
+	print "Genus, dim Ker V, dim Ker V^2...";
 	for row in data do
 		print row;
 	end for;
@@ -41,6 +42,17 @@ end function;
 function get_anumbers(tower : power:=1)
 	assert (power le tower[1][5]);
 	return [ row[power+1] : row in tower[2] ];
+end function;
+
+//get dimension of ker V^{power} / ker V^{power-1} at the nth level
+function get_gradeds(tower,power)
+	assert (power le tower[1][5]);
+	if power eq 1 then
+		return get_anumbers(tower);
+	end if;
+	bigdims := get_anumbers(tower : power:=power);
+	smalldims := get_anumbers(tower : power:=power-1);
+	return [bigdims[n]-smalldims[n]  :  n in [1..#bigdims]];
 end function;
 
 /* Analysis */
@@ -137,6 +149,9 @@ end procedure;
 //predict the leading constant for dim ker V^r
 //Bryden's conjecture
 function predict_leadingconstant(p,d,r)
+	if r eq 0 then
+		return 0;
+	end if;
 	if r eq 1 then
 		if p gt 2 then
 			return  p *(p-1)* d/ (4* (p+1)) ;
@@ -145,6 +160,25 @@ function predict_leadingconstant(p,d,r)
 		end if;
 	end if;
 	return (1 + 1/(r-1)) / ( 1 + 1/(r-1+(p+1)/(p-1))) * predict_leadingconstant(p,d,r-1);
+end function;
+
+function leading_numerator(p,d,r)
+	return Numerator(predict_leadingconstant(p,d,r));
+end function;
+
+function leading_denominator(p,d,r)
+	return Denominator(predict_leadingconstant(p,d,r));
+end function;
+
+function predict_leadingconstant_nod(p,r)
+	if r eq 1 then
+		if p gt 2 then
+			return  p *(p-1)/ (4* (p+1)) ;
+		else
+			return 1/6; //actually the two cases agree as formulated now
+		end if;
+	end if;
+	return (1 + 1/(r-1)) / ( 1 + 1/(r-1+(p+1)/(p-1))) * predict_leadingconstant_nod(p,r-1);
 end function;
 
 //pull out specific examples
@@ -158,33 +192,60 @@ function filter_data(data: p := -1 , d:= -1)
 	return new_data;
 end function;
 
+function predict1(p,d,power,n,a1)
+	return predict_leadingconstant(p,d,power)* (p ^(2*(n-1)) - 1) + a1;
+end function;
+
+function predict2(p,d,power,n,a1)
+	return leading_numerator(p,d,power)* Floor(p ^(2*(n-1)) /leading_denominator(p,d,power)) +a1;
+end function;
+
+function predict3(p,d,power,n)
+	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*(n-1))));
+end function;
+
 procedure display_data(data,p,d : power:=1)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
 		print "Tower:", get_name(tower);
 		vals := get_anumbers(tower : power:=power);
-		print "a-Numbers:",vals;
-		pred := [ predict_leadingconstant(p,d,power)* (p ^(2*(n-1)) - 1) + vals[1] : n in [1..#vals]];
-		print "Predictions:",pred;
-		print "Deltas:",[ vals[i] - pred[i] : i in [1..#vals]];
+		print "dimensions of ker V^",power,":",vals;
+		pred1 := [ predict1(p,d,power,n,vals[1]) : n in [1..#vals]];
+		print "Predictions1:",pred1;
+		print "Delta1s:",[ vals[i] - pred1[i] : i in [1..#vals]];
+		pred3 := [ predict3(p,d,power,n) : n in [1..#vals]];
+		print "Predictions3:",pred3;		
+		print "Delta3s:",[ vals[i] - pred3[i] : i in [1..#vals]];
 		print "";
 	end for;
 end procedure;
 
-procedure analyze2(data,d : power:=1)
-	p:=2;
+procedure display_differences(data,p,d : power:=1)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
 		print "Tower:", get_name(tower);
 		vals := get_anumbers(tower : power:=power);
-		print "a-Numbers:",vals;
-		//pred := [ predict_leadingconstant(p,d,power)* (p ^(2*(n-1))) + ((d + (-1) ^ (Integers()!( (d-1)/2) )* 3)/12) : n in [1..#vals]];
-		pred := [ predict_leadingconstant(p,d,power)* (p ^(2*(n-1)) -4) + vals[1] + 2 * Floor(d/4)+1  : n in [1..#vals]];
-		print "Predictions:",pred;
-		print "Deltas:",[ vals[i] - pred[i] : i in [1..#vals]];
-		print "";
+		diffs := [vals[n]-vals[n-1] : n in [2..#vals]];
+		print "Differences of ker V^",power,":",diffs;
+		pred1 := [ Floor( predict_leadingconstant(p,d,power) * (p^2-1) * p^(2 *(n-1)) ) : n in [1..#vals-1]];
+		print "Predictions:",pred1;
+		print "Deltas:",[ diffs[i] - pred1[i] : i in [1..#vals-1]];
 	end for;
 end procedure;
+
+procedure display_gradeds(data,p,d , power)
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do
+		print "Tower:", get_name(tower);
+		vals := get_gradeds(tower , power);
+		print "Dimension of gr ker V^",power,":",vals;
+		pred1 := [ Floor( (predict_leadingconstant(p,d,power) - predict_leadingconstant(p,d,power-1) ) * p^(2 *(n-1)) ) : n in [1..#vals]];
+		print "Predictions:",pred1;
+		print "Deltas:",[ vals[i] - pred1[i] : i in [1..#vals]];
+	end for;
+end procedure;
+
+
 
 procedure display_lots_data(p)
 	for d in [2..40] do
