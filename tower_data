@@ -119,6 +119,7 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 	bases :=construct_bases(p,n,x,ys,ds); //it is cheap to compute this
 	
 	if printing then
+		print "Run Number ",run_num;
 		print "Setup" , Realtime()-t1;	
 	end if;	
 	

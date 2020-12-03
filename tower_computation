@@ -1,5 +1,5 @@
 /*Compute a-numbers for Z_p towers of P^1 totally ramified above one point
-It is much more efficient than MAGMA's built in methods, which spend most of the their time finding a basis of regular differentials.
+It is much more efficient than MAGMA's built in methods, which spend a lot of their time finding a basis of regular differentials.
 This requires some work to write the tower in the standard form used in Madden's paper
 
 Standard Setup:
