@@ -128,6 +128,7 @@ procedure make_guesses(p,data : power:=1)
 end procedure;
 
 //In char p >2, a-number level(n+1) = p (p-1) d/ (4 (p+1)) (p^(2n) -1 )  + level1
+//This is too strong to be true
 function conjecture1(p,d,tower)
 	conjecture := true;
 	if p gt 2 then
@@ -177,11 +178,7 @@ function predict_leadingconstant(p,d,r)
 		return 0;
 	end if;
 	if r eq 1 then
-		if p gt 2 then
-			return  p *(p-1)* d/ (4* (p+1)) ;
-		else
-			return d/6; //actually the two cases agree as formulated now
-		end if;
+		return  p *(p-1)* d/ (4* (p+1)) ;
 	end if;
 	return (1 + 1/(r-1)) / ( 1 + 1/(r-1+(p+1)/(p-1))) * predict_leadingconstant(p,d,r-1);
 end function;
@@ -216,18 +213,25 @@ function filter_data(data: p := -1 , d:= -1)
 	return new_data;
 end function;
 
+/*Some attempts at predicting the formula
+*/
+//this needs power \equiv 1 \mod p, so always get an integer
 function predict1(p,d,power,n,a1)
 	return predict_leadingconstant(p,d,power)* (p ^(2*(n-1)) - 1) + a1;
 end function;
 
-function predict2(p,d,power,n,a1)
-	return leading_numerator(p,d,power)* Floor(p ^(2*(n-1)) /leading_denominator(p,d,power)) +a1;
-end function;
-
-function predict3(p,d,power,n)
+//predict floor of leading term
+function predict2(p,d,power,n)
 	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*(n-1))));
 end function;
 
+//take into account first level
+function predict3(p,d,power,n,a1)
+	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*(n-1)))) +a1;
+end function;
+
+/*the following look for all of the towers in data with given (p,d) and display some predictions and errors about the invariants
+*/
 procedure display_data(data,p,d : power:=1)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
@@ -236,8 +240,10 @@ procedure display_data(data,p,d : power:=1)
 		print "dimensions of ker V^",power,":",vals;
 		pred1 := [ predict1(p,d,power,n,vals[1]) : n in [1..#vals]];
 		print "Predictions1:",pred1;
-		print "Delta1s:",[ vals[i] - pred1[i] : i in [1..#vals]];
-		pred3 := [ predict3(p,d,power,n) : n in [1..#vals]];
+		pred2 := [ predict2(p,d,power,n) : n in [1..#vals]];
+		print "Predictions2:",pred2;
+		print "Delta2s:",[ vals[i] - pred2[i] : i in [1..#vals]];	
+		pred3 := [ predict3(p,d,power,n,vals[1]) : n in [1..#vals]];
 		print "Predictions3:",pred3;		
 		print "Delta3s:",[ vals[i] - pred3[i] : i in [1..#vals]];
 		print "";
@@ -375,3 +381,33 @@ function tower_table2(tower : maxlevel:=1000, maxpower:=1000)
 	caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
 	return format_table(header,labels,data,caption);
 end function;
+
+
+//make tables displaying predictions for values
+procedure table_data(data,p,d: power:=1)
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do	
+		info := tower[1];
+		data := tower[2];
+		levels := info[4];
+
+		labels := [ "Actual", "Pred1","Pred2","Delta2","Pred3","Delta3"];
+		
+		header := ["Level:"] cat [ Sprint(n) : n in [1..levels]];
+		vals:=get_anumbers(tower : power:=power) ;
+		pred1 := [ predict1(p,d,power,n,vals[1]) : n in [1..#vals]];
+		pred2 := [ predict2(p,d,power,n) : n in [1..#vals]];
+		pred3 := [ predict3(p,d,power,n,vals[1]) : n in [1..#vals]];
+		data := [ vals, pred1,pred2,
+			[ vals[i] - pred2[i] : i in [1..#vals]],
+			pred3, [ vals[i] - pred3[i] : i in [1..#vals]]
+			];
+
+		
+		caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+		print format_table(header,labels,data,caption);
+		print "";
+	end for;
+end procedure;
+
+

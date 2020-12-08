@@ -1,0 +1,21 @@
+load data_storage;
+
+
+//Examples with p=2
+
+print "\\section{Examples with $p=2$ for fourth power}";
+print "";
+
+for d in [3..21 by 2] do
+	table_data(collected_data,2,d: power:=4);
+end for;
+
+
+//Examples with p=3
+print "\\section{Examples with $p=3$ for second power}";
+
+for d in [4..30] do
+	if (d mod 3) ne 0 then
+		table_data(collected_data,3,d: power:=2);
+	end if;
+end for;
