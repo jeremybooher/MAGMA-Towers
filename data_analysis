@@ -332,11 +332,11 @@ function tower_table1(tower : maxlevel:=1000, maxpower:=1000)
 	levels := Min(info[4],maxlevel);
 	powers := Min(info[5],maxpower);
 
-	header := ["Level", "Genus"] cat [ "dim ker V^" *Sprint(n) : n in [1..powers]];
+	header := ["Level", "Genus"] cat [ "dim ker $V^" *Sprint(n) *"$": n in [1..powers]];
 	
 	labels := [1..levels];
 	data := [  [data[l][r] : r in [1..powers+1]] : l in [1..levels] ];
 	
-	caption := "$"*Sprint(get_name(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+	caption := "y^F-y=$"*Sprint(get_name(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
 	return format_table(header,labels,data,caption);
 end function;
