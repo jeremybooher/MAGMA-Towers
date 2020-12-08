@@ -33,6 +33,25 @@ function get_name(tower)
 	return tower[1][3];
 end function;
 
+//get it in a format suitable for latex
+function get_name_latex(tower)
+	poly := tower[1][3];
+	coeff := Coefficients(poly);
+	d := #coeff-1;
+	coeffstring := ""; if coeff[d+1] ne 1 then coeffstring:=Sprint(coeff[d+1]) ; end if;
+	printstring := coeffstring * "x^{" * Sprint(d) * "}";
+	
+	while d gt 0 do
+		d := d-1;
+		c := coeff[d+1];
+		if c ne 0 then
+			coeffstring := ""; if c ne 1 then coeffstring:=Sprint(c) ; end if;
+			printstring *:= " +"*coeffstring * "x^{" * Sprint(d) * "}";
+		end if;
+	end while;
+	return printstring;
+end function;
+
 function get_anumber(tower,level : power:=1)
 	assert (level le tower[1][4]);
 	assert (power le tower[1][5]);
@@ -332,11 +351,11 @@ function tower_table1(tower : maxlevel:=1000, maxpower:=1000)
 	levels := Min(info[4],maxlevel);
 	powers := Min(info[5],maxpower);
 
-	header := ["Level", "Genus"] cat [ "dim ker $V^" *Sprint(n) *"$": n in [1..powers]];
+	header := ["Level", "Genus"] cat [ "dim ker $V^{" *Sprint(n) *"}$": n in [1..powers]];
 	
 	labels := [1..levels];
 	data := [  [data[l][r] : r in [1..powers+1]] : l in [1..levels] ];
 	
-	caption := "$y^F-y="*Sprint(get_name(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+	caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
 	return format_table(header,labels,data,caption);
 end function;
