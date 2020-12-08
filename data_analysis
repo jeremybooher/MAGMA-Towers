@@ -55,6 +55,11 @@ function get_gradeds(tower,power)
 	return [bigdims[n]-smalldims[n]  :  n in [1..#bigdims]];
 end function;
 
+function get_invariants(tower,level)
+	assert( level le tower[1][4]);
+	return [tower[2][level][n+1] : n in [1..tower[1][5]]];
+end function;
+
 /* Analysis */
 
 /* Guess a formula 
@@ -275,4 +280,63 @@ end function;
 
 function find_discrepancies(p ,data )
 	return [ <d,find_discrepancies_d(p,d,filter_data(data : p:=p, d:= d)) > : d in [2..40] | (d mod 3 ne 0) ] ; 
+end function;
+
+/* Functions for Creating LaTeX tables
+Requires the package booktabs for nicer formatting */
+/*
+\begin{table}[ht]
+\centering
+\begin{tabular}[c| c....c]
+header
+\toprule
+labels & data
+\bottomrule
+\end{tabular}
+\caption{ caption }
+\end{table}
+*/
+function format_table(header,labels,data,caption)
+	columns := #header;
+	preamble := "\\begin{table}[ht]\n\\centering\n\\begin{tabular}{c|";
+	
+	for n in [1..columns] do
+		preamble *:= "c ";
+	end for;
+	preamble *:= "}\n";
+	
+	headerstring := Sprint(header[1]);
+	for n in [2..columns] do
+		headerstring *:=" & " * Sprint(header[n]);
+	end for;
+	headerstring *:= " \\\\ \n\\toprule\n";
+	
+	mainstring := "";
+	for n in [1..#labels] do
+		rowstring := Sprint(labels[n]);
+		for item in data[n] do
+			rowstring *:= " & " * Sprint(item);
+		end for;
+		mainstring *:= rowstring * " \\\\ \n";
+	end for;
+	
+	finalstring := "\\bottomrule\n\\end{tabular}\n\\caption{" * Sprint(caption) * "}\n\\end{table}";
+	
+	return preamble * headerstring * mainstring * finalstring;
+end function;
+
+//style 1, displaying genus, dim ker V^r
+function tower_table1(tower : maxlevel:=1000, maxpower:=1000)
+	info := tower[1];
+	data := tower[2];
+	levels := Min(info[4],maxlevel);
+	powers := Min(info[5],maxpower);
+
+	header := ["Level", "Genus"] cat [ "dim ker V^" *Sprint(n) : n in [1..powers]];
+	
+	labels := [1..levels];
+	data := [  [data[l][r] : r in [1..powers+1]] : l in [1..levels] ];
+	
+	caption := "$"*Sprint(get_name(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+	return format_table(header,labels,data,caption);
 end function;

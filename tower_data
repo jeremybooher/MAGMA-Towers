@@ -130,7 +130,7 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 		t2:= Realtime();
 		count :=2;
 		v:= [list[1][1] * x^(list[1][2])] cat [0 : j in [1..n-1]];
-		printform := IntegerToString(list[1][1]) cat "*x^" cat IntegerToString(list[1][2]);
+		polyform := list[1][1]*x^ (list[1][2]);
 		
 		while count le #list do
 			if n eq 1 then
@@ -139,9 +139,11 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 			else
 				v:= WittSum(v, [list[count][1] * x^(list[count][2])] cat [0 : j in [1..n-1]]  : pols:=epols);
 			end if;
-			printform cat:= "+" cat IntegerToString(list[count][1]) cat "*x^" cat IntegerToString(list[count][2]) ;
+			polyform +:= list[count][1] * x^(list[count][2]);
 			count +:=1;
 		end while;
+		
+		printform := Sprint(polyform);
 
 		if printing then
 			print "Starting Analysis:",printform;
