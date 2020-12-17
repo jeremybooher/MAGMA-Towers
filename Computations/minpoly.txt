@@ -1,0 +1,854 @@
+//Data on minimal polynomials
+
+Loading file "data_collectionC"
+
+Loading "tower_dataC"
+
+Loading "towersC"
+
+Loading "gt.m"
+
+Loading "witt.m"
+
+Loading "etas.m"
+
+Setup 5.360
+
+Starting Analysis: 1*x^1
+
+[
+
+    x,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 0, 0 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 1, 1 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 7, 5 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 35, 13 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 155, 29 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 651, 61 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 2667, 125 ]
+
+<[* 2, 1, 1*x^1, 7, 1, 23.720 *], []>
+
+[
+
+    <[* 2, 1, 1*x^1, 7, 1, 23.720 *], []>
+
+]
+
+Setup 5.500
+
+Starting Analysis: 1*x^3
+
+[
+
+    x^3,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 1, 1 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 6, 5 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 28, 13 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 120, 29 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 496, 61 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 2016, 125 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 8128, 253 ]
+
+<[* 2, 3, 1*x^3, 7, 1, 31.230 *], []>
+
+[
+
+    <[* 2, 3, 1*x^3, 7, 1, 31.230 *], []>
+
+]
+
+Setup 5.610
+
+Starting Analysis: 1*x^5
+
+[
+
+    x^5,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 2, 2 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 11, 6 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 49, 14 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 205, 30 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 837, 62 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 3381, 126 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 13589, 254 ]
+
+<[* 2, 5, 1*x^5, 7, 1, 44.430 *], []>
+
+[
+
+    <[* 2, 5, 1*x^5, 7, 1, 44.430 *], []>
+
+]
+
+Setup 5.600
+
+Starting Analysis: 1*x^7
+
+[
+
+    x^7,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 3, 2 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 16, 8 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 70, 20 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 290, 44 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 1178, 92 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 4746, 188 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 19050, 380 ]
+
+<[* 2, 7, 1*x^7, 7, 1, 74.380 *], []>
+
+[
+
+    <[* 2, 7, 1*x^7, 7, 1, 74.380 *], []>
+
+]
+
+Setup 5.630
+
+Starting Analysis: 1*x^9
+
+[
+
+    x^9,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 4, 3 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 21, 5 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 91, 15 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 375, 29 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 1519, 63 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 6111, 125 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 24511, 255 ]
+
+<[* 2, 9, 1*x^9, 7, 1, 100.850 *], []>
+
+[
+
+    <[* 2, 9, 1*x^9, 7, 1, 100.850 *], []>
+
+]
+
+Setup 5.630
+
+Starting Analysis: 1*x^11
+
+[
+
+    x^11,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 5, 3 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 26, 7 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 112, 15 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 460, 29 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 1860, 63 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 7476, 127 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 29972, 255 ]
+
+<[* 2, 11, 1*x^11, 7, 1, 133.140 *], []>
+
+[
+
+    <[* 2, 11, 1*x^11, 7, 1, 133.140 *], []>
+
+]
+
+>Setup 5.700
+
+Starting Analysis: 1*x^13
+
+[
+
+    x^13,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 6, 3 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 31, 7 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 133, 15 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 545, 31 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 2201, 63 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 8841, 127 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 35433, 255 ]
+
+<[* 2, 13, 1*x^13, 7, 1, 180.810 *], []>
+
+[
+
+    <[* 2, 13, 1*x^13, 7, 1, 180.810 *], []>
+
+]
+
+Setup 6.060
+
+Starting Analysis: 1*x^15
+
+[
+
+    x^15,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 7, 3 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 36, 11 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 154, 27 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 630, 59 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 2542, 123 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 10206, 251 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 40894, 507 ]
+
+<[* 2, 15, 1*x^15, 7, 1, 298.530 *], []>
+
+[
+
+    <[* 2, 15, 1*x^15, 7, 1, 298.530 *], []>
+
+]
+
+Setup 5.890
+
+Starting Analysis: 1*x^17
+
+[
+
+    x^17,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 8, 4 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 41, 6 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 175, 14 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 715, 30 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 2883, 62 ]
+
+Working on level: 6
+
+genus, deg min poly... [ 11571, 126 ]
+
+Working on level: 7
+
+genus, deg min poly... [ 46355, 254 ]
+
+<[* 2, 17, 1*x^17, 7, 1, 298.340 *], []>
+
+[
+
+    <[* 2, 17, 1*x^17, 7, 1, 298.340 *], []>
+
+]
+
+>  
+
+
+p=3:
+
+
+
+Setup 0.140
+
+Starting Analysis: 1*x^1
+
+[
+
+    x,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 0, 0 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 6, 3 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 78, 12 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 780, 39 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 7260, 120 ]
+
+<[* 3, 1, 1*x^1, 5, 1, 204.740 *], []>
+
+[
+
+    <[* 3, 1, 1*x^1, 5, 1, 204.740 *], []>
+
+]
+
+Setup 0.160
+
+Starting Analysis: 1*x^2
+
+[
+
+    x^2,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 1, 1 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 16, 7 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 169, 25 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 1600, 79 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 14641, 241 ]
+
+<[* 3, 2, 1*x^2, 5, 1, 300.350 *], []>
+
+[
+
+    <[* 3, 2, 1*x^2, 5, 1, 300.350 *], []>
+
+]
+
+Setup 0.220
+
+Starting Analysis: 1*x^4
+
+[
+
+    x^4,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 3, 1 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 36, 7 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 351, 25 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 3240, 79 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 29403, 241 ]
+
+<[* 3, 4, 1*x^4, 5, 1, 671.160 *], []>
+
+[
+
+    <[* 3, 4, 1*x^4, 5, 1, 671.160 *], []>
+
+]
+
+Setup 0.250
+
+Starting Analysis: 1*x^5
+
+[
+
+    x^5,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 4, 2 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 46, 7 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 442, 26 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 4060, 79 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 36784, 242 ]
+
+<[* 3, 5, 1*x^5, 5, 1, 948.290 *], []>
+
+[
+
+    <[* 3, 5, 1*x^5, 5, 1, 948.290 *], []>
+
+]
+
+Setup 0.300
+
+Starting Analysis: 1*x^7
+
+[
+
+    x^7,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 6, 3 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 66, 9 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 624, 27 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 5700, 81 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 51546, 243 ]
+
+<[* 3, 7, 1*x^7, 5, 1, 1601.570 *], []>
+
+[
+
+    <[* 3, 7, 1*x^7, 5, 1, 1601.570 *], []>
+
+]
+
+Setup 0.330
+
+Starting Analysis: 1*x^8
+
+[
+
+    x^8,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 7, 3 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 76, 15 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 715, 51 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 6520, 159 ]
+
+Working on level: 5
+
+genus, deg min poly... [ 58927, 483 ]
+
+<[* 3, 8, 1*x^8, 5, 1, 2586.160 *], []>
+
+[
+
+    <[* 3, 8, 1*x^8, 5, 1, 2586.160 *], []>
+
+]
+
+Setup 0.400
+
+Starting Analysis: 1*x^10
+
+[
+
+    x^10,
+
+    0,
+
+    0,
+
+    0,
+
+    0
+
+]
+
+Working on level: 1
+
+genus, deg min poly... [ 9, 2 ]
+
+Working on level: 2
+
+genus, deg min poly... [ 96, 7 ]
+
+Working on level: 3
+
+genus, deg min poly... [ 897, 26 ]
+
+Working on level: 4
+
+genus, deg min poly... [ 8160, 79 ]
+
+Working on level: 5

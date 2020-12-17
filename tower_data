@@ -55,6 +55,21 @@ function analyze(level,n,p,r,d,x,ys,fs,simplify,basis,precomp : printing:= false
 	return [g] cat a,precomp;
 end function;
 
+//Instead find minimal polynomial of Cartier
+function analyze_minpoly(level,n,p,r,x,ys,fs,simplify,basis,precomp : printing:= false, powers:=1)
+	g := #basis;
+	t1 := Realtime();
+	cartier,precomp:= build_matrix(level,n,p,r,x,ys,fs,simplify,basis, precomp : printing:=printing);
+	t2 := Realtime();
+	poldeg := Degree(MinimalPolynomial(cartier));
+	t3 := Realtime();
+	if printing then
+		print "Finding Minimal Polynomial:",t3-t2;
+	end if;
+	return [poldeg],precomp;
+end function;
+
+
 /*Compute invariants going up a tower
 
 
@@ -74,6 +89,26 @@ function collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify: printing := false,st
 		Append(~data,results);
 	end for;
 	
+	
+
+	return data;
+end function;
+
+
+function collect_tower_data_minpoly(n,p,r,d,x,ys,fs,bases,simplify: printing := false,store:=false,printform:="",powers:=1 )
+	data := [];
+	precomp := AssociativeArray();
+	
+	for level in [1..n] do
+		if printing then
+			print "Working on level:",level;
+		end if;
+		results,precomp := analyze_minpoly(level,n,p,r,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing :=printing, powers:=powers);
+		if printing then
+			print "deg min poly...", results;
+		end if;
+		Append(~data,results);
+	end for;
 	
 
 	return data;
