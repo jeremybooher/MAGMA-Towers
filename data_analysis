@@ -410,4 +410,47 @@ procedure table_data(data,p,d: power:=1)
 	end for;
 end procedure;
 
+/*
+In case same computation gets run multiple times (with different depth perhaps), remove duplicates
+*/
+remove_duplicate_data := function(data)
+	accumulated_towers := AssociativeArray();
+	for tower in data do
+		p := get_characteristic(tower);
+		poly := get_name(tower);
+		key := <p,poly>;
+		if key in Keys(accumulated_towers) then
+			Append(~accumulated_towers[key],tower);
+			print "Had duplicate:",key;
+			print "";
+		else
+			accumulated_towers[key] := [tower];
+		end if;
+	end for;
+	
+	new_towers := [];
+	for key in Keys(accumulated_towers) do
+		duplicates := accumulated_towers[key];
+		
+		level:=0;
+		powers:=0;
+		current_best := [* *];
+		
+		for tower in duplicates do
+			info := tower[1];
+			if (info[4] gt level) or (info[4] eq level and info[5] gt powers) then
+				if level ne 0 then
+					print "Replaced";
+				end if;
+				level:=info[4];
+				powers:=info[5];
+				current_best := tower;
+			end if;
+		end for;
+		
+		Append(~new_towers,current_best);
+	end for;
+	
+	return new_towers;
+end function;
 
