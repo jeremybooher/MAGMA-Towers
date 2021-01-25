@@ -1,12 +1,10 @@
-//Compute a-numbers for covers of P^1 ramified at one point to compare with efficiency of MAGMA's built in stuff
+/*Compute a-numbers for covers of P^1 ramified at one point to compare with efficiency of MAGMA's built in stuff
+Covers of P^1 ramified at one point (assumed to be infinity) in characteristic p with equation y^p - y = f with ord_0(f) = -d, p not dividing d
 
-//Covers of P^1 ramified at one point (assumed to be infinity) in characteristic p with equation y^p - y = f with ord_0(f) = -d, p not dividing d
+Includes functions to collect statistics about such covers, and the capacity to then compute with selected towers where the first level is "interesting"
+*/
 
 load tower_data;
-
-
-//Use Realtime(); for timing
-
 
 //Warning: MAGMA using 1-based array indexing
 
@@ -221,7 +219,7 @@ testing:=function(d,p)
     return true;
 end function;
 
-//collect statistics
+//collect statistics using built-in a-number support
 sample_old:=function(d,p,count);
     K:=GF(p);
     FF<t>:=FunctionField(K);
@@ -277,7 +275,8 @@ create_poly:=function(f);
 end function;
 
 
-//Create a bunch of examples...
+//Create a bunch (=count) of examples with ramification invariant d in characteristic p
+//Compute a-numbers
 create_examples:=function(d,p,count);
     K:=GF(p);
     FF<t>:=PolynomialRing(K);
@@ -329,7 +328,11 @@ create_examples:=function(d,p,count);
     return anumbers,polist;
 end function;
 
-//Pick some examples.  Depth is how many levels in tower
+/*Pick some examples with given ramification invariant d, prime p
+Total is how many to search through for interesting examples at level 1
+Freq is how many of each invariant at level 1 to look at
+Depth is how many levels in tower to compute, powers how many powers of Cartier to compute, etc.
+*/
 analyze_examples := function(d,p,total,freq : depth:=3 ,run_num:=-1 , storing:=false, powers:=5)
 	anumbers,polist := create_examples(d,p,total);
 	

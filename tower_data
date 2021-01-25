@@ -1,6 +1,6 @@
 /*
-Using the methods introduced in towers, setup and compute invariants in various Zp towers
-The serious computation is in towers.  This deals with data collection and storing some of the expensive precomputations
+Using the methods introduced in tower_computations, setup and compute invariants in various Zp towers
+The serious computation is in the other file.  This deals with data collection and storing some of the expensive precomputations
 
 The standard description of a tower is:
 Working in characteristic p.
@@ -70,9 +70,9 @@ function analyze_minpoly(level,n,p,r,x,ys,fs,simplify,basis,precomp : printing:=
 end function;
 
 
-/*Compute invariants going up a tower
-
-
+/*
+Compute invariants in a tower going up to level n
+This uses the standard notation for a tower
 */
 function collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify: printing := false,store:=false,printform:="",powers:=1 )
 	data := [];
@@ -89,12 +89,13 @@ function collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify: printing := false,st
 		Append(~data,results);
 	end for;
 	
-	
 
 	return data;
 end function;
 
-
+/*
+Do the same, but for minimum polynomials.
+*/
 function collect_tower_data_minpoly(n,p,r,d,x,ys,fs,bases,simplify: printing := false,store:=false,printform:="",powers:=1 )
 	data := [];
 	precomp := AssociativeArray();
@@ -114,7 +115,9 @@ function collect_tower_data_minpoly(n,p,r,d,x,ys,fs,bases,simplify: printing := 
 	return data;
 end function;
 
-/*Save Results Nicely for a Tower
+/*Save Results Nicely for a Tower, and also dump them as MAGMA readable list
+out is the file to save to
+header and calculations are data about the tower and the results
 */
 procedure save_computations(out,header, calculations)
 	PrintFile(out, "Calculations for " cat header[3]);
@@ -136,9 +139,11 @@ procedure save_computations(out,header, calculations)
 end procedure;
 
 
-/* We want towers determined by \sum [b_i x^i] for i in [0..d] stored as [ [ <coefficient, degree>]]
-to turn off printing timing info, use data_collection(p,r,d,n,polys : printing := false)
-the parameter store indicates whether to store precomputations for later use
+/* Collect data about the towers determined by a set of polynomials
+Work over finite field of size p^r, ramification invariant d, n levels.
+We want towers determined by \sum [b_i x^i] for i in [0..d] stored as [ [ <coefficient, degree>]], which are the entries of the list polys
+
+There are also parameters to control printing, whether to store precomputations, and which power of the Cartier operator to use
 
 Output : Store the results in a file
 and returns a list of data
@@ -203,6 +208,10 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 	return calculations;
 end function;
 
+/*
+This function takes a filename where the data describing a tower and any relevant precomputations have been stored in magma's internal format
+and returns printform,n,p,r,d,x,ys,fs,simplify,bases,precomp (the usual data used in other computations)
+*/
 //version 1
 function reconstruct_tower(filename)
 	I := Open(filename,"r");

@@ -1,6 +1,6 @@
 /*Compute a-numbers for Z_p towers of P^1 totally ramified above one point
 It is much more efficient than MAGMA's built in methods, which spend a lot of their time finding a basis of regular differentials.
-This requires some work to write the tower in the standard form used in Madden's paper
+This requires some work to write the tower in the standard form used in Madden's Arithmetic in Generalized Artin-Schreier Extensions of Zp paper
 
 Standard Setup:
 Working in characteristic p.
@@ -16,13 +16,14 @@ We represent differentials, using Madden's results, as polynomials (forgetting t
 
 The simplify function applies the Artin-Schreier relations to write polynomials in the reduced form we expect
 
-We can compute the Cartier operator, and precompute a bunch of values to avoid duplicate computations when building the matrix for Cartier.  This is by far the most computationally expensive step, as we deal individually with each monomoial and there can be thousands of them.
+We can compute the Cartier operator, and precompute a bunch of values to avoid duplicate computations when building the matrix for Cartier.  This is by far the most computationally expensive step (except when $p=2) , as we deal individually with each monomoial and there can be thousands of them.
 
 We use MAGMA's built-in function for computing the rank
+
+We use Luis Finotti's algorithms for computations with Witt vectors.  They are much faster than having MAGMA try to compute the function fields corresponding to a given Witt vector sum using its built-in methods
 */
 
-/*Use Luis Finotti's algorithms for computations with Witt vectors.  They are much faster than having MAGMA try to compute the function fields using its built-in methods
-*/
+//Witt vector computations
 load "gt.m";
 
 
@@ -313,7 +314,7 @@ This wil fail if we haven't precomputed the right thing yet
 precomputed : an associative array, indexed by the exponent of x^a ys[1]^(a1) ys[2]^(a2) ... and storing the image of that differential under the Cartier operator
 p : characteristic
 n : how many levels in tower
-monomial : monomial f(x) to compute V(f(x) dx) for
+monomial : monomial f to compute V(f dx) for
 */
 function monomial_Cartier(precomputed,p,n,monomial)
 	//first step is to pull out p-th powers of variables, then use precomputed values
