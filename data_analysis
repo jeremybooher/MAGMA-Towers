@@ -478,3 +478,42 @@ remove_duplicate_data := function(data)
 	return new_towers;
 end function;
 
+//given a pattern, find where towers in data have different invariants
+//this can easily cause errors as there is no checking about sizes
+function find_irregularities(data,pattern,max_level,max_power)
+	differences := [ [ 0 : j in [1..max_power+1]] : i in [1..max_level]]; // 0 means no differences
+	
+	for tower in data do
+		// can prove level 1 is always as expected
+		for i in [1..max_level] do
+			for j in [1..max_power+1] do
+				if pattern[i][j] ne tower[2][i][j] then
+					differences[i][j] := 1;
+				end if;
+			end for;
+		end for;
+	end for;
+
+	return differences;
+end function;
+
+//given a pattern, find where towers in data have different invariants (looking at difference from previous level)
+//this can easily cause errors as there is no checking about sizes
+function find_irregularities_diff(data,pattern,max_level,max_power)
+	differences := [ [ 0 : j in [1..max_power+1]] : i in [1..max_level]]; // 0 means no differences
+	
+	for tower in data do
+		// can prove level 1 is always as expected
+		for i in [2..max_level] do
+			for j in [1..max_power+1] do
+				//looking at difference from previous level
+				if pattern[i][j]-pattern[i-1][j] ne tower[2][i][j] - tower[2][i-1][j] then
+					differences[i][j] := 1;
+				end if;
+			end for;
+		end for;
+	end for;
+
+	return differences;
+end function;
+
