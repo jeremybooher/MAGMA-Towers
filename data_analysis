@@ -230,6 +230,17 @@ function predict3(p,d,power,n,a1)
 	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*(n-1)))) +a1;
 end function;
 
+//try floor functions in a telescoping sum
+function predict4(p,d,power,n,level1)
+	alpha := predict_leadingconstant(p,d,power);
+	
+	total := 0;
+	for j in [2..n] do
+		total +:= Ceiling( alpha *  (p ^(2*(j-1)) - p^(2 * (j-2))));
+	end for;
+	return total + level1;
+end function;
+
 /*the following look for all of the towers in data with given (p,d) and display some predictions and errors about the invariants
 */
 procedure display_data(data,p,d : power:=1)
@@ -240,12 +251,25 @@ procedure display_data(data,p,d : power:=1)
 		print "dimensions of ker V^",power,":",vals;
 		pred1 := [ predict1(p,d,power,n,vals[1]) : n in [1..#vals]];
 		print "Predictions1:",pred1;
-		pred2 := [ predict2(p,d,power,n) : n in [1..#vals]];
-		print "Predictions2:",pred2;
-		print "Delta2s:",[ vals[i] - pred2[i] : i in [1..#vals]];	
-		pred3 := [ predict3(p,d,power,n,vals[1]) : n in [1..#vals]];
-		print "Predictions3:",pred3;		
-		print "Delta3s:",[ vals[i] - pred3[i] : i in [1..#vals]];
+
+		pred4 := [ predict4(p,d,power,n,vals[1]) : n in [1..#vals]];
+		print "Predictions4:",pred4;		
+		print "Delta4s:",[ vals[i] - pred4[i] : i in [1..#vals]];
+		print "";
+	end for;
+end procedure;
+
+/*the following look for all of the towers in data with given (p,d) without making any predictions
+*/
+procedure display_pure_data(data,p,d)
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do
+		print "Tower:", get_name(tower);
+		for power in [1.. tower[1][5]] do
+			vals := get_anumbers(tower : power:=power);
+			print "dimensions of ker V^",power,":",vals;
+		end for;
+		
 		print "";
 	end for;
 end procedure;
