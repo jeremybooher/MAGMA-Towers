@@ -16,7 +16,7 @@ We represent differentials, using Madden's results, as polynomials (forgetting t
 
 The simplify function applies the Artin-Schreier relations to write polynomials in the reduced form we expect
 
-We can compute the Cartier operator, and precompute a bunch of values to avoid duplicate computations when building the matrix for Cartier.  This is by far the most computationally expensive step (except when $p=2) , as we deal individually with each monomoial and there can be thousands of them.
+We can compute the Cartier operator, and precompute a bunch of values to avoid duplicate computations when building the matrix for Cartier.  This is by far the most computationally expensive step (except when p=2) , as we deal individually with each monomoial and there can be thousands of them.
 
 We use MAGMA's built-in function for computing the rank
 
