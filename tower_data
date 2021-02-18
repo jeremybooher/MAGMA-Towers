@@ -208,6 +208,97 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 	return calculations;
 end function;
 
+/* Collect data about some towers with periodically stable monodromy
+Work over finite field of size p^r, ramification invariant d, n levels.
+Right now, use very special example depending on one parameter d (not quite consistent with other uses of d).  This doesn't work in char 2,
+and requires a congruence condition on d.
+
+There are also parameters to control printing, whether to store precomputations, and which power of the Cartier operator to use
+
+Output : Store the results in a file
+and returns a list of data
+*/
+function data_collection_periodic_monodromy(p,r,d,n ,run_num : printing:=true, store:=false, powers:=1)
+	assert( p gt 2);
+	assert( (d-1) mod p ne 0);
+
+	//Setup 
+	t1 := Realtime();
+	P,x,ys,ASW,epols := setup_ASW(p,r,n); 
+	
+	storing_output := run_num ge 0;
+	
+	//ds ramification break at nth level, lower numbering
+	//ss nth ramification break, upper numbering
+	//us conductor of nth level
+	ss := [d-1];
+	us := [d]; 
+	ds := [d-1];
+	
+	
+	for i in [2..n] do
+		if (i mod 2 eq 0) then
+			ss[i] := d * p^(i-1)  -1;
+		else
+			ss[i] := d * p^(i-1) -2;			
+		end if;
+		us[i] := ss[i]+1;
+		
+		//u_{n+1} - u_n = ( d_{n+1} - d_n ) / p^n
+		ds[i] := (us[i] - us[i-1])*p^(i-1) + ds[i-1];
+	
+	end for;
+	
+	print ss, us, ds;
+
+	bases :=construct_bases(p,n,x,ys,ds); //it is cheap to compute this
+	
+	if printing then
+		print "Run Number ",run_num;
+		print "Setup" , Realtime()-t1;	
+	end if;	
+	
+	out := "Computations/computations" cat IntegerToString(run_num) cat ".txt";
+	calculations := [];
+
+
+	t2:= Realtime();
+	count :=2;
+	v:= [x^(ds[1])] cat [0 : j in [1..n-1]];
+	polyform := "[x^" cat IntegerToString(ds[1]) cat "]";
+	
+	while count le n do
+
+		v:= WittSum(v, [0 : j in [1..count-1]] cat [ x^(ss[count] * p^(count-1))] cat [0 : j in [1..n-count]]  : pols:=epols);
+		polyform := polyform cat " + " cat IntegerToString(p) cat "^" cat IntegerToString(count-1) cat " * [x^" cat IntegerToString(ss[count]) cat "]";
+		count +:=1;
+	end while;
+	
+	printform := polyform;
+
+	if printing then
+		print "Starting Analysis:",printform;
+		print v;
+	end if;
+	fs,simplify:= create_ASW_tower(p,n,P,ds,x,ys,ASW,v);
+	t3:=Realtime();
+	if printing then
+		print "Put tower in Standard form:",t3-t2;
+	end if;
+
+	data := collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify:printing:=printing,store:=store,printform:=printform,powers:=powers);
+
+	t4 :=Realtime();
+	header := [*p,d,printform,n,powers,t4-t2*];
+	print <header, data>;
+	Append(~calculations, <header, data>); 
+	if storing_output then	
+		save_computations(out,header,data);	
+	end if;
+
+	return calculations;
+end function;
+
 /*
 This function takes a filename where the data describing a tower and any relevant precomputations have been stored in magma's internal format
 and returns printform,n,p,r,d,x,ys,fs,simplify,bases,precomp (the usual data used in other computations)
