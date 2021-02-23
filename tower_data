@@ -300,7 +300,7 @@ function data_collection_periodic_monodromy(p,r,d,n ,run_num : printing:=true, s
 end function;
 
 //a different version when p=2
-function data_collection_periodic_monodromy2(p,r,d,n ,run_num : printing:=true, store:=false, powers:=1)
+function data_collection_periodic_monodromy2b(p,r,d,n ,run_num : printing:=true, store:=false, powers:=1)
 	assert( p eq 2);
 	assert( d mod 2 ne 0);
 
@@ -346,8 +346,8 @@ function data_collection_periodic_monodromy2(p,r,d,n ,run_num : printing:=true, 
 
 	t2:= Realtime();
 	count :=2;
-	v:= [x^(ds[1])] cat [0 : j in [1..n-1]];
-	polyform := "[x^" cat IntegerToString(ds[1]) cat "]"; //d or s?
+	v:= WittSum([x^(ds[1])] cat [0 : j in [1..n-1]], [x^3] cat [0 : j in [1..n-1]]);
+	polyform := "[x^" cat IntegerToString(ds[1]) cat "] + [x^3]"; //d or s?
 	
 	while count le n do
 		if ( count mod 2) eq 0 then
