@@ -138,6 +138,69 @@ procedure save_computations(out,header, calculations)
 	Write(machine_out,<header,calculations>);
 end procedure;
 
+/*
+Collect data about the tower determined by a list wvs of Witt vector with ramification invariants ds
+Work over finite field of size p^r, n levels.
+polyforms are descriptions of the towers
+ASW_data is [P,x,ys,ASW,epols] returned by setup_ASW
+Wouldn't object oriented programming be nice...
+
+There are also parameters to control printing, whether to store precomputations, and which power of the Cartier operator to use
+
+Output : Store the results in a file
+and returns a list of data
+*/
+
+function data_collection_wvs(p,r,n,ds,wvs, polyforms,  ASW_data, run_num  : printing:=true, store:=false, powers:=1)
+	//Setup 
+	t1 := Realtime();
+	
+	storing_output := run_num ge 0;
+	
+	P,x,ys,ASW,epols := Explode( ASW_data);
+	d := ds[1]; //d is ramification break for first level
+	bases :=construct_bases(p,n,x,ys,ds); //it is cheap to compute a basis for the regular differentials
+	
+	if printing then
+		print "Run Number ",run_num;
+		print "Setup" , Realtime()-t1;	
+	end if;	
+	
+	out := "Computations/computations" cat IntegerToString(run_num) cat ".txt";
+	calculations := [];
+
+	count := 1;
+	while count le # wvs do
+		t2:= Realtime();
+
+		v:= wvs[count];
+		polyform := polyforms[count];
+	
+		printform := Sprint(polyform);
+
+		if printing then
+			print "Starting Analysis:",printform;
+			print v;
+		end if;
+		
+		fs,simplify:= create_ASW_tower(p,n,P,ds,x,ys,ASW,v);
+		t3:=Realtime();
+		if printing then
+			print "Put tower in Standard form:",t3-t2;
+		end if;
+
+		data := collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify:printing:=printing,store:=store,printform:=printform,powers:=powers);
+
+		t4 :=Realtime();
+		header := [*p,d,printform,n,powers,t4-t2*];
+		print <header, data>;
+		Append(~calculations, <header, data>); 
+		if storing_output then	
+			save_computations(out,header,data);	
+		end if;
+	end while;
+	return calculations;
+end function;
 
 /* Collect data about the towers determined by a set of polynomials
 Work over finite field of size p^r, ramification invariant d, n levels.
