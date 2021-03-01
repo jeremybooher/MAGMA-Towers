@@ -139,9 +139,10 @@ procedure save_computations(out,header, calculations)
 end procedure;
 
 /*
-Collect data about the tower determined by a list wvs of Witt vector with ramification invariants ds
+Collect data about the tower determined by a list wvs of Witt vector; polyforms are descriptions of the towers
+Each tower has the same ramification invariants ds at level 1,2, 3, ...
 Work over finite field of size p^r, n levels.
-polyforms are descriptions of the towers
+
 ASW_data is [P,x,ys,ASW,epols] returned by setup_ASW
 Wouldn't object oriented programming be nice...
 
@@ -198,11 +199,13 @@ function data_collection_wvs(p,r,n,ds,wvs, polyforms,  ASW_data, run_num  : prin
 		if storing_output then	
 			save_computations(out,header,data);	
 		end if;
+		
+		count +:=1;
 	end while;
 	return calculations;
 end function;
 
-/* Collect data about the towers determined by a set of polynomials
+/* Collect data about the towers determined by a set of Teichmuller polynomials
 Work over finite field of size p^r, ramification invariant d, n levels.
 We want towers determined by \sum [b_i x^i] for i in [0..d] stored as [ [ <coefficient, degree>]], which are the entries of the list polys
 
@@ -212,28 +215,19 @@ Output : Store the results in a file
 and returns a list of data
 */
 function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, powers:=1)
-	//Setup 
-	t1 := Realtime();
-	P,x,ys,ASW,epols := setup_ASW(p,r,n); 
-	
-	storing_output := run_num ge 0;
-	
-	ds := [Integers()!(d * (p^(2*j-1) +1)/(p+1) ): j in [1..n]]; //recovered from genus formula KW
-	bases :=construct_bases(p,n,x,ys,ds); //it is cheap to compute this
-	
-	if printing then
-		print "Run Number ",run_num;
-		print "Setup" , Realtime()-t1;	
-	end if;	
-	
-	out := "Computations/computations" cat IntegerToString(run_num) cat ".txt";
-	calculations := [];
 
+	P,x,ys,ASW,epols := setup_ASW(p,r,n);
+	ASW_data :=  [*P, x, ys,ASW,epols*];
+	ds := [Integers()!(d * (p^(2*j-1) +1)/(p+1) ): j in [1..n]]; //recovered from genus formula KW
+	
+	wvs := [];
+	printforms := [];
+	
 	for list in polys do
-		t2:= Realtime();
-		count :=2;
+		assert(list[1][2] eq d);
 		v:= [list[1][1] * x^(list[1][2])] cat [0 : j in [1..n-1]];
 		polyform := list[1][1]*x^ (list[1][2]);
+		count :=2;
 		
 		while count le #list do
 			if n eq 1 then
@@ -246,29 +240,11 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 			count +:=1;
 		end while;
 		
-		printform := Sprint(polyform);
-
-		if printing then
-			print "Starting Analysis:",printform;
-			print v;
-		end if;
-		fs,simplify:= create_ASW_tower(p,n,P,ds,x,ys,ASW,v);
-		t3:=Realtime();
-		if printing then
-			print "Put tower in Standard form:",t3-t2;
-		end if;
-
-		data := collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify:printing:=printing,store:=store,printform:=printform,powers:=powers);
-
-		t4 :=Realtime();
-		header := [*p,d,printform,n,powers,t4-t2*];
-		print <header, data>;
-		Append(~calculations, <header, data>); 
-		if storing_output then	
-			save_computations(out,header,data);	
-		end if;
+		Append(~wvs,v);
+		Append(~printforms, Sprint(polyform));
 	end for;
-	return calculations;
+	
+	return data_collection_wvs(p,r,n,ds,wvs, printforms, ASW_data, run_num  : printing:=printing, store:=store, powers:=powers );
 end function;
 
 /* Collect data about some towers with periodically stable monodromy
