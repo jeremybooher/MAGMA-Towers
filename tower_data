@@ -1,6 +1,6 @@
 /*
 Using the methods introduced in tower_computations, setup and compute invariants in various Zp towers
-The serious computation is in the other file.  This deals with data collection and storing some of the expensive precomputations
+The serious computation is in the other file.  This deals with data collection, chosing towers, and storing some of the expensive precomputations
 
 The standard description of a tower is:
 Working in characteristic p.
@@ -249,110 +249,93 @@ end function;
 
 /* Collect data about some towers with periodically stable monodromy
 Work over finite field of size p^r, ramification invariant d, n levels.
-Right now, use very special example depending on one parameter d (not quite consistent with other uses of d).  This doesn't work in char 2,
-and requires a congruence condition on d.
+
+polys is a list of towers, specified as [<val,exp>] to represent
+\sum p^(val[i]) [x^(exp[i])]
+need to have same ramification invariants for each tower
+
+We don't enforce that the monodromy is actually periodic!
 
 There are also parameters to control printing, whether to store precomputations, and which power of the Cartier operator to use
 
 Output : Store the results in a file
 and returns a list of data
 */
-function data_collection_periodic_monodromy(p,r,d,n ,run_num : printing:=true, store:=false, powers:=1)
-	assert( p gt 2);
-	assert( (d-1) mod p ne 0);
-
-	//Setup 
-	t1 := Realtime();
-	P,x,ys,ASW,epols := setup_ASW(p,r,n); 
+function data_collection_pm(p,r,n,polys ,run_num : printing:=true, store:=false, powers:=1)
+	P,x,ys,ASW,epols := setup_ASW(p,r,n);
+	ASW_data :=  [*P, x, ys,ASW,epols*];
 	
-	storing_output := run_num ge 0;
+	wvs := [];
+	printforms := [];
 	
-	//ds ramification break at nth level, lower numbering
-	//ss nth ramification break, upper numbering
-	//us conductor of nth level
-	ss := [d-1];
-	us := [d]; 
-	ds := [d-1];
-	
-	
-	for i in [2..n] do
-		if (i mod 2 eq 0) then
-			ss[i] := d * p^(i-1)  -1;
-		else
-			ss[i] := d * p^(i-1) -2;			
-		end if;
-		us[i] := ss[i]+1;
+	for list in polys do
+		v:= [ 0 : j in [1..n]];
+		polyform := "";
+		count := 1;
 		
-		//u_{n+1} - u_n = ( d_{n+1} - d_n ) / p^n
-		ds[i] := (us[i] - us[i-1])*p^(i-1) + ds[i-1];
-	
+		//create Witt vector and name for tower
+		while count le #list do
+			exp := list[count][2];
+			val := list[count][1];
+			count +:=1;
+			
+			//if val > n, the first n components are all zero
+			if val le n then
+				if n eq 1 then
+					//WittSum doesn't like length 1
+					v := [v[1]+ x^(exp)];
+				else
+					v:= WittSum(v, [0 : j in [1..val]] cat [ x^(exp * p^(count))] cat [0 : j in [1..n-val-1]]  : pols:=epols);
+				end if;
+				polyform := polyform cat " + " cat IntegerToString(p) cat "^" cat IntegerToString(val) cat " * [x^" cat IntegerToString(exp) cat "]";	
+			end if;
+		end while;
+		
+		Append(~wvs,v);
+		Append(~printforms, Sprint(polyform));
+				
+		//now compute invariants
+		us := []; //conductor of nth level	
+		
+		for count in [1..n] do
+			s:=-1;
+			
+			for pair in list do
+				if pair[1] lt count then
+					new_s := pair[2] * p^(count - pair[1] - 1);
+					if new_s gt s then
+						s:= new_s;
+					end if;
+				end if;
+			end for;
+			Append(~us,s+1);
+		end for;
+				
+		//ss := [us[1]-1];
+		ds := [us[1]-1]; //ramification invariant at nth level
+		
+		for i in [2..n] do
+			//ss[i] := us[i]-1;
+			
+			//u_{n+1} - u_n = ( d_{n+1} - d_n ) / p^n
+			ds[i] := (us[i] - us[i-1])*p^(i-1) + ds[i-1];
+		
+		end for;
+
 	end for;
 	
-	print ss, us, ds;
-
-	bases :=construct_bases(p,n,x,ys,ds); //it is cheap to compute this
-	
-	if printing then
-		print "Run Number ",run_num;
-		print "Setup" , Realtime()-t1;	
-	end if;	
-	
-	out := "Computations/computations" cat IntegerToString(run_num) cat ".txt";
-	calculations := [];
-
-
-	t2:= Realtime();
-	count :=2;
-	v:= [x^(ds[1])] cat [0 : j in [1..n-1]];
-	polyform := "[x^" cat IntegerToString(ds[1]) cat "]";
-	
-	while count le n do
-
-		v:= WittSum(v, [0 : j in [1..count-1]] cat [ x^(ss[count] * p^(count-1))] cat [0 : j in [1..n-count]]  : pols:=epols);
-		polyform := polyform cat " + " cat IntegerToString(p) cat "^" cat IntegerToString(count-1) cat " * [x^" cat IntegerToString(ss[count]) cat "]";
-		count +:=1;
-	end while;
-	
-	printform := polyform;
-
-	if printing then
-		print "Starting Analysis:",printform;
-		print v;
-	end if;
-	fs,simplify:= create_ASW_tower(p,n,P,ds,x,ys,ASW,v);
-	t3:=Realtime();
-	if printing then
-		print "Put tower in Standard form:",t3-t2;
-	end if;
-
-	data := collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify:printing:=printing,store:=store,printform:=printform,powers:=powers);
-
-	t4 :=Realtime();
-	header := [*p,d,printform,n,powers,t4-t2*];
-	print <header, data>;
-	Append(~calculations, <header, data>); 
-	if storing_output then	
-		save_computations(out,header,data);	
-	end if;
-
-	return calculations;
+	//we've assumed each tower has the same ramification invariants (ds)
+	return data_collection_wvs(p,r,n,ds,wvs, printforms, ASW_data, run_num  : printing:=printing, store:=store, powers:=powers );
 end function;
 
-//a different version when p=2
-function data_collection_periodic_monodromy2b(p,r,d,n ,run_num : printing:=true, store:=false, powers:=1)
-	assert( p eq 2);
+//a particular example we've been looking at that has periodic monodromy
+// p =2
+function example_pm2(d,n, run_num : printing:=true, store:=false, powers:=1)
 	assert( d mod 2 ne 0);
+	assert ( d gt 3);
 
-	//Setup 
-	t1 := Realtime();
-	P,x,ys,ASW,epols := setup_ASW(p,r,n); 
-	
-	storing_output := run_num ge 0;
-	
-	//ds ramification break at nth level, lower numbering
-	//ss nth ramification break, upper numbering
-	//us conductor of nth level
-	ss := [Integers()!((d+2) -2)];
+	p:=2;	
+	ss := [d];
 	us := [ss[1]+1]; 
 	ds := [ss[1]];
 	
@@ -370,56 +353,27 @@ function data_collection_periodic_monodromy2b(p,r,d,n ,run_num : printing:=true,
 	
 	end for;
 	
-	print ss, us, ds;
-
-	bases :=construct_bases(p,n,x,ys,ds); //it is cheap to compute this
+	polylist := [ <0,d>  , <0,3>] ;
 	
-	if printing then
-		print "Run Number ",run_num;
-		print "Setup" , Realtime()-t1;	
-	end if;	
-	
-	out := "Computations/computations" cat IntegerToString(run_num) cat ".txt";
-	calculations := [];
-
-
-	t2:= Realtime();
 	count :=2;
-	v:= WittSum([x^(ds[1])] cat [0 : j in [1..n-1]], [x^3] cat [0 : j in [1..n-1]]);
-	polyform := "[x^" cat IntegerToString(ds[1]) cat "] + [x^3]"; //d or s?
 	
 	while count le n do
 		if ( count mod 2) eq 0 then
-			v:= WittSum(v, [0 : j in [1..count-1]] cat [ x^(ss[count] * p^(count-1))] cat [0 : j in [1..n-count]]  : pols:=epols);
-			polyform := polyform cat " + " cat IntegerToString(p) cat "^" cat IntegerToString(count-1) cat " * [x^" cat IntegerToString(ss[count]) cat "]";
+			Append(~polylist, < count-1, ss[count] > );
 		end if;
 		count +:=1;
 	end while;
 	
-	printform := polyform;
-
-	if printing then
-		print "Starting Analysis:",printform;
-		print v;
-	end if;
-	fs,simplify:= create_ASW_tower(p,n,P,ds,x,ys,ASW,v);
-	t3:=Realtime();
-	if printing then
-		print "Put tower in Standard form:",t3-t2;
-	end if;
-
-	data := collect_tower_data(n,p,r,d,x,ys,fs,bases,simplify:printing:=printing,store:=store,printform:=printform,powers:=powers);
-
-	t4 :=Realtime();
-	header := [*p,d,printform,n,powers,t4-t2*];
-	print <header, data>;
-	Append(~calculations, <header, data>); 
-	if storing_output then	
-		save_computations(out,header,data);	
-	end if;
-
-	return calculations;
+	return data_collection_pm(p,1,n,[polylist],run_num : printing:=printing, store:=store, powers:=powers);
 end function;
+
+/*Another example one could try in odd characteristic:
+		if (i mod 2 eq 0) then
+			ss[i] := d * p^(i-1)  -1;
+		else
+			ss[i] := d * p^(i-1) -2;		
+*/			
+
 
 /*
 This function takes a filename where the data describing a tower and any relevant precomputations have been stored in magma's internal format
