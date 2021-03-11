@@ -1,0 +1,118 @@
+/*
+Our code doesn't work with multiple points of ramification, but MAGMA's builtin functions do (albeit much slower)
+*/
+
+//Produce Examples of Towers Using MAGMA's Witt vector functionality.
+//K<t> := RationalFunctionField(GF(p^r));
+// n : how many levels
+//vs : a list of elements of K
+//The tower is a Teichmuller tower: y^F - y = \sum [vs[i],0,0,...] 
+function magma_ASW_example(K,n,vs)
+	assert(n gt 0);
+	t1 := Realtime();
+	W:=WittRing(K,n);
+	
+	wv := W![0 : i in [1..n]];
+	printform := "";
+	for term in vs do
+		wv +:= W!([term] cat [0 : i in [1..n-1]]);
+		printform := printform cat "+" cat Sprint(term);
+	end for;
+	
+	L := FunctionField(wv);
+	t2 :=Realtime();
+	print "Constructing Function Field took: ", t2-t1;
+	
+	field_list := [L];
+	count :=1 ;
+	while count lt n do
+		count +:=1;
+		L := BaseField(L);
+		field_list := [L] cat field_list;
+	end while;
+	
+	return field_list;
+end function;
+
+//Compute a-number of a function field using MAGMA's built in functions
+//Computing the genus (finding a basis of regular differentials) seems to be slowest
+function default_anumber(K : printing:=true)
+	if printing then
+		print "Computing Genus...";
+	end if;
+	t1:=Realtime();
+	g := Genus(K);
+	t2:=Realtime();
+	if printing then	
+		print "Took: ",t2-t1;
+	end if;
+	r := Rank(CartierRepresentation(K));
+	t3:=Realtime();
+	if printing then
+		print "a-number Took: ",t3-t2;
+	end if;
+	return g- r;
+end function;
+
+procedure compute_anumbers(K,n,vs)
+	field_list := magma_ASW_example(K,n,vs);
+	
+	for i in [1..n] do
+		print "Level:",i," a-number:",default_anumber(field_list[i] : printing:=false);
+	end for;
+end procedure;
+
+p:=3 ;
+K<x> := FunctionField(GF(p));
+print "x^ 5 + x^(-5)";
+compute_anumbers(K,4,[x^ 5 + x^(-5)]);
+print "x^ 7 + x^(-5)";
+compute_anumbers(K,4,[x^ 7 + x^(-5)]);
+
+/*
+My computation with x^5 + x^(-5) gave
+
+Level: 1  a-number: 4
+Level: 2  a-number: 36
+Level: 3  a-number: 306
+Level: 4  a-number: 2736
+
+For comparison, if you look at the [x^5] tower, you have a-numbers 2, 19, 154, 1369.  For the original tower, the a-numbers are 2 *( number for [x^5] tower) -2, except at the first level.
+
+x^ 7 + x^(-5)
+
+Constructing Function Field took:  5.240
+
+Computing Genus...
+
+Took:  0.030
+
+a-number Took:  0.000
+
+Level: 1  a-number: 6
+
+Computing Genus...
+
+Took:  0.020
+
+a-number Took:  0.140
+
+Level: 2  a-number: 44
+
+Computing Genus...
+
+Took:  4.310
+
+a-number Took:  81.890
+
+Level: 3  a-number: 368
+
+Computing Genus...
+
+Took:  85303.560
+
+a-number Took:  137484.080
+
+Level: 4  a-number: 3284
+*/
+
