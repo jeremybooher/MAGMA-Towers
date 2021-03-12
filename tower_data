@@ -248,7 +248,7 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 end function;
 
 /* Collect data about some towers with periodically stable monodromy
-Work over finite field of size p^r, ramification invariant d, n levels.
+Work over finite field of size p^r, n levels.
 
 polys is a list of towers, specified as [<val,exp>] to represent
 \sum p^(val[i]) [x^(exp[i])]
@@ -268,6 +268,8 @@ function data_collection_pm(p,r,n,polys ,run_num : printing:=true, store:=false,
 	wvs := [];
 	printforms := [];
 	
+	print polys;
+	
 	for list in polys do
 		v:= [ 0 : j in [1..n]];
 		polyform := "";
@@ -285,7 +287,7 @@ function data_collection_pm(p,r,n,polys ,run_num : printing:=true, store:=false,
 					//WittSum doesn't like length 1
 					v := [v[1]+ x^(exp)];
 				else
-					v:= WittSum(v, [0 : j in [1..val]] cat [ x^(exp * p^(count))] cat [0 : j in [1..n-val-1]]  : pols:=epols);
+					v:= WittSum(v, [0 : j in [1..val]] cat [ x^(exp * p^(val))] cat [0 : j in [1..n-val-1]]  : pols:=epols);
 				end if;
 				polyform := polyform cat " + " cat IntegerToString(p) cat "^" cat IntegerToString(val) cat " * [x^" cat IntegerToString(exp) cat "]";	
 			end if;
@@ -372,7 +374,7 @@ end function;
 			ss[i] := d * p^(i-1)  -1;
 		else
 			ss[i] := d * p^(i-1) -2;		
-*/			
+*/	
 
 
 /*

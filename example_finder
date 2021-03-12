@@ -197,6 +197,18 @@ rand_poly:=function(t,d,p) ;
     return poly;
 end function;
 
+//get random f whose coefficients are 0 or 1
+rand_polyzo:=function(t,d,p) ;
+    K:=GF(p);
+    poly := t^(d) ;
+    for i in [1..d-1] do
+        if (i mod p ne 0) then
+            poly := poly + Random({0,1})*t^(i);
+        end if;
+    end for;
+    return poly;
+end function;
+
 //can we find disagreement?
 testing:=function(d,p)
     K := GF(p);
@@ -277,7 +289,7 @@ end function;
 
 //Create a bunch (=count) of examples with ramification invariant d in characteristic p
 //Compute a-numbers
-create_examples:=function(d,p,count);
+create_examples:=function(d,p,count : zeroone:=false);
     K:=GF(p);
     FF<t>:=PolynomialRing(K);
 
@@ -296,7 +308,11 @@ create_examples:=function(d,p,count);
         if n mod 500 eq 0 then
             print "Finished",n;
         end if;
-        f := rand_poly(t,d,p);
+        if not zeroone then
+	        f := rand_poly(t,d,p);
+	else
+		f:= rand_polyzo(t,d,p);
+	end if;
         a:=anumber(f,d,p,K,FF); 
 	polc:=create_poly(f);
         if IsDefined(anumbers,a) then
@@ -342,6 +358,41 @@ analyze_examples := function(d,p,total,freq : depth:=3 ,run_num:=-1 , storing:=f
 	end for;
 	
 	return data_collection(p,1,d,depth,master_list ,run_num: printing:=true,store:=storing, powers:=powers);
+end function;
+
+/*Look at some non-basic towers, where we allow variation of level 2 without influencing the ramification invariants
+Pick some examples with given ramification invariant d, prime p
+Total is how many to search through for interesting examples at level 1
+Freq is how many of each invariant at level 1 to look at
+Variants is how many towers to consider with the same level 1 but different higher levels
+Depth is how many levels in tower to compute, powers how many powers of Cartier to compute, etc.
+*/
+analyze_examples2 := function(d,p,total,freq,variants: depth:=3 ,run_num:=-1 , storing:=false, powers:=5)
+	anumbers,polist := create_examples(d,p,total : zeroone:=true);
+	
+	master_list := [];
+	for anum in Keys(anumbers) do
+		master_list cat:= [ Random(polist[anum]) : j in [1..freq]];
+	end for;
+	
+	total_list := [];
+	
+	for base in master_list do
+		count := 0;
+		while count lt variants do
+			new_list := [ <0,b[2]> : b in base];
+			for j in [1..d-1] do 
+			//in this range, a term of  p [x^j] = [0,x^(jp),0...] won't influence the ramification breaks 
+				if (j mod p) ne 0 and Random({0,1}) eq 0 then
+					Append(~new_list, < 1,j>); 
+				end if;
+			end for;	
+			Append(~total_list,new_list);
+			count := count +1;
+		end while;
+	end for;
+	
+	return data_collection_pm(p,1,depth,total_list ,run_num: printing:=true,store:=storing, powers:=powers);
 end function;
 
 
