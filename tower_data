@@ -285,7 +285,7 @@ function data_collection_pm(p,r,n,polys ,run_num : printing:=true, store:=false,
 					//WittSum doesn't like length 1
 					v := [v[1]+ x^(exp)];
 				else
-					v:= WittSum(v, [0 : j in [1..val]] cat [ x^(exp * p^(count))] cat [0 : j in [1..n-val-1]]  : pols:=epols);
+					v:= WittSum(v, [0 : j in [1..val]] cat [ x^(exp * p^(val))] cat [0 : j in [1..n-val-1]]  : pols:=epols);
 				end if;
 				polyform := polyform cat " + " cat IntegerToString(p) cat "^" cat IntegerToString(val) cat " * [x^" cat IntegerToString(exp) cat "]";	
 			end if;
