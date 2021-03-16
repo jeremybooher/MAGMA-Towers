@@ -1,5 +1,5 @@
 /*
-Our code doesn't work with multiple points of ramification, but MAGMA's builtin functions do (albeit much slower)
+Our code doesn't work with multiple points of ramification or other bases, but MAGMA's builtin functions do (albeit much slower)
 */
 
 //Produce Examples of Towers Using MAGMA's Witt vector functionality.
@@ -54,6 +54,7 @@ function default_anumber(K : printing:=true)
 	return g- r;
 end function;
 
+//Compute a=numbers for n levels of ASW tower given by vs over K
 procedure compute_anumbers(K,n,vs)
 	field_list := magma_ASW_example(K,n,vs);
 	
@@ -62,12 +63,14 @@ procedure compute_anumbers(K,n,vs)
 	end for;
 end procedure;
 
-p:=3 ;
-K<x> := FunctionField(GF(p));
-print "x^ 5 + x^(-5)";
-compute_anumbers(K,4,[x^ 5 + x^(-5)]);
-print "x^ 7 + x^(-5)";
-compute_anumbers(K,4,[x^ 7 + x^(-5)]);
+procedure example_multiple_ramification()
+	p:=3 ;
+	K<x> := FunctionField(GF(p));
+	print "x^ 5 + x^(-5)";
+	compute_anumbers(K,4,[x^ 5 + x^(-5)]);
+	print "x^ 7 + x^(-5)";
+	compute_anumbers(K,4,[x^ 7 + x^(-5)]);
+end procedure;
 
 /*
 My computation with x^5 + x^(-5) gave
