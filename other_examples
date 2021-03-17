@@ -169,7 +169,7 @@ procedure example_igusa()
 	V4:=CartierRepresentation(L4);
 	for i in [1..3]do
 		Dimension(Kernel(V4^i));
-	end for;
+	end for; //this ran for over 959 hours using 22G of memory without finishing
 	
 end procedure;
 
