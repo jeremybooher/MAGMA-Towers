@@ -177,6 +177,10 @@ procedure test_conjecture1(towers)
 	end for;
 end procedure;
 
+function predict_leadingconstant(p,d,power)
+	return alpha(d,p : r := power);
+end function;
+
 function leading_numerator(p,d,r)
 	return Numerator(alpha(d,p : r:=r));
 end function;
@@ -201,24 +205,34 @@ function filter_data(data: p := -1 , d:= -1)
 	return new_data;
 end function;
 
-/*Some attempts at predicting the formula
+/*
+Some attempts at predicting the formula
 */
-//this needs power \equiv 1 \mod p, so always get an integer
+
+//most basic guess, stable after level 1
+// use (p ^(2*n) - p^2) to at least sometimes get an integer
+//this needs power \equiv 1 \mod p to get an integer.  Otherwise would need congruence condition on n
 function predict1(p,d,power,n,a1)
-	return predict_leadingconstant(p,d,power)* (p ^(2*(n-1)) - 1) + a1;
+	return predict_leadingconstant(p,d,power)* (p ^(2*n) - p^2) + a1;
 end function;
 
-//predict floor of leading term
-function predict2(p,d,power,n)
-	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*(n-1))));
+//stable after level, put in floor function to make sure integer
+function predict2(p,d,power,n,level,alevel)
+	return Floor( alpha(d,p : r:= power) * (p^(2*n) - p^(2 * level))) + alevel;
 end function;
 
-//take into account first level
+//floor of leading term
+function predict_leading_floor(p,d,power,n)
+	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*n)));
+end function;
+
+//take into account first level, and just use floor 
 function predict3(p,d,power,n,a1)
-	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*(n-1)))) +a1;
+	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*n))) +a1;
 end function;
 
 //try floor functions in a telescoping sum
+/*
 function predict4(p,d,power,n,level1)
 	alpha := predict_leadingconstant(p,d,power);
 	
@@ -228,28 +242,12 @@ function predict4(p,d,power,n,level1)
 	end for;
 	return total + level1;
 end function;
-
-/*the following look for all of the towers in data with given (p,d) and display some predictions and errors about the invariants
 */
-procedure display_data(data,p,d : power:=1)
-	new_data := filter_data(data : p :=p, d:= d);
-	for tower in new_data do
-		print "Tower:", get_name(tower);
-		vals := get_anumbers(tower : power:=power);
-		print "dimensions of ker V^",power,":",vals;
-		pred1 := [ predict1(p,d,power,n,vals[1]) : n in [1..#vals]];
-		print "Predictions1:",pred1;
 
-		pred4 := [ predict4(p,d,power,n,vals[1]) : n in [1..#vals]];
-		print "Predictions4:",pred4;		
-		print "Delta4s:",[ vals[i] - pred4[i] : i in [1..#vals]];
-		print "";
-	end for;
-end procedure;
-
-/*the following look for all of the towers in data with given (p,d) without making any predictions
+/*
+the following look for all of the towers in data with given (p,d) without making any predictions
 */
-procedure display_pure_data(data,p,d)
+procedure display_data(data,p,d )
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
 		print "Tower:", get_name(tower);
@@ -262,6 +260,32 @@ procedure display_pure_data(data,p,d)
 	end for;
 end procedure;
 
+//look for all of the towers in data with given (p,d) and display some predictions and errors about the invariants
+procedure display_predictions(data,p,d : power:=1 , startinglevel:=1)
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do
+		print "Tower:", get_name(tower);
+		vals := get_anumbers(tower : power:=power);
+		print "dimensions of ker V^",power,":",vals;
+		pred1 := [ predict1(p,d,power,n,vals[1]) : n in [1..#vals]];
+		print "Predictions1:",pred1;
+		print "Delta1s:",[ vals[i] - pred1[i] : i in [1..#vals]];
+		print "";
+
+		pred2:= [ predict2(p,d,power,n,startinglevel,vals[startinglevel]) : n in [1..#vals]];
+		print "Predictions2:",pred2;
+		print "Delta2s:",[ vals[i] - pred2[i] : i in [1..#vals]];
+		print "";
+
+		pred3 := [ predict3(p,d,power,n,vals[1]) : n in [1..#vals]];
+		print "Predictions3:",pred3;		
+		print "Delta3s:",[ vals[i] - pred3[i] : i in [1..#vals]];
+		print "--------------------";
+		print "";
+	end for;
+end procedure;
+
+//Try to look at difference from previous level to detect when the constant term changes
 procedure display_differences(data,p,d : power:=1)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
@@ -269,45 +293,49 @@ procedure display_differences(data,p,d : power:=1)
 		vals := get_anumbers(tower : power:=power);
 		diffs := [vals[n]-vals[n-1] : n in [2..#vals]];
 		print "Differences of ker V^",power,":",diffs;
-		pred1 := [ Floor( predict_leadingconstant(p,d,power) * (p^2-1) * p^(2 *(n-1)) ) : n in [1..#vals-1]];
+		pred1 := [ predict_leadingconstant(p,d,power) * (p^2-1) * p^(2 *(n-1))  : n in [2..#vals]];
 		print "Predictions:",pred1;
 		print "Deltas:",[ diffs[i] - pred1[i] : i in [1..#vals-1]];
 	end for;
 end procedure;
 
+//Try to look at gradeds.  Maybe they'll be nicer?  Not really
 procedure display_gradeds(data,p,d , power)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
 		print "Tower:", get_name(tower);
 		vals := get_gradeds(tower , power);
 		print "Dimension of gr ker V^",power,":",vals;
-		pred1 := [ Floor( (predict_leadingconstant(p,d,power) - predict_leadingconstant(p,d,power-1) ) * p^(2 *(n-1)) ) : n in [1..#vals]];
-		print "Predictions:",pred1;
-		print "Deltas:",[ vals[i] - pred1[i] : i in [1..#vals]];
 	end for;
 end procedure;
 
-
-
+//display all data for a given p, d in range 2->40
 procedure display_lots_data(p)
 	for d in [2..40] do
-		if (d mod 3 ne 0) then
+		if (d mod p ne 0) then
 			print "Data for p=",p," d=",d;			
 			display_data(p,d);
 			print "";
 		end if;
 	end for;
-
 end procedure;
 
+/*Find instances for a given p, d where we don't have
+a-number level n - a-number leven (n-1) = difference of the leading terms
+In other words, the constant term has changed
+data must already have been filtered to have correct d,p
+*/
 function find_discrepancies_d(p,d,data)
 	discrep := {};
 	for tower in data do
+		assert( p eq get_characteristic(tower));
+		assert( d eq get_ramification_invariant(tower));
+		
+		leading := alpha(d,p);
 		vals := get_anumbers(tower : power:=1);
-		pred := [ p * (p-1) * d / (4 * (p+1)) * (p ^(2*(n-1)) - 1) + vals[1] : n in [1..#vals]];
-		deltas := [ vals[i] - pred[i] : i in [1..#vals]];
+
 		for i in [2..#vals] do
-			if deltas[i] ne deltas[i-1] then
+			if vals[i] - vals[i-1] ne  leading * (p^2-1) * p^(2 *(i-1)) then
 				Include(~discrep,i);
 			end if;
 		end for;
@@ -315,8 +343,8 @@ function find_discrepancies_d(p,d,data)
 	return discrep;
 end function;
 
-function find_discrepancies(p ,data )
-	return [ <d,find_discrepancies_d(p,d,filter_data(data : p:=p, d:= d)) > : d in [2..40] | (d mod 3 ne 0) ] ; 
+function find_discrepancies(p , max, data )
+	return [ <d,find_discrepancies_d(p,d,filter_data(data : p:=p, d:= d)) > : d in [2..max] | (d mod p ne 0) ] ; 
 end function;
 
 /* Functions for Creating LaTeX tables
