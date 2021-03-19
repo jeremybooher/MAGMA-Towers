@@ -451,7 +451,7 @@ procedure table_data1(data,p,d)
 		data := tower[2];
 		levels := info[4];
 
-		labels := [ "$g(\\cT(n))$", "$a(\\cT(n))$", "$\\delta_" cat IntegerToString(d) cat "(\\cT(n))$" ];
+		labels := [ "$g(\\cT(n))$", "$a(\\cT(n))$", "$\\delta_{" cat IntegerToString(d) cat "}(\\cT(n))$" ];
 		
 		header := ["Level:"] cat [ Sprint(n) : n in [1..levels]];
 		vals:=get_anumbers(tower : power:=1) ;
