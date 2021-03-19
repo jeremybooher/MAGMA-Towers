@@ -1,5 +1,5 @@
 /*
-Our code doesn't work with multiple points of ramification, but MAGMA's builtin functions do (albeit much slower)
+Our code doesn't work with multiple points of ramification or other bases, but MAGMA's builtin functions do (albeit much slower)
 */
 
 //Produce Examples of Towers Using MAGMA's Witt vector functionality.
@@ -54,6 +54,7 @@ function default_anumber(K : printing:=true)
 	return g- r;
 end function;
 
+//Compute a=numbers for n levels of ASW tower given by vs over K
 procedure compute_anumbers(K,n,vs)
 	field_list := magma_ASW_example(K,n,vs);
 	
@@ -62,12 +63,14 @@ procedure compute_anumbers(K,n,vs)
 	end for;
 end procedure;
 
-p:=3 ;
-K<x> := FunctionField(GF(p));
-print "x^ 5 + x^(-5)";
-compute_anumbers(K,4,[x^ 5 + x^(-5)]);
-print "x^ 7 + x^(-5)";
-compute_anumbers(K,4,[x^ 7 + x^(-5)]);
+procedure example_multiple_ramification()
+	p:=3 ;
+	K<x> := FunctionField(GF(p));
+	print "x^ 5 + x^(-5)";
+	compute_anumbers(K,4,[x^ 5 + x^(-5)]);
+	print "x^ 7 + x^(-5)";
+	compute_anumbers(K,4,[x^ 7 + x^(-5)]);
+end procedure;
 
 /*
 My computation with x^5 + x^(-5) gave
@@ -115,4 +118,58 @@ a-number Took:  137484.080
 
 Level: 4  a-number: 3284
 */
+
+//Example with Igusa Tower in Characteristic 3
+//Compute tower over X_1(5) using an explicit equation for the universal curve,
+//  y^2 + (1 + t)xy + ty = x^3 + tx^2
+//and then adjoining points in the kernel of V: E^{p^n} \to E to construct the nth level of the Igusa tower
+procedure example_igusa()
+	p:= 3;
+
+	
+	K<t>:=RationalFunctionField(GF(3));
+	E:= EllipticCurve([1+t,t,t,0,0]);// Universal curve with 5-torsion point
+	MultiplicationByMMap(E,3);// Compute V in coordinates by computing mult by 3
+
+	f:=function(z,y,w)//Encodes V P = Q; we'll iterate to get the Igusa tower over X1(5) over F_3
+	return (1/(z^4 + 2*z^2 + 1)*y^3 + (2*z^2 +2*z)/(z^2 + 1)*y^2 + (2*z^5 + z^4)/(z^2 + 1)*y + 2*z^7/(z^4 + 2*z^2 + 1)) - w*(y^2 + 2*z^3/(z^2 +1)*y + z^6/(z^4 + 2*z^2 + 1));
+	end function;
+	R1<x1>:=PolynomialRing(K);
+
+	Factorization(f(t^3,x1,0));// First layer is a degree 2 extension, obtained by adjoining all roots of f(t^3,x1,0) = 0. Remember that point at infinity has x-coord 0.
+
+	L1<t1>:=ext<K| x1^2 + (2*t^12 + t^9 + 2*t^6 + 2*t^3)*x1 + 2*t^12>;
+
+	R2<x2>:=PolynomialRing(L1);
+	L2<t2>:=ext<L1| f(t^9,x2,t1)>;
+
+	R3<x3>:=PolynomialRing(L2);
+	L3<t3>:=ext<L2| f(t^27,x3,t2)>;
+
+	R4<x4>:=PolynomialRing(L3);
+	L4<t4>:=ext<L3| f(t^81,x4,t3)>;
+
+
+
+	//V1:=CartierRepresentation(L1);
+	//for i in [1..3]do
+	// Dimension(Kernel(V1^i));
+	//end for;
+
+	//V2:=CartierRepresentation(L2);
+	//for i in [1..3]do
+	// Dimension(Kernel(V2^i));
+	//end for;
+
+	//V3:=CartierRepresentation(L3);
+	//for i in [1..3]do
+	// Dimension(Kernel(V3^i));
+	//end for;
+
+	V4:=CartierRepresentation(L4);
+	for i in [1..3]do
+		Dimension(Kernel(V4^i));
+	end for; //this ran for over 959 hours using 22G of memory without finishing
+	
+end procedure;
 

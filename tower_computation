@@ -1,6 +1,6 @@
-/*Compute a-numbers for Z_p towers of P^1 totally ramified above one point
+/*Compute a-numbers for Z_p towers over P^1 in characteristic p totally ramified above one point
 It is much more efficient than MAGMA's built in methods, which spend a lot of their time finding a basis of regular differentials.
-This requires some work to write the tower in the standard form used in Madden's Arithmetic in Generalized Artin-Schreier Extensions of Zp paper
+This requires some work to write the tower in the standard form used in Madden's Arithmetic in Generalized Artin-Schreier Extensions of Zp paper, where we can find a basis of regular differentials by pure thought
 
 Standard Setup:
 Working in characteristic p.

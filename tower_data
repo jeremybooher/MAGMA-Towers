@@ -248,7 +248,7 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 end function;
 
 /* Collect data about some towers with periodically stable monodromy
-Work over finite field of size p^r, ramification invariant d, n levels.
+Work over finite field of size p^r, n levels.
 
 polys is a list of towers, specified as [<val,exp>] to represent
 \sum p^(val[i]) [x^(exp[i])]
@@ -267,6 +267,8 @@ function data_collection_pm(p,r,n,polys ,run_num : printing:=true, store:=false,
 	
 	wvs := [];
 	printforms := [];
+	
+	print polys;
 	
 	for list in polys do
 		v:= [ 0 : j in [1..n]];
@@ -372,7 +374,7 @@ end function;
 			ss[i] := d * p^(i-1)  -1;
 		else
 			ss[i] := d * p^(i-1) -2;		
-*/			
+*/	
 
 
 /*

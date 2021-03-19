@@ -1,10 +1,12 @@
 /* Store and analyze results of computations
-<info, data>
+Towers are stored as:
+tower := <info, data>
 
 info: p,d, description of tower, #levels computed, # powers computed, time spent (in seconds)
-data : list of [ genus , dim ker V^1,...] 
+data : list of [ genus , dim ker V^1, dim ker V^2, ...] 
 */ 
 
+//display the tower
 procedure show_entry(tower)
 	info := tower[1];
 	data := tower[2];
@@ -24,6 +26,7 @@ function get_characteristic(tower)
 end function;
 
 //get d, the ramification invariant of the first level of the tower
+//for basic towers, this is also the ramification invariant of the tower
 function get_ramification_invariant(tower)
 	return tower[1][2];
 end function;
@@ -36,6 +39,12 @@ end function;
 //get it in a format suitable for latex
 function get_name_latex(tower)
 	poly := tower[1][3];
+	
+	//some more complicated towers are just stored as a string.  If so, return it and hope
+	if Type(poly) eq Type("abc") then
+		return poly;
+	end if;
+	
 	coeff := Coefficients(poly);
 	d := #coeff-1;
 	coeffstring := ""; if coeff[d+1] ne 1 then coeffstring:=Sprint(coeff[d+1]) ; end if;
@@ -52,15 +61,21 @@ function get_name_latex(tower)
 	return printstring;
 end function;
 
+//get the a-number of tower at level, or optionally that for a power of Cartier
 function get_anumber(tower,level : power:=1)
 	assert (level le tower[1][4]);
 	assert (power le tower[1][5]);
 	return tower[2][level][power+1];
 end function;
 
+//get the a-numbers for all levels of the tower, or optionally that of a power of Cartier
 function get_anumbers(tower : power:=1)
 	assert (power le tower[1][5]);
 	return [ row[power+1] : row in tower[2] ];
+end function;
+
+function get_genera(tower)
+	return [ row[1] : row in tower[2] ];
 end function;
 
 //get dimension of ker V^{power} / ker V^{power-1} at the nth level
@@ -74,16 +89,17 @@ function get_gradeds(tower,power)
 	return [bigdims[n]-smalldims[n]  :  n in [1..#bigdims]];
 end function;
 
+//get dim ker V^r for a particular level
 function get_invariants(tower,level)
 	assert( level le tower[1][4]);
 	return [tower[2][level][n+1] : n in [1..tower[1][5]]];
 end function;
 
-/* Analysis */
+/* Functions to Analyze the Data */
 
 /* Guess a formula 
 a * q^(2n) + b * q^n + c = a(n)
-based on q, and three choices of n
+based on q, three choices of n, and the assocaited a(n)
 */
 guess:=function(q,ns, as)
 	v:=Vector(Rationals(),as);
@@ -92,13 +108,15 @@ guess:=function(q,ns, as)
 	return [ sol[1], sol[2], sol[3]];
 end function;
 
-//predict additional layers
+//predict additional layers where coeff is a list of coefficients
+//for example as produced by guess
 predict := function(q,n,coeff)
 	return coeff[1] * q^(2*n) + coeff[2] * q^(n) + coeff[3] ;
 end function;
 
-
 //guess a formula given p, the dimensions, and which level to start at
+//return the coefficients of the formula, and a boolean indicating whether or not any additional data
+//besides the three data points used to guess the formula is consistent
 function auto_guess(p,vals,start)
 	assert( #vals - start ge 0); //otherwise not enough data to guess
 		
@@ -127,79 +145,66 @@ procedure make_guesses(p,data : power:=1)
 	end for;
 end procedure;
 
-//In char p >2, a-number level(n+1) = p (p-1) d/ (4 (p+1)) (p^(2n) -1 )  + level1
-//This is too strong to be true
-function conjecture1(p,d,tower)
-	conjecture := true;
-	if p gt 2 then
-		vals := get_anumbers(tower : power:=1);
-
-		a1 := vals[1];
-		
-		for n in [2..#vals] do
-			if p * (p-1) * d / (4 * (p+1)) * (p ^(2*(n-1)) - 1) + a1 ne vals[n] then
-				print n,"Predicted:", p * (p-1) * d / (4 * (p+1)) * (p ^(2*(n-1)) - 1) + a1,"Actual:",vals[n];
-				conjecture:=false;
-			end if;
-		end for;
-		
-		return conjecture;
-	else
-		vals := get_anumbers(tower : power:=1);
-
-		a1 := vals[1];
-		
-		for n in [2..#vals] do
-			if d/6 * (p ^(2*(n-1)) - 1) + (-1)^((d-1)/2) /2 + a1 ne vals[n] then
-				print n,"Predicted:",d/6 * (p ^(2*(n-1)) - 1) + (-1)^((d-1)/2) /2 + a1, "Actual", vals[n];
-				conjecture:=false;
-			end if;
-		end for;
-
-		return conjecture;	
-	
-	end if;
+//compute alpha_r(d,p), the predicted leading term
+function alpha(d,p : r:=1)
+	return r * (p-1) * d / ( 2 * (p+1) * ( (p-1)*r + (p+1)));
 end function;
 
-procedure test_conjecture1(towers)
+//In char p >2, a-number level(n) = alpha(d,p) (p^(2 n) - p^(2*N) )  + a-number level(N)
+//N depends on d, and increases along with d somehow
+function conjecture1(p,d,N,tower)
+	conjecture := true;
+	
+	vals := get_anumbers(tower : power:=1);
+	
+	aN := vals[N];
+	leading := alpha(d,p);
+		
+	for n in [N..#vals] do
+		if leading * (p ^(2*n) - p^(2*N)) + aN ne vals[n] then
+			print n,"Predicted:", leading * (p ^(2*n) - p^(2*N)) + aN,"Actual:",vals[n];
+			conjecture:=false;
+		end if;
+	end for;	
+
+	return conjecture;	
+end function;
+
+//test conjecture1 for a list of towers
+procedure test_conjecture1(towers : N:= 1)
+	counter_example:=false;
 	for tower in towers do
 		p := get_characteristic(tower);
 		d:= get_ramification_invariant(tower);
 		name := get_name(tower);
-		bool := conjecture1(p,d,tower);
-		print "Conjecture1:",p,name,bool;
+		bool := conjecture1(p,d,N,tower);
+		print "Conjecture1: p=",p,",",name,bool;
+		
+		if not bool then
+			counter_example := true;
+		end if;
 	end for;
+	
+	if counter_example then
+		print "Found Counterexample!";
+	end if;
 end procedure;
 
-//predict the leading constant for dim ker V^r
-//Bryden's conjecture
-function predict_leadingconstant(p,d,r)
-	if r eq 0 then
-		return 0;
-	end if;
-	if r eq 1 then
-		return  p *(p-1)* d/ (4* (p+1)) ;
-	end if;
-	return (1 + 1/(r-1)) / ( 1 + 1/(r-1+(p+1)/(p-1))) * predict_leadingconstant(p,d,r-1);
+function predict_leadingconstant(p,d,power)
+	return alpha(d,p : r := power);
 end function;
 
 function leading_numerator(p,d,r)
-	return Numerator(predict_leadingconstant(p,d,r));
+	return Numerator(alpha(d,p : r:=r));
 end function;
 
 function leading_denominator(p,d,r)
-	return Denominator(predict_leadingconstant(p,d,r));
+	return Denominator(alpha(d,p : r:=r));
 end function;
 
+//predict alpha_r(1,p) i.e. the part independent of d.
 function predict_leadingconstant_nod(p,r)
-	if r eq 1 then
-		if p gt 2 then
-			return  p *(p-1)/ (4* (p+1)) ;
-		else
-			return 1/6; //actually the two cases agree as formulated now
-		end if;
-	end if;
-	return (1 + 1/(r-1)) / ( 1 + 1/(r-1+(p+1)/(p-1))) * predict_leadingconstant_nod(p,r-1);
+	return r * (p-1)  / ( 2 * (p+1) * ( (p-1)*r + (p+1)));
 end function;
 
 //pull out specific examples
@@ -213,24 +218,40 @@ function filter_data(data: p := -1 , d:= -1)
 	return new_data;
 end function;
 
-/*Some attempts at predicting the formula
+/*
+Some attempts at predicting the formula
 */
-//this needs power \equiv 1 \mod p, so always get an integer
+
+//nice leading term
+// use (p ^(2*n) - p^2) to at least sometimes get an integer
+//this needs power \equiv 1 \mod p to get an integer.  Otherwise would need congruence condition on n
+function predict_nice_leading(p,d,power,n)
+	return predict_leadingconstant(p,d,power)* (p ^(2*n) - p^2);
+end function;
+
+
+//most basic guess, stable after level 1
 function predict1(p,d,power,n,a1)
-	return predict_leadingconstant(p,d,power)* (p ^(2*(n-1)) - 1) + a1;
+	return predict_leadingconstant(p,d,power)* (p ^(2*n) - p^2) + a1;
 end function;
 
-//predict floor of leading term
-function predict2(p,d,power,n)
-	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*(n-1))));
+//stable after level, put in floor function to make sure integer
+function predict2(p,d,power,n,level,alevel)
+	return Floor( alpha(d,p : r:= power) * (p^(2*n) - p^(2 * level))) + alevel;
 end function;
 
-//take into account first level
+//floor of leading term, no normalization
+function predict_leading_floor(p,d,power,n)
+	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*n)));
+end function;
+
+//take into account first level, and just use floor 
 function predict3(p,d,power,n,a1)
-	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*(n-1)))) +a1;
+	return Floor(predict_leadingconstant(p,d,power)* (p ^(2*n))) +a1;
 end function;
 
 //try floor functions in a telescoping sum
+/*
 function predict4(p,d,power,n,level1)
 	alpha := predict_leadingconstant(p,d,power);
 	
@@ -240,28 +261,12 @@ function predict4(p,d,power,n,level1)
 	end for;
 	return total + level1;
 end function;
-
-/*the following look for all of the towers in data with given (p,d) and display some predictions and errors about the invariants
 */
-procedure display_data(data,p,d : power:=1)
-	new_data := filter_data(data : p :=p, d:= d);
-	for tower in new_data do
-		print "Tower:", get_name(tower);
-		vals := get_anumbers(tower : power:=power);
-		print "dimensions of ker V^",power,":",vals;
-		pred1 := [ predict1(p,d,power,n,vals[1]) : n in [1..#vals]];
-		print "Predictions1:",pred1;
 
-		pred4 := [ predict4(p,d,power,n,vals[1]) : n in [1..#vals]];
-		print "Predictions4:",pred4;		
-		print "Delta4s:",[ vals[i] - pred4[i] : i in [1..#vals]];
-		print "";
-	end for;
-end procedure;
-
-/*the following look for all of the towers in data with given (p,d) without making any predictions
+/*
+the following look for all of the towers in data with given (p,d) without making any predictions
 */
-procedure display_pure_data(data,p,d)
+procedure display_data(data,p,d )
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
 		print "Tower:", get_name(tower);
@@ -274,6 +279,32 @@ procedure display_pure_data(data,p,d)
 	end for;
 end procedure;
 
+//look for all of the towers in data with given (p,d) and display some predictions and errors about the invariants
+procedure display_predictions(data,p,d : power:=1 , startinglevel:=1)
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do
+		print "Tower:", get_name(tower);
+		vals := get_anumbers(tower : power:=power);
+		print "dimensions of ker V^",power,":",vals;
+		pred1 := [ predict1(p,d,power,n,vals[1]) : n in [1..#vals]];
+		print "Predictions1:",pred1;
+		print "Delta1s:",[ vals[i] - pred1[i] : i in [1..#vals]];
+		print "";
+
+		pred2:= [ predict2(p,d,power,n,startinglevel,vals[startinglevel]) : n in [1..#vals]];
+		print "Predictions2:",pred2;
+		print "Delta2s:",[ vals[i] - pred2[i] : i in [1..#vals]];
+		print "";
+
+		pred3 := [ predict3(p,d,power,n,vals[1]) : n in [1..#vals]];
+		print "Predictions3:",pred3;		
+		print "Delta3s:",[ vals[i] - pred3[i] : i in [1..#vals]];
+		print "--------------------";
+		print "";
+	end for;
+end procedure;
+
+//Try to look at difference from previous level to detect when the constant term changes
 procedure display_differences(data,p,d : power:=1)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
@@ -281,45 +312,49 @@ procedure display_differences(data,p,d : power:=1)
 		vals := get_anumbers(tower : power:=power);
 		diffs := [vals[n]-vals[n-1] : n in [2..#vals]];
 		print "Differences of ker V^",power,":",diffs;
-		pred1 := [ Floor( predict_leadingconstant(p,d,power) * (p^2-1) * p^(2 *(n-1)) ) : n in [1..#vals-1]];
+		pred1 := [ predict_leadingconstant(p,d,power) * (p^2-1) * p^(2 *(n-1))  : n in [2..#vals]];
 		print "Predictions:",pred1;
 		print "Deltas:",[ diffs[i] - pred1[i] : i in [1..#vals-1]];
 	end for;
 end procedure;
 
+//Try to look at gradeds.  Maybe they'll be nicer?  Not really
 procedure display_gradeds(data,p,d , power)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
 		print "Tower:", get_name(tower);
 		vals := get_gradeds(tower , power);
 		print "Dimension of gr ker V^",power,":",vals;
-		pred1 := [ Floor( (predict_leadingconstant(p,d,power) - predict_leadingconstant(p,d,power-1) ) * p^(2 *(n-1)) ) : n in [1..#vals]];
-		print "Predictions:",pred1;
-		print "Deltas:",[ vals[i] - pred1[i] : i in [1..#vals]];
 	end for;
 end procedure;
 
-
-
+//display all data for a given p, d in range 2->40
 procedure display_lots_data(p)
 	for d in [2..40] do
-		if (d mod 3 ne 0) then
+		if (d mod p ne 0) then
 			print "Data for p=",p," d=",d;			
 			display_data(p,d);
 			print "";
 		end if;
 	end for;
-
 end procedure;
 
+/*Find instances for a given p, d where we don't have
+a-number level n - a-number leven (n-1) = difference of the leading terms
+In other words, the constant term has changed
+data must already have been filtered to have correct d,p
+*/
 function find_discrepancies_d(p,d,data)
 	discrep := {};
 	for tower in data do
+		assert( p eq get_characteristic(tower));
+		assert( d eq get_ramification_invariant(tower));
+		
+		leading := alpha(d,p);
 		vals := get_anumbers(tower : power:=1);
-		pred := [ p * (p-1) * d / (4 * (p+1)) * (p ^(2*(n-1)) - 1) + vals[1] : n in [1..#vals]];
-		deltas := [ vals[i] - pred[i] : i in [1..#vals]];
+
 		for i in [2..#vals] do
-			if deltas[i] ne deltas[i-1] then
+			if vals[i] - vals[i-1] ne  leading * (p^2-1) * p^(2 *(i-1)) then
 				Include(~discrep,i);
 			end if;
 		end for;
@@ -327,8 +362,8 @@ function find_discrepancies_d(p,d,data)
 	return discrep;
 end function;
 
-function find_discrepancies(p ,data )
-	return [ <d,find_discrepancies_d(p,d,filter_data(data : p:=p, d:= d)) > : d in [2..40] | (d mod 3 ne 0) ] ; 
+function find_discrepancies(p , max, data )
+	return [ <d,find_discrepancies_d(p,d,filter_data(data : p:=p, d:= d)) > : d in [2..max] | (d mod p ne 0) ] ; 
 end function;
 
 /* Functions for Creating LaTeX tables
@@ -399,7 +434,7 @@ function tower_table2(tower : maxlevel:=1000, maxpower:=1000)
 
 	labels := [ "Genus"] cat [ "dim ker $V^{" *Sprint(n) *"}$": n in [1..powers]];
 	
-	header := ["Level:"] cat [ Sprint(n) : n in [1..levels]];
+	header := ["n=1:"] cat [ Sprint(n) : n in [1..levels]];
 	data := [  [data[l][r] : l in [1..levels]] : r in [1..powers+1] ];
 	
 	caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
@@ -408,7 +443,33 @@ end function;
 
 
 //make tables displaying predictions for values
-procedure table_data(data,p,d: power:=1)
+//Style 1: include genus, a-number, and delta_d = a-number - alpha(d,p) (p^(2n)-p^2)
+procedure table_data1(data,p,d)
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do	
+		info := tower[1];
+		data := tower[2];
+		levels := info[4];
+
+		labels := [ "$g(\\cT(n))$", "$a(\\cT(n))$", "$\\delta_{" cat IntegerToString(d) cat "}(\\cT(n))$" ];
+		
+		header := ["Level:"] cat [ Sprint(n) : n in [1..levels]];
+		vals:=get_anumbers(tower : power:=1) ;
+		leading := [ predict_nice_leading(p,d,1,n) : n in [1..#vals]];
+		data := [ get_genera(tower), vals,
+			[ vals[i] - leading[i] : i in [1..#vals]]
+			];
+
+		
+		caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+		print format_table(header,labels,data,caption);
+		print "";
+	end for;
+end procedure;
+
+//a bunch of predictions, some of which are no longer the same
+/*
+procedure table_data2(data,p,d: power:=1)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do	
 		info := tower[1];
@@ -433,10 +494,10 @@ procedure table_data(data,p,d: power:=1)
 		print "";
 	end for;
 end procedure;
-
-/*
-In case same computation gets run multiple times (with different depth perhaps), remove duplicates
 */
+
+
+//In case same computation gets run multiple times (with different depth perhaps), remove duplicates
 remove_duplicate_data := function(data)
 	accumulated_towers := AssociativeArray();
 	for tower in data do
