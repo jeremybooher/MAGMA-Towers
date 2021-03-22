@@ -467,7 +467,7 @@ procedure table_data1(data,p,d)
 	end for;
 end procedure;
 
-//a bunch of predictions, some of which are no longer the same
+//a bunch of predictions, no longer up to date
 /*
 procedure table_data2(data,p,d: power:=1)
 	new_data := filter_data(data : p :=p, d:= d);
@@ -576,5 +576,42 @@ function find_irregularities_diff(data,pattern,max_level,max_power)
 	end for;
 
 	return differences;
+end function;
+
+/*
+See if perturbing the tower at second level without modifying ramification has any effect
+See analyze_examples2 in example_finder
+*/ 
+function analyze_perturbation(data,variants)
+	unusual_towers := [];
+	unusual_indices := [];
+	
+	block := 0;
+	n := # data;
+	
+	while block lt Floor(n/variants) do
+	//floor function to avoid partial blocks
+		tower1 := data[block*variants+1];
+		pattern := tower1[2];
+		max_level := #pattern;
+		max_power := #pattern[1] -1 ; //also included genus
+		
+		for r in [2..variants] do
+			tower := data[block*variants+r];
+			for i in [1..max_level] do
+				for j in [1..max_power+1] do
+					if pattern[i][j] ne tower[2][i][j] then
+						print "Tower",block*variants+r, "Level",i,"Power",j;
+						Append(~unusual_towers,block*variants+r);
+						Append(~unusual_indices,<i,j>);
+					end if;
+				end for;
+			end for;
+		end for;
+		
+		block +:= 1;
+	end while;
+	
+	return unusual_towers, unusual_indices;
 end function;
 
