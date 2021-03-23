@@ -36,7 +36,7 @@ end function;
 
 //Compute a-number of a function field using MAGMA's built in functions
 //Computing the genus (finding a basis of regular differentials) seems to be slowest
-function default_anumber(K : printing:=true)
+function default_anumber(K : printing:=true, powers:=1)
 	if printing then
 		print "Computing Genus...";
 	end if;
@@ -46,20 +46,30 @@ function default_anumber(K : printing:=true)
 	if printing then	
 		print "Took: ",t2-t1;
 	end if;
-	r := Rank(CartierRepresentation(K));
+	C := CartierRepresentation(K);
+	
+	index:=1;
+	A:= C;
+	
+	while index le powers
+		print "dim ker V^",index, "=", Dimension(Kernel(A));
+		index+:=1;
+		A *:= C;
+	end while;
+
 	t3:=Realtime();
 	if printing then
-		print "a-number Took: ",t3-t2;
+		print "Invariants Took: ",t3-t2;
 	end if;
 	return g- r;
 end function;
 
 //Compute a=numbers for n levels of ASW tower given by vs over K
-procedure compute_anumbers(K,n,vs)
+procedure compute_anumbers(K,n,vs: powers:=5)
 	field_list := magma_ASW_example(K,n,vs);
 	
 	for i in [1..n] do
-		print "Level:",i," a-number:",default_anumber(field_list[i] : printing:=false);
+		print "Level:",i," a-number:",default_anumber(field_list[i] : printing:=false), powers:=powers;
 	end for;
 end procedure;
 
@@ -172,4 +182,23 @@ procedure example_igusa()
 	end for; //this ran for over 959 hours using 22G of memory without finishing
 	
 end procedure;
+
+//do an example over a base curve which is not P^1 (or an ASW extension of P^1)
+//again, can't use our program, so it will be slower
+procedure other_base()
+	p:=3 ;
+	
+	K:=GF(p);
+	R<x>:=FunctionField(K);
+	P<y> := PolynomialRing(R);
+	f := x^5 +x +  1;
+	deg_f := Degree(f);
+	F<alpha> := ext< R | y^2 -  f >;
+	
+	print Divisor(x *alpha);
+	compute_anumbers(F,4,[x*alpha]);
+
+end procedure;
+
+other_base();  //should check we had legit hyperelliptic curve
 
