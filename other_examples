@@ -51,8 +51,10 @@ function default_anumber(K : printing:=true, powers:=1)
 	index:=1;
 	A:= C;
 	
-	while index le powers
-		print "dim ker V^",index, "=", Dimension(Kernel(A));
+	data := [];
+	
+	while index le powers do
+		Append(~data,Dimension(Kernel(A)));  
 		index+:=1;
 		A *:= C;
 	end while;
@@ -61,7 +63,7 @@ function default_anumber(K : printing:=true, powers:=1)
 	if printing then
 		print "Invariants Took: ",t3-t2;
 	end if;
-	return g- r;
+	return data;
 end function;
 
 //Compute a=numbers for n levels of ASW tower given by vs over K
@@ -69,7 +71,7 @@ procedure compute_anumbers(K,n,vs: powers:=5)
 	field_list := magma_ASW_example(K,n,vs);
 	
 	for i in [1..n] do
-		print "Level:",i," a-number:",default_anumber(field_list[i] : printing:=false), powers:=powers;
+		print "Level:",i," a-number:",default_anumber(field_list[i] : printing:=false, powers:=powers);
 	end for;
 end procedure;
 
@@ -191,9 +193,11 @@ procedure other_base()
 	K:=GF(p);
 	R<x>:=FunctionField(K);
 	P<y> := PolynomialRing(R);
-	f := x^5 +x +  1;
+	f := x^5 +x^2 +  1;
 	deg_f := Degree(f);
 	F<alpha> := ext< R | y^2 -  f >;
+	
+	assert( Genus(F) eq 2); //if not 2, then not getting hyperelliptic curve
 	
 	print Divisor(x *alpha);
 	compute_anumbers(F,4,[x*alpha]);
