@@ -197,12 +197,12 @@ procedure other_base()
 	deg_f := Degree(f);
 	F<alpha> := ext< R | y^2 -  f >;
 	
-	assert( Genus(F) eq 2); //if not 2, then not getting hyperelliptic curve
+	assert( Genus(F) eq 2); //if not 2, then not getting hyperelliptic curve as y^2 =f must be singular
 	
 	print Divisor(x *alpha);
 	compute_anumbers(F,4,[x*alpha]);
 
 end procedure;
 
-other_base();  //should check we had legit hyperelliptic curve
+//other_base(); 
 

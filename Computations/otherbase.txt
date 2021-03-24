@@ -1,0 +1,13 @@
+Magma V2.25-6     Wed Mar 24 2021 16:37:21 on mathmagma [Seed = 572060057]
+Type ? for help.  Type <Ctrl>-D to quit.
+
+Loading file "other_examples"
+-7*(1/x, 1/x^3*alpha) + (x, alpha + x + 1) + (x, alpha + x + 2) + (x + 2, alpha)
++ (x^4 + x^3 + x^2 + 2*x + 2, alpha)
+Constructing Function Field took:  10.550
+Level: 1  a-number: [ 3, 5, 7, 8, 9 ]
+Level: 2  a-number: [ 24, 38, 47, 51, 53 ]
+Level: 3  a-number: [ 213, 321, 386, 430, 464 ]
+Level: 4  a-number: [ 1914, 2874, 3450, 3832, 4107 ]
+
+Total time: 44294.939 seconds, Total memory usage: 1149.88MB
