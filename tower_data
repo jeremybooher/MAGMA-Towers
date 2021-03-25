@@ -369,6 +369,46 @@ function example_pm2(d,n, run_num : printing:=true, store:=false, powers:=1)
 	return data_collection_pm(p,1,n,[polylist],run_num : printing:=printing, store:=store, powers:=powers);
 end function;
 
+
+
+function example_pm2B(d,n, run_num : printing:=true, store:=false, powers:=1)
+	assert( d mod 2 ne 0);
+
+	p:=2;	
+	ss := [d];
+	us := [ss[1]+1]; 
+	ds := [ss[1]];
+	
+	
+	for i in [2..n] do
+		if (i mod 2 eq 1) then
+			ss[i] := (d+2) * 2^(2*i-1) -1;
+		else
+			ss[i] := (d+2) * 2^(2*i-1) -1;			
+		end if;
+		us[i] := ss[i]+1;
+		
+		//u_{n+1} - u_n = ( d_{n+1} - d_n ) / p^n
+		ds[i] := (us[i] - us[i-1])*p^(i-1) + ds[i-1];
+	
+	end for;
+	
+	polylist := [ <0,2*(d+2)-1>] ;
+	
+	count :=2;
+	
+	while count le n do
+			Append(~polylist, < count-1, ss[count] > );		
+		count +:=1;
+	end while;
+	
+	return data_collection_pm(p,1,n,[polylist],run_num : printing:=printing, store:=store, powers:=powers);
+end function;
+
+
+
+
+
 /*Another example one could try in odd characteristic:
 		if (i mod 2 eq 0) then
 			ss[i] := d * p^(i-1)  -1;

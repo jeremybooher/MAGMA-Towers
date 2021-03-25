@@ -1,0 +1,201 @@
+Calculations for  + 2^0 * [x^5] + 2^0 * [x^3]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 2, 1 ]
+
+Calculations for  + 2^0 * [x^5] + 2^0 * [x^3]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 2, 1 ]
+
+Calculations for  + 2^0 * [x^5] + 2^0 * [x^3]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 2, 1 ]
+
+Calculations for  + 2^0 * [x^3]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 1, 1 ]
+
+Calculations for  + 2^0 * [x^3] + 2^1 * [x^39]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 1, 1 ]
+Level 2:
+[ 39, 19 ]
+
+Calculations for  + 2^0 * [x^3] + 2^1 * [x^39]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 1, 1 ]
+Level 2:
+[ 39, 19 ]
+Level 3:
+[ 193, 58 ]
+
+Calculations for  + 2^0 * [x^3] + 2^1 * [x^39] + 2^3 * [x^639]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 1, 1 ]
+Level 2:
+[ 39, 19 ]
+Level 3:
+[ 193, 58 ]
+Level 4:
+[ 2745, 1180 ]
+Level 5:
+[ 12961, 3736 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23] + 2^3 * [x^383]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0 ]
+Level 2:
+[ 22, 11 ]
+Level 3:
+[ 112, 34 ]
+Level 4:
+[ 1640, 708 ]
+Level 5:
+[ 7760, 2240 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23] + 2^3 * [x^383] + 2^5 * [x^6143]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0 ]
+Level 2:
+[ 22, 11 ]
+Level 3:
+[ 112, 34 ]
+Level 4:
+[ 1640, 708 ]
+Level 5:
+[ 7760, 2240 ]
+Level 6:
+[ 106032, 45256 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23] + 2^3 * [x^383]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0 ]
+Level 2:
+[ 22, 11 ]
+Level 3:
+[ 112, 34 ]
+Level 4:
+[ 1640, 708 ]
+Level 5:
+[ 7760, 2240 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23] + 2^3 * [x^383]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0 ]
+Level 2:
+[ 22, 11 ]
+Level 3:
+[ 112, 34 ]
+Level 4:
+[ 1640, 708 ]
+Level 5:
+[ 7760, 2240 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23] + 2^2 * [x^95] + 2^3 * [x^383] + 
+2^4 * [x^1535]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0 ]
+Level 2:
+[ 22, 11 ]
+Level 3:
+[ 210, 83 ]
+Level 4:
+[ 1738, 659 ]
+Level 5:
+[ 14010, 5267 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23] + 2^2 * [x^95] + 2^3 * [x^383] + 
+2^4 * [x^1535] + 2^5 * [x^6143]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0 ]
+Level 2:
+[ 22, 11 ]
+Level 3:
+[ 210, 83 ]
+Level 4:
+[ 1738, 659 ]
+Level 5:
+[ 14010, 5267 ]
+Level 6:
+[ 112282, 42131 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0, 0 ]
+Level 2:
+[ 22, 11, 17 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23] + 2^2 * [x^95] + 2^3 * [x^383] + 
+2^4 * [x^1535]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0, 0, 0 ]
+Level 2:
+[ 22, 11, 17, 20 ]
+Level 3:
+[ 210, 83, 130, 158 ]
+Level 4:
+[ 1738, 659, 1018, 1253 ]
+Level 5:
+[ 14010, 5267, 8122, 9989 ]
+
+Calculations for  + 2^0 * [x^1] + 2^1 * [x^23] + 2^2 * [x^95] + 2^3 * [x^383] + 
+2^4 * [x^1535] + 2^5 * [x^6143]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 0, 0, 0, 0 ]
+Level 2:
+[ 22, 11, 17, 20 ]
+Level 3:
+[ 210, 83, 130, 158 ]
+Level 4:
+[ 1738, 659, 1018, 1253 ]
+Level 5:
+[ 14010, 5267, 8122, 9989 ]
+Level 6:
+[ 112282, 42131, 64954, 79877 ]
+
+Calculations for  + 2^0 * [x^5] + 2^1 * [x^23] + 2^2 * [x^95] + 2^3 * [x^383] + 
+2^4 * [x^1535]
+p=2
+genus, dim ker V^1, ...
+Level 1:
+[ 2, 1, 2, 2 ]
+Level 2:
+[ 24, 10, 15, 19 ]
+Level 3:
+[ 212, 82, 126, 155 ]
+Level 4:
+[ 1740, 658, 1014, 1247 ]
+Level 5:
+[ 14012, 5266, 8118, 9983 ]
+
