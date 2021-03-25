@@ -7,7 +7,7 @@ data : list of [ genus , dim ker V^1, dim ker V^2, ...]
 */ 
 
 //display the tower
-procedure show_entry(tower)
+procedure show_tower(tower)
 	info := tower[1];
 	data := tower[2];
 	print "Tower:", info[3];
@@ -226,7 +226,12 @@ Some attempts at predicting the formula
 // use (p ^(2*n) - p^2) to at least sometimes get an integer
 //this needs power \equiv 1 \mod p to get an integer.  Otherwise would need congruence condition on n
 function predict_nice_leading(p,d,power,n)
-	return predict_leadingconstant(p,d,power)* (p ^(2*n) - p^2);
+	if p gt 2 then
+		return predict_leadingconstant(p,d,power)* (p ^(2*n) - p^2);
+	else
+		//this works better in characteristic 2, at least n>1
+		return d/ 24 * (2^(2*n)+8);
+	end if;
 end function;
 
 
