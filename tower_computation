@@ -174,8 +174,26 @@ function normalize_ASW(p,n,P,ds,x,ys,fs)
 		
 		//update later ys's based on change of variables ys[level] = ys'[level] - y_mod
 		for j in [ level+1..n] do
-			fs[j] := simplify(Evaluate(fs[j],ys[level],ys[level] - y_mod));
-			//currently, this involves a huge number of monomials.  Need to rewrite to be more efficient about using quotient
+			base_fsj := fs[j];
+			//The simple thing to do would be to evalute as in the next line
+			//fs[j] := simplify(Evaluate(fs[j],ys[level],ys[level] - y_mod));
+			//But this involves a huge number of monomials.  Need to rewrite to be more efficient using relations 
+			//by working on quotient ring
+			coeffs := Coefficients(base_fsj,ys[level]);
+			
+			power := 0;
+			accumulated := A!1;
+			fsj_alt := A!0;
+			
+			while power lt # coeffs do
+				fsj_alt := fsj_alt + g(coeffs[power+1]) * accumulated;
+				accumulated := accumulated * g(ys[level] - y_mod);
+				power +:=1;
+			end while;
+			
+			
+			//assert( lift(fsj_alt) eq fs[j]);
+			fs[j]  := lift(fsj_alt);
 		end for;
 	end for;
 	
