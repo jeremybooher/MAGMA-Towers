@@ -475,5 +475,3 @@ function further_computations(filename : printing:= false, powers:=1)
 
 	return [ analyze(level,n,p,r,d,x,ys[1..level],fs[1..level],simplify[level],bases[level],precomp: printing:=false , powers:=powers) : level in [1..n]];
 end function;
-
-	
