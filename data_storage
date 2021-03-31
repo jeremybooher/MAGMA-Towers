@@ -6038,7 +6038,7 @@ collected_data := [
 ]>
 ];
      
-//a specific choice of 
+//a specific choice of a periodically stable tower
 periodic_monodromy :=
 [
 <[* 2, 5, " + 2^0 * [x^5] + 2^0 * [x^3] + 2^1 * [x^13] + 2^3 * [x^55] + 2^5 * 
