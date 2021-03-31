@@ -175,6 +175,7 @@ function normalize_ASW(p,n,P,ds,x,ys,fs)
 		//update later ys's based on change of variables ys[level] = ys'[level] - y_mod
 		for j in [ level+1..n] do
 			fs[j] := simplify(Evaluate(fs[j],ys[level],ys[level] - y_mod));
+			//currently, this involves a huge number of monomials.  Need to rewrite to be more efficient about using quotient
 		end for;
 	end for;
 	
@@ -343,10 +344,10 @@ function compute_Cartier(precomputed,p,n,simplify,polynomial)
 	expression := 0;
 	for term in terms do
 		expression +:= monomial_Cartier(precomputed,p,n,term);
-		expression := simplify(expression); //simplyify each time to cut down on the number of terms involved
-			//it is actually possible to have more than 2^30-1 monomials, which causes an internal error in MAGMA
+		//it is possible that we would want to simplify this in the middle to cut down on the number of terms involved.
+		//currently, this is not an issue, and it is faster to only simplify at the end
 	end for;
-	return expression;
+	return simplify(expression);
 end function;
 
 //Compute a binomial coefficient n choose m.  need to treat choosing from 0 things as 1
