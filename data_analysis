@@ -261,6 +261,44 @@ function estimate_lambda(p,d,r)
 		if r eq 2 then
 			if d lt 6 then
 				return 0;
+			elif d lt 16 then
+				return 1/2;
+			elif d lt 24 then
+				return 1;
+			elif d lt 30 then //only looked up to 30
+				return 3/2;
+			else
+				return 0; //no guess
+			end if;
+		elif r eq 4 then //not so sure about these
+			if d lt 4 then
+				return 0;
+			elif d lt 8 then
+				return 1/3;
+			elif d lt 20 then
+				return 2/3;
+			elif d lt 28 then
+			 	return 4/3;
+			else //not so sure where cutoff is
+			 	return 5/3;
+			end if;
+		end if;
+	end if;
+	
+	if p eq 3 then
+		if r eq 2 then
+			if d le 4 then
+				return 0;
+			elif d lt 9 then
+				return 1/2;
+			elif d lt 15 then
+				return 1;
+			elif d le 19 then
+				return 3/2;
+			elif d le 24 then //these cutoffs are iffy by the time d is this large
+				return 2;
+			elif d le 30 then
+				return 5/2;
 			end if;
 		end if;
 	end if;
@@ -270,12 +308,11 @@ end function;
 
 //compare with dim_ker of V^r on nth level with
 //alpha_r(d,p) p^(2n) + lambda_d n 
-function estimate_constant(p,d,r,n , dim_ker)
-	if p eq 2 then
-		prediction := predict_leadingconstant(p,d,r) * p^(2 * n) + estimate_lambda(p,d,r) * n;
-	else	
-		prediction := 0;
-	end if;	
+function estimate_constant(p,d,r,n , dim_ker : linear := true)
+	prediction := predict_leadingconstant(p,d,r) * p^(2 * n);
+	if linear then
+		prediction +:= estimate_lambda(p,d,r) * n;	
+	end if;
 	return dim_ker - prediction;
 end function;
 
@@ -320,16 +357,34 @@ procedure display_predictions(data,p,d : power:=1 , startinglevel:=1)
 	end for;
 end procedure;
 
-procedure display_constants(data,p,d : power:=1 )
+procedure display_constants(data,p,d : power:=1 , threshold:= 5 )
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do
-		print "Tower:", get_name(tower);
-		vals := get_anumbers(tower : power:=power);
-		print "dimensions of ker V^",power,":",vals;
-		pred1 := [ estimate_constant(p,d,power,n,vals[n]) : n in [1..#vals]];
-		print "Estimated Constants:", pred1;	
-		print "--------------------";
-		print "";
+			if tower[1][4] gt threshold then //only ones with enough levels
+			print "Tower:", get_name(tower);
+			vals := get_anumbers(tower : power:=power);
+			print "dimensions of ker V^",power,":",vals;
+			pred1 := [ estimate_constant(p,d,power,n,vals[n]) : n in [1..#vals]];
+			print "Estimated Constants:", pred1;	
+			print "--------------------";
+			print "";
+		end if;
+	end for;
+end procedure;
+
+procedure explore_errors(data,p,d : power:=1 , threshold:= 5 )
+	new_data := filter_data(data : p :=p, d:= d);
+	for tower in new_data do
+			if tower[1][4] gt threshold then //only ones with enough levels
+			print "Tower:", get_name(tower);
+			vals := get_anumbers(tower : power:=power);
+			print "dimensions of ker V^",power,":",vals;
+			//put in floor just to make it easier to eyeball.  It will mess with congruences
+			pred1 := [ Floor(estimate_constant(p,d,power,n,vals[n] : linear:=false)) : n in [1..#vals]];
+			print "Error:", pred1;	
+			print "--------------------";
+			print "";
+		end if;
 	end for;
 end procedure;
 
@@ -461,9 +516,9 @@ function tower_table2(tower : maxlevel:=1000, maxpower:=1000)
 	levels := Min(info[4],maxlevel);
 	powers := Min(info[5],maxpower);
 
-	labels := [ "Genus"] cat [ "dim ker $V^{" *Sprint(n) *"}$": n in [1..powers]];
+	labels := [ "$g(\\cT(n))$"] cat [ "$\\dk{" * Sprint(n) * "}{\\cT(n)}$" : n in [1..powers]];
 	
-	header := ["n=1:"] cat [ Sprint(n) : n in [1..levels]];
+	header := ["n="] cat [ Sprint(n) : n in [1..levels]];
 	data := [  [data[l][r] : l in [1..levels]] : r in [1..powers+1] ];
 	
 	caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
