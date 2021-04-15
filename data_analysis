@@ -145,12 +145,42 @@ procedure make_guesses(p,data : power:=1)
 	end for;
 end procedure;
 
-//compute alpha_r(d,p), the predicted leading term
-function alpha(d,p : r:=1)
-	return r * (p-1) * d / ( 2 * (p+1) * ( (p-1)*r + (p+1)));
+//compute alpha(r,p), which predicts the leading term of conjectures
+function alpha(r,p )
+	return r * (p-1)  / ( 2 * (p+1) * ( (p-1)*r + (p+1)));
 end function;
 
-//In char p >2, a-number level(n) = alpha(d,p) (p^(2 n) - p^(2*N) )  + a-number level(N)
+function predict_leadingconstant(p,d,power)
+	return d* alpha(power,p);
+end function;
+
+function leading_numerator(p,d,r)
+	return Numerator(alpha(r,p) * d);
+end function;
+
+function leading_denominator(p,d,r)
+	return Denominator(alpha(r,p) * d);
+end function;
+
+//denominator of alpha
+function alpha_denominator(r,p)
+	return Denominator(alpha(r,p));
+end function;
+
+//compute the predicted period in our conjectures m(r,p)
+//it is the order of p^2 modulo a modification of the denominator of alpha(r,p)
+function compute_m(r,p)
+	D := alpha_denominator(r,p);
+	//get prime to p part
+	while (D mod p) eq 0 do
+		D := Integers()!(D/p);
+	end while;
+	
+	return Modorder(p^2,D);
+end function;
+
+
+//In char p >2, a-number level(n) = alpha(1,p) d (p^(2 n) - p^(2*N) )  + a-number level(N)
 //N depends on d, and increases along with d somehow
 function conjecture1(p,d,N,tower)
 	conjecture := true;
@@ -158,7 +188,7 @@ function conjecture1(p,d,N,tower)
 	vals := get_anumbers(tower : power:=1);
 	
 	aN := vals[N];
-	leading := alpha(d,p);
+	leading := alpha(1,p) *d;
 		
 	for n in [N..#vals] do
 		if leading * (p ^(2*n) - p^(2*N)) + aN ne vals[n] then
@@ -189,23 +219,6 @@ procedure test_conjecture1(towers : N:= 1)
 		print "Found Counterexample!";
 	end if;
 end procedure;
-
-function predict_leadingconstant(p,d,power)
-	return alpha(d,p : r := power);
-end function;
-
-function leading_numerator(p,d,r)
-	return Numerator(alpha(d,p : r:=r));
-end function;
-
-function leading_denominator(p,d,r)
-	return Denominator(alpha(d,p : r:=r));
-end function;
-
-//predict alpha_r(1,p) i.e. the part independent of d.
-function predict_leadingconstant_nod(p,r)
-	return r * (p-1)  / ( 2 * (p+1) * ( (p-1)*r + (p+1)));
-end function;
 
 //pull out specific examples
 function filter_data(data: p := -1 , d:= -1)
@@ -242,7 +255,7 @@ end function;
 
 //stable after level, put in floor function to make sure integer
 function predict2(p,d,power,n,level,alevel)
-	return Floor( alpha(d,p : r:= power) * (p^(2*n) - p^(2 * level))) + alevel;
+	return Floor( d * alpha(power,p) * (p^(2*n) - p^(2 * level))) + alevel;
 end function;
 
 //floor of leading term, no normalization
@@ -307,7 +320,7 @@ function estimate_lambda(p,d,r)
 end function;
 
 //compare with dim_ker of V^r on nth level with
-//alpha_r(d,p) p^(2n) + lambda_d n 
+//d * alpha(r,p) p^(2n) + lambda_d n 
 function estimate_constant(p,d,r,n , dim_ker : linear := true)
 	prediction := predict_leadingconstant(p,d,r) * p^(2 * n);
 	if linear then
@@ -379,8 +392,8 @@ procedure explore_errors(data,p,d : power:=1 , threshold:= 5 )
 			print "Tower:", get_name(tower);
 			vals := get_anumbers(tower : power:=power);
 			print "dimensions of ker V^",power,":",vals;
-			//put in floor just to make it easier to eyeball.  It will mess with congruences
-			pred1 := [ Floor(estimate_constant(p,d,power,n,vals[n] : linear:=false)) : n in [1..#vals]];
+			//could put in floor just to make it easier to eyeball.  It will mess with congruences
+			pred1 := [ estimate_constant(p,d,power,n,vals[n] : linear:=false) : n in [1..#vals]];
 			print "Error:", pred1;	
 			print "--------------------";
 			print "";
@@ -434,7 +447,7 @@ function find_discrepancies_d(p,d,data)
 		assert( p eq get_characteristic(tower));
 		assert( d eq get_ramification_invariant(tower));
 		
-		leading := alpha(d,p);
+		leading := alpha(1,p) *d;
 		vals := get_anumbers(tower : power:=1);
 
 		for i in [2..#vals] do
@@ -527,7 +540,7 @@ end function;
 
 
 //make tables displaying predictions for values
-//Style 1: include genus, a-number, and delta_d = a-number - alpha(d,p) (p^(2n)-p^2)
+//Style 1: include genus, a-number, and delta_d = a-number - d * alpha(1,p) (p^(2n)-p^2)
 procedure table_data1(data,p,d)
 	new_data := filter_data(data : p :=p, d:= d);
 	for tower in new_data do	
