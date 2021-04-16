@@ -95,6 +95,14 @@ function get_invariants(tower,level)
 	return [tower[2][level][n+1] : n in [1..tower[1][5]]];
 end function;
 
+function max_level(tower)
+	return tower[1][4];
+end function;
+
+function max_power(tower)
+	return tower[1][5];
+end function;
+
 /* Functions to Analyze the Data */
 
 /* Guess a formula 
@@ -319,6 +327,31 @@ function estimate_lambda(p,d,r)
 	return 0;
 end function;
 
+//try to estimate lambda_{d,r} from the paper for a basic tower with ramification invariant d, rth power of Cartier
+function autogenerate_lambda(towers, p, min_level : max_d:=30)
+	//indexed by d ,r 
+	lambda_list := [ [] : n in [1..max_d]];
+	
+	for tower in towers do
+		d := get_ramification_invariant(tower);
+		max_computed := max_level(tower);
+		//if this is first tower with correct characteristic and right d...
+		if get_characteristic(tower) eq p and d le max_d and max_computed ge min_level and lambda_list[d] eq [] then
+			for r in [1..max_power(tower)] do
+				m := compute_m(r,p); //expect periodic with this periodicity
+				//need to have computed enough levels relative to m to have a hope
+				if m lt max_computed then 	
+					print "Doing (d,r)=",d,r;
+					difference := get_anumber(tower,max_computed : power:= r) - get_anumber(tower,max_computed-m : power:=r);
+					lambda_list[d][r] := difference / m;
+				end if;
+			end for;	
+		end if;
+	end for;
+	
+	return lambda_list;
+end function;
+
 //compare with dim_ker of V^r on nth level with
 //d * alpha(r,p) p^(2n) + lambda_d n 
 function estimate_constant(p,d,r,n , dim_ker : linear := true)
@@ -392,7 +425,7 @@ procedure explore_errors(data,p,d : power:=1 , threshold:= 5 )
 			print "Tower:", get_name(tower);
 			vals := get_anumbers(tower : power:=power);
 			print "dimensions of ker V^",power,":",vals;
-			//could put in floor just to make it easier to eyeball.  It will mess with congruences
+			//could put in floor just to make it easier to eyeball.  It might mess with congruences
 			pred1 := [ estimate_constant(p,d,power,n,vals[n] : linear:=false) : n in [1..#vals]];
 			print "Error:", pred1;	
 			print "--------------------";
@@ -458,6 +491,8 @@ function find_discrepancies_d(p,d,data)
 	end for;
 	return discrep;
 end function;
+
+
 
 function find_discrepancies(p , max, data )
 	return [ <d,find_discrepancies_d(p,d,filter_data(data : p:=p, d:= d)) > : d in [2..max] | (d mod p ne 0) ] ; 
