@@ -76,7 +76,7 @@ end function;
 
 /*
 Create a monomial of specific order at level
-This method assumes we're in an genus stable ASW where the ds grow quickly
+This method assumes we're in an ASW tower where the ds grow quickly.  This is definitely always possible for basic towers
 p - characteristic
 level - which level to work at
 x, ys[1], ... ys[n] : variables defining tower
@@ -95,6 +95,8 @@ function create_term(p,level,x,ys,ds,exponent)
 		j := j-1;
 	end while;
 	
+	//if this assertion fails, we haven't been able to produce the required function using this method
+	//we can prove it will never fail for basic towers.  Not entirely sure about more general examples
 	assert(remaining mod p^(level-1) eq 0);
 	
 	term := term * x^(Integers()! (remaining/(p^(level-1))));

@@ -247,7 +247,7 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 	return data_collection_wvs(p,r,n,ds,wvs, printforms, ASW_data, run_num  : printing:=printing, store:=store, powers:=powers );
 end function;
 
-/* Collect data about some towers with periodically stable monodromy
+/* Collect data about some towers with more general behavior, initially targetted at periodically stable monodromy
 Work over finite field of size p^r, n levels.
 
 polys is a list of towers, specified as [<val,exp>] to represent
