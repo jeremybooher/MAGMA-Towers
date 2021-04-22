@@ -76,7 +76,6 @@ end function;
 
 /*
 Create a monomial of specific order at level
-This method assumes we're in an ASW tower where the ds grow quickly.  This is definitely always possible for basic towers
 p - characteristic
 level - which level to work at
 x, ys[1], ... ys[n] : variables defining tower
