@@ -216,6 +216,7 @@ and returns a list of data
 */
 function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, powers:=1)
 
+	t1 := Realtime();
 	P,x,ys,ASW,epols := setup_ASW(p,r,n);
 	ASW_data :=  [*P, x, ys,ASW,epols*];
 	ds := [Integers()!(d * (p^(2*j-1) +1)/(p+1) ): j in [1..n]]; //recovered from genus formula KW
@@ -244,6 +245,9 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 		Append(~printforms, Sprint(polyform));
 	end for;
 	
+	if printing then
+		print "ASW calculations:",Realtime()-t1;
+	end if;
 	return data_collection_wvs(p,r,n,ds,wvs, printforms, ASW_data, run_num  : printing:=printing, store:=store, powers:=powers );
 end function;
 
@@ -334,7 +338,7 @@ end function;
 // p =2
 function example_pm2(d,n, run_num : printing:=true, store:=false, powers:=1)
 	assert( d mod 2 ne 0);
-	assert ( d gt 3);
+	//assert ( d gt 3);
 
 	p:=2;	
 	ss := [d];
@@ -355,7 +359,7 @@ function example_pm2(d,n, run_num : printing:=true, store:=false, powers:=1)
 	
 	end for;
 	
-	polylist := [ <0,d>  , <0,3>] ;
+	polylist := [ <0,d> ] ;
 	
 	count :=2;
 	

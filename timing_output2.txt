@@ -1,0 +1,13 @@
+Magma V2.25-8     Thu Apr 22 2021 07:29:48 on jeremy-ThinkPad-E14 [Seed = 
+536805967]
+Type ? for help.  Type <Ctrl>-D to quit.
+
+Loading file "jeremy_timing"
+Loading "tower_data"
+Loading "tower_computation"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Compute Witt Sum 0.000
+Getting Description of Function Field 5.300
+Constructing Function Field took:  5.300

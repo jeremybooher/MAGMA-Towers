@@ -1,0 +1,183 @@
+Magma V2.25-8     Wed Apr 21 2021 09:21:34 on jeremy-ThinkPad-E14 [Seed = 
+352989319]
+Type ? for help.  Type <Ctrl>-D to quit.
+
+Loading file "jeremy_timing"
+Loading "tower_data"
+Loading "tower_computation"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+ASW calculations: 0.010
+Run Number  -1
+Setup 0.040
+Starting Analysis: x^7 + x^5
+[
+    x^7 + x^5,
+    2*x^19 + 2*x^17,
+    2*x^61 + 2*x^59 + 2*x^55 + 2*x^53 + 2*x^49 + 2*x^47,
+    2*x^187 + 2*x^185 + 2*x^181 + 2*x^179 + 2*x^175 + 2*x^173 + 2*x^169 + 
+        2*x^167 + 2*x^163 + 2*x^161 + 2*x^157 + 2*x^155 + 2*x^151 + 2*x^149 + 
+        2*x^145 + 2*x^143 + 2*x^139 + 2*x^137
+]
+Put tower in Standard form: 0.290
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+genus, dim ker V^1... [ 6, 3 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.010
+Computed Rank: 0.000
+genus, dim ker V^1... [ 66, 24 ]
+Working on level: 3
+Finished Precomputation: 0.100
+Built Matrix: 0.020
+Computed Rank: 0.000
+genus, dim ker V^1... [ 624, 213 ]
+Working on level: 4
+Finished Precomputation: 17.890
+Built Matrix: 1.150
+Computed Rank: 0.410
+genus, dim ker V^1... [ 5700, 1914 ]
+<[* 3, 7, x^7 + x^5, 4, 1, 19.880 *], [
+    [ 6, 3 ],
+    [ 66, 24 ],
+    [ 624, 213 ],
+    [ 5700, 1914 ]
+]>
+[
+    <[* 3, 7, x^7 + x^5, 4, 1, 19.880 *], [
+        [ 6, 3 ],
+        [ 66, 24 ],
+        [ 624, 213 ],
+        [ 5700, 1914 ]
+    ]>
+]
+ASW calculations: 0.130
+Run Number  -1
+Setup 0.270
+Starting Analysis: x^7 + x^5
+[
+    x^7 + x^5,
+    2*x^19 + 2*x^17,
+    2*x^61 + 2*x^59 + 2*x^55 + 2*x^53 + 2*x^49 + 2*x^47,
+    2*x^187 + 2*x^185 + 2*x^181 + 2*x^179 + 2*x^175 + 2*x^173 + 2*x^169 + 
+        2*x^167 + 2*x^163 + 2*x^161 + 2*x^157 + 2*x^155 + 2*x^151 + 2*x^149 + 
+        2*x^145 + 2*x^143 + 2*x^139 + 2*x^137,
+    2*x^565 + 2*x^563 + 2*x^559 + 2*x^557 + 2*x^553 + 2*x^551 + 2*x^547 + 
+        2*x^545 + 2*x^541 + 2*x^539 + x^537 + 2*x^535 + 2*x^533 + 2*x^531 + 
+        2*x^529 + 2*x^527 + 2*x^523 + 2*x^521 + 2*x^519 + 2*x^517 + 2*x^515 + 
+        2*x^511 + 2*x^509 + 2*x^505 + 2*x^503 + 2*x^501 + 2*x^499 + 2*x^497 + 
+        x^495 + 2*x^493 + 2*x^491 + x^489 + 2*x^487 + 2*x^485 + x^483 + 2*x^481 
+        + 2*x^479 + x^477 + 2*x^475 + 2*x^473 + 2*x^471 + 2*x^469 + 2*x^467 + 
+        2*x^463 + 2*x^461 + 2*x^457 + 2*x^455 + 2*x^453 + 2*x^451 + 2*x^449 + 
+        2*x^445 + 2*x^443 + 2*x^441 + 2*x^439 + 2*x^437 + x^435 + 2*x^433 + 
+        2*x^431 + 2*x^427 + 2*x^425 + 2*x^421 + 2*x^419 + 2*x^415 + 2*x^413 + 
+        2*x^409 + 2*x^407
+]
+Put tower in Standard form: 196.190
+Working on level: 1
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 6, 3 ]
+Working on level: 2
+Finished Precomputation: 0.000
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 66, 24 ]
+Working on level: 3
+Finished Precomputation: 0.130
+Built Matrix: 0.020
+Computed Rank: 0.010
+genus, dim ker V^1... [ 624, 213 ]
+Working on level: 4
+Finished Precomputation: 26.440
+Built Matrix: 1.430
+Computed Rank: 0.470
+genus, dim ker V^1... [ 5700, 1914 ]
+Working on level: 5
+Precomputed:  447 out of 729 at 1618954241.670
+Precomputed:  493 out of 729 at 1618954574.770
+Precomputed:  500 out of 729 at 1618954916.660
+Precomputed:  506 out of 729 at 1618955234.030
+Precomputed:  512 out of 729 at 1618955584.450
+Precomputed:  518 out of 729 at 1618955919.490
+Precomputed:  524 out of 729 at 1618956257.120
+Precomputed:  530 out of 729 at 1618956580.870
+Precomputed:  535 out of 729 at 1618956898.920
+Precomputed:  540 out of 729 at 1618957257.120
+Precomputed:  545 out of 729 at 1618957561.870
+Precomputed:  550 out of 729 at 1618957891.150
+Precomputed:  556 out of 729 at 1618958248.490
+Precomputed:  560 out of 729 at 1618958553.170
+Precomputed:  565 out of 729 at 1618958923.710
+Precomputed:  569 out of 729 at 1618959282.700
+Precomputed:  574 out of 729 at 1618959589.550
+Precomputed:  578 out of 729 at 1618959894.370
+Precomputed:  583 out of 729 at 1618960226.500
+Precomputed:  587 out of 729 at 1618960561.510
+Precomputed:  591 out of 729 at 1618960888.020
+Precomputed:  595 out of 729 at 1618961291.960
+Precomputed:  600 out of 729 at 1618961645.820
+Precomputed:  604 out of 729 at 1618961991.980
+Precomputed:  608 out of 729 at 1618962292.630
+Precomputed:  612 out of 729 at 1618962641.850
+Precomputed:  616 out of 729 at 1618963020.110
+Precomputed:  620 out of 729 at 1618963435.840
+Precomputed:  623 out of 729 at 1618963771.200
+Precomputed:  627 out of 729 at 1618964109.310
+Precomputed:  630 out of 729 at 1618964414.850
+Precomputed:  634 out of 729 at 1618964789.950
+Precomputed:  638 out of 729 at 1618965184.980
+Precomputed:  641 out of 729 at 1618965537.200
+Precomputed:  644 out of 729 at 1618965880.630
+Precomputed:  647 out of 729 at 1618966272.040
+Precomputed:  649 out of 729 at 1618966593.460
+Precomputed:  654 out of 729 at 1618966928.300
+Precomputed:  658 out of 729 at 1618967258.260
+Precomputed:  663 out of 729 at 1618967621.580
+Precomputed:  667 out of 729 at 1618967975.740
+Precomputed:  671 out of 729 at 1618968334.330
+Precomputed:  674 out of 729 at 1618968639.410
+Precomputed:  677 out of 729 at 1618968964.560
+Precomputed:  681 out of 729 at 1618969299.250
+Precomputed:  684 out of 729 at 1618969602.040
+Precomputed:  688 out of 729 at 1618969979.590
+Precomputed:  692 out of 729 at 1618970372.510
+Precomputed:  695 out of 729 at 1618970724.700
+Precomputed:  698 out of 729 at 1618971071.480
+Precomputed:  701 out of 729 at 1618971464.270
+Precomputed:  703 out of 729 at 1618971777.750
+Precomputed:  707 out of 729 at 1618972169.190
+Precomputed:  710 out of 729 at 1618972507.590
+Precomputed:  713 out of 729 at 1618972883.640
+Precomputed:  716 out of 729 at 1618973209.530
+Precomputed:  719 out of 729 at 1618973572.790
+Precomputed:  722 out of 729 at 1618973996.360
+Precomputed:  725 out of 729 at 1618974409.520
+Precomputed:  728 out of 729 at 1618974880.990
+Finished Precomputation: 21310.420
+Built Matrix: 229.140
+Computed Rank: 97.280
+genus, dim ker V^1... [ 51546, 17223 ]
+<[* 3, 7, x^7 + x^5, 5, 1, 21861.730 *], [
+    [ 6, 3 ],
+    [ 66, 24 ],
+    [ 624, 213 ],
+    [ 5700, 1914 ],
+    [ 51546, 17223 ]
+]>
+[
+    <[* 3, 7, x^7 + x^5, 5, 1, 21861.730 *], [
+        [ 6, 3 ],
+        [ 66, 24 ],
+        [ 624, 213 ],
+        [ 5700, 1914 ],
+        [ 51546, 17223 ]
+    ]>
+]
+
+Total time: 21881.549 seconds, Total memory usage: 2710.91MB
