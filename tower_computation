@@ -518,15 +518,37 @@ end function;
 
 /*
 Given the genus and a matrix for the Cartier operator, compute dim ker V^i for 1 \leq i \leq powers
+threshold : if powers > threshold, compute invariant factors to compute kernels of all the powers "at once". 
+for any reasonable number of powers, it seems faster to just directly compute relevant powers, so 
+threshold is set very high
 */
-function anumber(g,cartier : powers:=1)
+function anumber(g,cartier : powers:=1 ,threshold:=200)
 	list := [];
-	C:=1;
+	if powers le threshold then
+		C:=1;
 
-	for n in [1..powers] do
-		C := C * cartier;
-		Append(~list,g-Rank(C));
-	end for;
+		for n in [1..powers] do
+			C := C * cartier;
+			Append(~list,g-Rank(C));
+		end for;
+	else	
+
+		factors := PrimaryInvariantFactors(cartier);
+		accumulated := 0;
+		
+		//get the variable used 
+		t := Parent(factors[1][1]).1;
+		
+		for n in [1..powers] do
+			for pair in factors do
+				if pair[1] eq t and pair[2] ge n then
+					accumulated +:=1;
+				end if;
+			end for;
+			
+			Append(~list,accumulated);
+		end for;
+	end if;
 	return list;
 end function;
 

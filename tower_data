@@ -50,7 +50,7 @@ function analyze(level,n,p,r,d,x,ys,fs,simplify,basis,precomp : printing:= false
 	a := anumber(g,cartier: powers := powers);
 	t3 := Realtime();
 	if printing then
-		print "Computed Rank:",t3-t2;
+		print "Computed Invariants:",t3-t2;
 	end if;
 	return [g] cat a,precomp;
 end function;
