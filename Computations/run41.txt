@@ -1,0 +1,331 @@
+Magma V2.25-6     Wed Apr 21 2021 12:05:05 on mathmagma [Seed = 135726200]
+Type ? for help.  Type <Ctrl>-D to quit.
+
+Loading file "largep"
+Loading "tower_data"
+Loading "tower_computation"
+Loading "gt.m"
+Loading "witt.m"
+Loading "etas.m"
+Run Number  41
+Setup 0.010
+Starting Analysis: x^2
+[
+    x^2,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 ]
+Working on level: 2
+Finished Precomputation: 4.580
+Built Matrix: 0.040
+Computed Rank: 3.160
+genus, dim ker V^1... [ 1956, 942, 1288, 1467, 1576, 1650, 1707, 1743, 1779, 
+1801, 1819 ]
+<[* 13, 2, x^2, 2, 10, 7.800 *], [
+    [ 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 ],
+    [ 1956, 942, 1288, 1467, 1576, 1650, 1707, 1743, 1779, 1801, 1819 ]
+]>
+[
+    <[* 13, 2, x^2, 2, 10, 7.800 *], [
+        [ 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 ],
+        [ 1956, 942, 1288, 1467, 1576, 1650, 1707, 1743, 1779, 1801, 1819 ]
+    ]>
+]
+Run Number  41
+Setup 0.010
+Starting Analysis: x^3
+[
+    x^3,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 12, 8, 12, 12, 12, 12, 12, 12, 12, 12, 12 ]
+Working on level: 2
+Finished Precomputation: 4.560
+Built Matrix: 0.060
+Computed Rank: 10.870
+genus, dim ker V^1... [ 2976, 1412, 1932, 2203, 2368, 2480, 2561, 2621, 2667, 
+2707, 2737 ]
+<[* 13, 3, x^3, 2, 10, 15.510 *], [
+    [ 12, 8, 12, 12, 12, 12, 12, 12, 12, 12, 12 ],
+    [ 2976, 1412, 1932, 2203, 2368, 2480, 2561, 2621, 2667, 2707, 2737 ]
+]>
+[
+    <[* 13, 3, x^3, 2, 10, 15.510 *], [
+        [ 12, 8, 12, 12, 12, 12, 12, 12, 12, 12, 12 ],
+        [ 2976, 1412, 1932, 2203, 2368, 2480, 2561, 2621, 2667, 2707, 2737 ]
+    ]>
+]
+Run Number  41
+Setup 0.010
+Starting Analysis: x^4
+[
+    x^4,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 18, 12, 15, 18, 18, 18, 18, 18, 18, 18, 18 ]
+Working on level: 2
+Finished Precomputation: 4.580
+Built Matrix: 0.080
+Computed Rank: 24.760
+genus, dim ker V^1... [ 3996, 1884, 2577, 2937, 3159, 3308, 3415, 3497, 3560, 
+3609, 3654 ]
+<[* 13, 4, x^4, 2, 10, 29.440 *], [
+    [ 18, 12, 15, 18, 18, 18, 18, 18, 18, 18, 18 ],
+    [ 3996, 1884, 2577, 2937, 3159, 3308, 3415, 3497, 3560, 3609, 3654 ]
+]>
+[
+    <[* 13, 4, x^4, 2, 10, 29.440 *], [
+        [ 18, 12, 15, 18, 18, 18, 18, 18, 18, 18, 18 ],
+        [ 3996, 1884, 2577, 2937, 3159, 3308, 3415, 3497, 3560, 3609, 3654 ]
+    ]>
+]
+Run Number  41
+Setup 0.020
+Starting Analysis: x^5
+[
+    x^5,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 24, 16, 24, 24, 24, 24, 24, 24, 24, 24, 24 ]
+Working on level: 2
+Finished Precomputation: 4.620
+Built Matrix: 0.110
+Computed Rank: 48.670
+genus, dim ker V^1... [ 5016, 2358, 3231, 3682, 3953, 4140, 4269, 4377, 4485, 
+4537, 4573 ]
+<[* 13, 5, x^5, 2, 10, 53.430 *], [
+    [ 24, 16, 24, 24, 24, 24, 24, 24, 24, 24, 24 ],
+    [ 5016, 2358, 3231, 3682, 3953, 4140, 4269, 4377, 4485, 4537, 4573 ]
+]>
+[
+    <[* 13, 5, x^5, 2, 10, 53.430 *], [
+        [ 24, 16, 24, 24, 24, 24, 24, 24, 24, 24, 24 ],
+        [ 5016, 2358, 3231, 3682, 3953, 4140, 4269, 4377, 4485, 4537, 4573 ]
+    ]>
+]
+Run Number  41
+Setup 0.020
+Starting Analysis: x^6
+[
+    x^6,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 30, 18, 24, 26, 28, 30, 30, 30, 30, 30, 30 ]
+Working on level: 2
+Finished Precomputation: 4.630
+Built Matrix: 0.130
+Computed Rank: 82.460
+genus, dim ker V^1... [ 6036, 2826, 3866, 4407, 4738, 4962, 5123, 5245, 5341, 
+5417, 5479 ]
+<[* 13, 6, x^6, 2, 10, 87.240 *], [
+    [ 30, 18, 24, 26, 28, 30, 30, 30, 30, 30, 30 ],
+    [ 6036, 2826, 3866, 4407, 4738, 4962, 5123, 5245, 5341, 5417, 5479 ]
+]>
+[
+    <[* 13, 6, x^6, 2, 10, 87.240 *], [
+        [ 30, 18, 24, 26, 28, 30, 30, 30, 30, 30, 30 ],
+        [ 6036, 2826, 3866, 4407, 4738, 4962, 5123, 5245, 5341, 5417, 5479 ]
+    ]>
+]
+Run Number  41
+Setup 0.030
+Starting Analysis: x^7
+[
+    x^7,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36 ]
+Working on level: 2
+Finished Precomputation: 4.580
+Built Matrix: 0.150
+Computed Rank: 133.390
+genus, dim ker V^1... [ 7056, 3312, 4524, 5157, 5536, 5800, 5977, 6133, 6288, 
+6361, 6409 ]
+<[* 13, 7, x^7, 2, 10, 138.140 *], [
+    [ 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36 ],
+    [ 7056, 3312, 4524, 5157, 5536, 5800, 5977, 6133, 6288, 6361, 6409 ]
+]>
+[
+    <[* 13, 7, x^7, 2, 10, 138.140 *], [
+        [ 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36 ],
+        [ 7056, 3312, 4524, 5157, 5536, 5800, 5977, 6133, 6288, 6361, 6409 ]
+    ]>
+]
+Run Number  41
+Setup 0.040
+Starting Analysis: x^8
+[
+    x^8,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 42, 30, 37, 42, 42, 42, 42, 42, 42, 42, 42 ]
+Working on level: 2
+Finished Precomputation: 4.640
+Built Matrix: 0.170
+Computed Rank: 199.350
+genus, dim ker V^1... [ 8076, 3774, 5164, 5889, 6328, 6629, 6832, 7010, 7149, 
+7255, 7326 ]
+<[* 13, 8, x^8, 2, 10, 204.170 *], [
+    [ 42, 30, 37, 42, 42, 42, 42, 42, 42, 42, 42 ],
+    [ 8076, 3774, 5164, 5889, 6328, 6629, 6832, 7010, 7149, 7255, 7326 ]
+]>
+[
+    <[* 13, 8, x^8, 2, 10, 204.170 *], [
+        [ 42, 30, 37, 42, 42, 42, 42, 42, 42, 42, 42 ],
+        [ 8076, 3774, 5164, 5889, 6328, 6629, 6832, 7010, 7149, 7255, 7326 ]
+    ]>
+]
+Run Number  41
+Setup 0.030
+Starting Analysis: x^9
+[
+    x^9,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 48, 34, 48, 48, 48, 48, 48, 48, 48, 48, 48 ]
+Working on level: 2
+Finished Precomputation: 4.620
+Built Matrix: 0.190
+Computed Rank: 280.870
+genus, dim ker V^1... [ 9096, 4246, 5821, 6631, 7121, 7461, 7686, 7890, 8073, 
+8179, 8245 ]
+<[* 13, 9, x^9, 2, 10, 285.710 *], [
+    [ 48, 34, 48, 48, 48, 48, 48, 48, 48, 48, 48 ],
+    [ 9096, 4246, 5821, 6631, 7121, 7461, 7686, 7890, 8073, 8179, 8245 ]
+]>
+[
+    <[* 13, 9, x^9, 2, 10, 285.710 *], [
+        [ 48, 34, 48, 48, 48, 48, 48, 48, 48, 48, 48 ],
+        [ 9096, 4246, 5821, 6631, 7121, 7461, 7686, 7890, 8073, 8179, 8245 ]
+    ]>
+]
+Run Number  41
+Setup 0.040
+Starting Analysis: x^10
+[
+    x^10,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.010
+Built Matrix: 0.000
+Computed Rank: 0.010
+genus, dim ker V^1... [ 54, 36, 54, 54, 54, 54, 54, 54, 54, 54, 54 ]
+Working on level: 2
+Finished Precomputation: 4.750
+Built Matrix: 0.220
+Computed Rank: 389.870
+genus, dim ker V^1... [ 10116, 4718, 6469, 7373, 7914, 8291, 8540, 8768, 8994, 
+9097, 9163 ]
+<[* 13, 10, x^10, 2, 10, 394.860 *], [
+    [ 54, 36, 54, 54, 54, 54, 54, 54, 54, 54, 54 ],
+    [ 10116, 4718, 6469, 7373, 7914, 8291, 8540, 8768, 8994, 9097, 9163 ]
+]>
+[
+    <[* 13, 10, x^10, 2, 10, 394.860 *], [
+        [ 54, 36, 54, 54, 54, 54, 54, 54, 54, 54, 54 ],
+        [ 10116, 4718, 6469, 7373, 7914, 8291, 8540, 8768, 8994, 9097, 9163 ]
+    ]>
+]
+Run Number  41
+Setup 0.040
+Starting Analysis: x^11
+[
+    x^11,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 60, 38, 52, 60, 60, 60, 60, 60, 60, 60, 60 ]
+Working on level: 2
+Finished Precomputation: 4.850
+Built Matrix: 0.250
+Computed Rank: 522.780
+genus, dim ker V^1... [ 11136, 5186, 7102, 8101, 8706, 9121, 9394, 9646, 9897, 
+10009, 10081 ]
+<[* 13, 11, x^11, 2, 10, 527.900 *], [
+    [ 60, 38, 52, 60, 60, 60, 60, 60, 60, 60, 60 ],
+    [ 11136, 5186, 7102, 8101, 8706, 9121, 9394, 9646, 9897, 10009, 10081 ]
+]>
+[
+    <[* 13, 11, x^11, 2, 10, 527.900 *], [
+        [ 60, 38, 52, 60, 60, 60, 60, 60, 60, 60, 60 ],
+        [ 11136, 5186, 7102, 8101, 8706, 9121, 9394, 9646, 9897, 10009, 10081 ]
+    ]>
+]
+Run Number  41
+Setup 0.050
+Starting Analysis: x^12
+[
+    x^12,
+    0
+]
+Put tower in Standard form: 0.000
+Working on level: 1
+Finished Precomputation: 0.020
+Built Matrix: 0.000
+Computed Rank: 0.000
+genus, dim ker V^1... [ 66, 36, 48, 54, 57, 60, 61, 62, 63, 64, 65 ]
+Working on level: 2
+Finished Precomputation: 4.730
+Built Matrix: 0.270
+Computed Rank: 672.940
+genus, dim ker V^1... [ 12156, 5652, 7733, 8815, 9478, 9926, 10248, 10493, 
+10684, 10837, 10963 ]
+<[* 13, 12, x^12, 2, 10, 677.960 *], [
+    [ 66, 36, 48, 54, 57, 60, 61, 62, 63, 64, 65 ],
+    [ 12156, 5652, 7733, 8815, 9478, 9926, 10248, 10493, 10684, 10837, 10963 ]
+]>
+[
+    <[* 13, 12, x^12, 2, 10, 677.960 *], [
+        [ 66, 36, 48, 54, 57, 60, 61, 62, 63, 64, 65 ],
+        [ 12156, 5652, 7733, 8815, 9478, 9926, 10248, 10493, 10684, 10837, 10963
+        ]
+    ]>
+]
+
+Total time: 2424.509 seconds, Total memory usage: 1966.78MB
