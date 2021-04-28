@@ -460,9 +460,18 @@ function get_lambda(p,d,r)
 				return lambdas_p3[d][r];
 			end if;
 		end if;
+	elif p eq 5 then
+		//these were eyeballed	
+		if r eq 5 then
+			if d lt 7 then
+				return 0;
+			else
+				return 1/2; //no data for d>12
+			end if;
+		end if;
 	end if;
 	
-	print "Warning: didn't have value for lambda$",p,d,r;
+	print "Warning: didn't have value for lambda:",p,d,r;
 	return 0;
 end function;
 
