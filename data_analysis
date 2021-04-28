@@ -636,6 +636,48 @@ procedure format_discrepancies(output)
 	print formatted;
 end procedure;
 
+/*
+Explore asymptotics: find the maximum deviation of values of dim ker V^r / predicted leading term over some data set from 1
+if d is not -1, restrict to particular ramification invariant
+max_n is highest level to consider (not all towers will have this many levels)
+max_r  is highest power of Cartier to consider (not all towers will have this many powers computed)
+*/
+function compute_asymptotics(towers, p : d:=-1 ,max_n := 2,max_r :=5)
+	//filter data to only have towers with correct characteristic (and possibly restriction on d)
+	fdata := filter_data(towers : p:=p, d:=d);
+	/*
+	ratios := AssociativeArray();
+	
+	for n in [1..max_n] do
+		for r in [1..max_r] do
+			ratios[ <n,r>] := 0;
+		end for;
+	end for;*/
+	
+	ratios := [[0.0 :  r  in [1..max_r]] : n in [1..max_n]]; 
+
+	
+	for tower in fdata do
+		for n in [1..Min(max_level(tower),max_n)] do
+			for r in [1..Min(max_power(tower),max_r)] do
+				mainterm := predict_leading(p,get_ramification_invariant(tower),r,n);
+				err := Abs(1.0 - get_anumber(tower,n : power:=r)/ mainterm );
+				if err gt ratios[n,r] then
+					ratios[n,r] := err;
+				end if;
+			end for;
+		end for;
+	end for;
+
+	return ratios;
+end function;
+
+procedure display_asymptotics(ratios , r)
+	for row in ratios do
+		print row[r];
+	end for;
+end procedure;
+
 /* Functions for Creating LaTeX tables
 Requires the package booktabs for nicer formatting */
 /*
