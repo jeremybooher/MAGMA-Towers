@@ -225,7 +225,6 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 	printforms := [];
 	
 	for list in polys do
-		assert(list[1][2] eq d);
 		v:= [list[1][1] * x^(list[1][2])] cat [0 : j in [1..n-1]];
 		polyform := list[1][1]*x^ (list[1][2]);
 		count :=2;
@@ -241,6 +240,7 @@ function data_collection(p,r,d,n,polys ,run_num : printing:=true, store:=false, 
 			count +:=1;
 		end while;
 		
+		assert(Degree(polyform) eq d);
 		Append(~wvs,v);
 		Append(~printforms, Sprint(polyform));
 	end for;

@@ -896,6 +896,8 @@ end function;
 /*
 See if perturbing the tower at second level without modifying ramification has any effect
 See analyze_examples2 in example_finder
+data should be a list with blocks of towers.  Each block has variants entries, each of which is a tower
+which are all perturbations of the first entry in that block
 */ 
 function analyze_perturbation(data,variants)
 	unusual_towers := [];
