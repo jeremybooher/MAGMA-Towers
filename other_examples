@@ -42,6 +42,7 @@ function default_anumber(K : printing:=true, powers:=1)
 	end if;
 	t1:=Realtime();
 	g := Genus(K);
+	print "Genus is ",g;
 	t2:=Realtime();
 	if printing then	
 		print "Took: ",t2-t1;
@@ -204,5 +205,84 @@ procedure other_base()
 
 end procedure;
 
-//other_base(); 
+//do an example of a sequence of Artin-Schrier extensions which don't form a Z_3 -tower
+procedure not_tower1()
+	p := 3;
+	K0<t0> := FunctionField(GF(p));
+
+	P1<y1> := PolynomialRing(K0);
+	f1 := t0^7;
+	d1:=7;
+	K1<y1> := FunctionField(y1^p - y1 - f1);
+	
+	P2<y2> := PolynomialRing(K1);
+	f2 := y1 * t0^(14);
+	d2:= 49;
+	Support(Divisor(f2));
+	K2<y2> := FunctionField(y2^p - y2 - f2);
+	
+	print "Constructed Level 2";
+	
+	P3<y3> := PolynomialRing(K2);
+	f3 := y2 * t0^(42);
+	d3:= 427;
+	K3<y3> := FunctionField(y3^p - y3 - f3);
+	
+	print "Constructed Level 3";
+	
+	P4<y4>:=PolynomialRing(K3);
+	f4 := y3 * t0^(126);
+	d4:=3829;
+	K4<y4> := FunctionField(y4^p - y4 - f4);
+	
+	print "Constructed Level 4";
+		
+	for L in [K1,K2,K3,K4] do
+		print L;
+		print default_anumber(L : powers:=5);
+	end for;
+end procedure;
+
+//same, but with some lower order terms randomly added
+procedure not_tower2()
+	p := 3;
+	K0<t0> := FunctionField(GF(p));
+
+	P1<y1> := PolynomialRing(K0);
+	f1 := t0^7;
+	d1:=7;
+	K1<y1> := FunctionField(y1^p - y1 - f1);
+	
+	P2<y2> := PolynomialRing(K1);
+	f2 := y1 * t0^(14) +  t0^2;
+	d2:= 49;
+	Support(Divisor(f2));
+	K2<y2> := FunctionField(y2^p - y2 - f2);
+	
+	print "Constructed Level 2";
+	
+	P3<y3> := PolynomialRing(K2);
+	f3 := y2 * (t0^(42) + t0^20) + y1 * t0 ;
+	d3:= 427;
+	K3<y3> := FunctionField(y3^p - y3 - f3);
+	
+	print "Constructed Level 3";
+	
+	P4<y4>:=PolynomialRing(K3);
+	f4 := y3 * t0^(126) + y2 * t0^5 + t0^2;
+	d4:=3829;
+	K4<y4> := FunctionField(y4^p - y4 - f4);
+	
+	print "Constructed Level 4";
+		
+	for L in [K1,K2,K3,K4] do
+		print L;
+		print default_anumber(L : powers:=5);
+	end for;
+end procedure;
+
+
+
+
+
 
