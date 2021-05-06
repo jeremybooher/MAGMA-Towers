@@ -243,6 +243,34 @@ procedure not_tower1()
 	end for;
 end procedure;
 
+/* Not Tower 1
+% Algebraic function field defined over Univariate rational function field over 
+% GF(3) by
+% y1^3 + 2*y1 + 2*t0^7
+% Computing Genus...
+% Took:  0.030
+% Invariants Took:  0.000
+% [ 4, 5, 6, 6, 6 ]
+% Algebraic function field defined over K1 by
+% y2^3 + 2*y2 + 2*t0^14*y1
+% Computing Genus...
+% Took:  0.020
+% Invariants Took:  0.040
+% [ 27, 39, 49, 54, 58 ]
+% Algebraic function field defined over K2 by
+% y3^3 + 2*y3 + 2*t0^42*y2
+% Computing Genus...
+% Took:  0.980
+% Invariants Took:  3.500
+% [ 231, 364, 442, 490, 525 ]
+% Algebraic function field defined over K3 by
+% y4^3 + 2*y4 + 2*t0^126*y3
+% Computing Genus...
+% Took:  1212.800
+% Invariants Took:  388.120
+% [ 2057, 3329, 4113, 4550, 4826 ]
+*/
+
 //same, but with some lower order terms randomly added
 procedure not_tower2()
 	p := 3;
@@ -281,7 +309,50 @@ procedure not_tower2()
 	end for;
 end procedure;
 
+/* Not Tower 2
+Magma V2.25-6     Thu May  6 2021 13:10:33 on mathmagma [Seed = 1822379549]
+Type ? for help.  Type <Ctrl>-D to quit.
+Loading "other_examples"
+[ (1/t0, 1/t0^5*y1^2), (t0, y1 + t0), (t0, y1 + t0 + 1), (t0, y1 + t0 + 2), 
+(t0^10 + t0^8 + 2*t0^7 + t0^3 + 2*t0^2 + t0 + 2, y1 + 2*t0^8 + 2*t0^7 + 2*t0^6 +
+    2*t0^5 + t0^4 + 2*t0^2), (t0^33 + 2*t0^31 + t0^30 + t0^29 + t0^28 + 2*t0^26 
+    + 2*t0^25 + t0^24 + 2*t0^23 + 2*t0^22 + t0^20 + 2*t0^16 + t0^15 + t0^14 + 
+    t0^10 + t0^9 + t0^7 + 2*t0^5 + 2*t0^4 + 2*t0 + 2, y1 + 2*t0^31 + t0^12) ]
+[ -49, 2, 2, 2, 1, 1 ]
+Constructed Level 2
+Constructed Level 3
+Constructed Level 4
+Algebraic function field defined over Univariate rational function field over 
+GF(3) by
+y1^3 + 2*y1 + 2*t0^7
+Computing Genus...
+Genus is  6
+Took:  0.040
+Invariants Took:  0.000
+[ 4, 5, 6, 6, 6 ]
+Algebraic function field defined over K1 by
+y2^3 + 2*y2 + 2*t0^14*y1 + 2*t0^2
+Computing Genus...
+Genus is  66
+Took:  0.010
+Invariants Took:  0.050
+[ 27, 39, 49, 54, 58 ]
+Algebraic function field defined over K2 by
+y3^3 + 2*y3 + (2*t0^42 + 2*t0^20)*y2 + 2*t0*y1
+Computing Genus...
+Genus is  624
+Took:  1.160
+Invariants Took:  3.590
+[ 231, 353, 429, 479, 508 ]
+Algebraic function field defined over K3 by
+y4^3 + 2*y4 + 2*t0^126*y3 + 2*t0^5*y2 + 2*t0^2
+Computing Genus...
+Genus is  5700
+Took:  1399.650
+Invariants Took:  403.920
+[ 2025, 3079, 3806, 4305, 4628 ]
 
+Total time: 1829.089 seconds, Total memory usage: 303.47MB*/
 
 
 
