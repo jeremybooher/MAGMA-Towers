@@ -261,7 +261,7 @@ end function;
 
 //nice leading term
 // use (p ^(2*n) - p^2) to at least sometimes get an integer
-//this needs power \equiv 1 \mod p to get an integer.  Otherwise would need congruence condition on n
+//this needs nice power to get an integer.  Otherwise would need congruence condition on n
 function predict_nice_leading(p,d,power,n)
 	if p gt 2 then
 		return predict_leadingconstant(p,d,power)* (p ^(2*n) - p^2);
@@ -558,6 +558,24 @@ procedure explore_errors(data,p,d,  power : threshold:= 4 )
 			print "Error:", pred1;	
 			print "--------------------";
 			print "";
+		end if;
+	end for;
+end procedure;
+
+//the periodic monodromy example is quite different.  
+procedure explore_pm(data, power   : dmin:=1, dmax:=30)
+	p:=2;
+	
+	for tower in data do
+		d := get_ramification_invariant(tower) ;
+		if d ge dmin and d le dmax then
+			print "Lookin at ", d;
+			vals:= get_anumbers(tower:power:=power);		
+			main_terms := [ alpha(power,2 ) * (d+2) *(2^(2*n)+8) :  n in [1..#vals]];
+			estimated_constant:= vals[1] - main_terms[1];
+
+			print "Main Diff:" , [vals[n] - main_terms[n]  : n in [1..#vals]];
+			print "Ratios:",[ (vals[n]- main_terms[n] - estimated_constant )/2^n * 1.0 : n in [1..#vals]];
 		end if;
 	end for;
 end procedure;
