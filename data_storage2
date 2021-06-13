@@ -10859,10 +10859,12 @@ collected_data := [
         13001 ]
     ]>
 ];
-
-
 //Note: don't have full complement with d=19 as the name of the file 
 //used to store the precomputations in got too long and search crashed
+
+
+
+
 
 //a specific choice of a periodically stable tower
 periodic_monodromy :=
