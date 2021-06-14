@@ -197,7 +197,7 @@ function compute_m(r,p)
 		D := Integers()!(D/p);
 	end while;
 	if D eq 1 then
-		return 1;
+		return 0; //not sure about this one
 	else
 		return Modorder(p^2,D);
 	end if;
