@@ -2,6 +2,8 @@
 
 This repository provides [MAGMA](http://magma.maths.usyd.edu.au/magma/) programs for computing with differentials on Zp-towers of curves totally ramified over one point of the projective line over a finite field of characteristic p.  It is used extensively in the paper "Geometric Iwasawa Theory for Zp-Towers of Curves in Characteristic p" by Jeremy Booher and Bryden Cais; that paper also includes an overview of the method and the mathematics underlying it.  While it is orders-of-magnitude faster than the generic methods provided for function fields in MAGMA, individual interesting examples still require many hours to run.  This repository also stores the results of many examples (mostly in characteristic two and three) and includes functionality to analyze them.
 
+It uses code for computing with Witt Vectors developed by Luis Finotti ([github repository](https://github.com/lrfinotti/witt)).
+
 # Files
 
 - tower_computation provides basic methods for describing curves in a Zp tower of curves over a field of charactersitic p totally ramified at one point and for computing with the Cartier operator on the space of regular differentials.
@@ -15,6 +17,8 @@ This repository provides [MAGMA](http://magma.maths.usyd.edu.au/magma/) programs
 - data_storage_small stores many more examples where fewer levels of the tower are analyzed.
 
 - data_analysis provides some functions for analyzing the stored computations, producing tables, and checking conjectures.
+
+- 
 
 # Theory
 
