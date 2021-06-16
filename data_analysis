@@ -760,7 +760,7 @@ function tower_table1(tower : maxlevel:=1000, maxpower:=1000)
 	labels := [1..levels];
 	data := [  [data[l][r] : r in [1..powers+1]] : l in [1..levels] ];
 	
-	caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+	caption := "$Fy-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
 	return format_table(header,labels,data,caption);
 end function;
 
@@ -776,7 +776,7 @@ function tower_table2(tower : maxlevel:=1000, maxpower:=1000)
 	header := ["n="] cat [ Sprint(n) : n in [1..levels]];
 	data := [  [data[l][r] : l in [1..levels]] : r in [1..powers+1] ];
 	
-	caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+	caption := "$Fy-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
 	return format_table(header,labels,data,caption);
 end function;
 
@@ -801,7 +801,7 @@ procedure table_data1(data,p,d)
 			];
 
 		
-		caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+		caption := "$Fy-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
 		print format_table(header,labels,data,caption);
 		print "";
 	end for;
@@ -823,7 +823,7 @@ procedure table_data2(data,p,d: min_r:=2,max_r:=5)
 		data := [ [ estimate_constant(p,d,r,n,get_anumber(tower,n : power:=r)) : n in [1..levels]]
 			: r in [min_r..max_r] ];
 	
-		caption := "$y^F-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
+		caption := "$Fy-y="*Sprint(get_name_latex(tower)) * "$ with $(p,d) = (" * Sprint(get_characteristic(tower))*"," * Sprint(get_ramification_invariant(tower)) * ")$";
 		print format_table(header,labels,data,caption);
 		print "";
 	end for;
