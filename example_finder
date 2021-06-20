@@ -209,6 +209,19 @@ rand_polyzo:=function(t,d,p) ;
     return poly;
 end function;
 
+//random polynomial working over larger field of constants
+//separate method only because this was added late
+function rand_poly_higher(t,d,p,K)
+    poly := t^(d) ;
+    for i in [1..d-1] do
+        if (i mod p ne 0) then
+            poly := poly + Random(K)*t^(i);
+        end if;
+    end for;
+    return poly;
+end function;
+
+
 //can we find disagreement?
 testing:=function(d,p)
     K := GF(p);
@@ -273,7 +286,7 @@ sample_old:=function(d,p,count);
     return f;
 end function;
 
-
+//store polynomial as coefficient (integer rep) and exponent
 create_poly:=function(f);
 	d:=Degree(f);
 	list:=[];
@@ -286,11 +299,25 @@ create_poly:=function(f);
 	return list;
 end function;
 
+//store polynomial as coefficient (element of finite field) and exponent
+create_poly2:=function(f);
+	d:=Degree(f);
+	list:=[];
+	for i in [0..d] do
+	   coeff:=Coefficient(f,d-i);
+	   if not (coeff eq 0) then
+	   	list:=list cat [<coeff,d-i>];
+	   end if;
+	end for;
+	return list;
+end function;
+
 
 //Create a bunch (=count) of examples with ramification invariant d in characteristic p
+//work over p^r
 //Compute a-numbers
-create_examples:=function(d,p,count : zeroone:=false);
-    K:=GF(p);
+create_examples:=function(d,p,count : zeroone:=false , r:=1);
+    K:=GF(p^r);
     FF<t>:=PolynomialRing(K);
 
     anumbers:= AssociativeArray();
@@ -308,13 +335,19 @@ create_examples:=function(d,p,count : zeroone:=false);
         if n mod 500 eq 0 then
             print "Finished",n;
         end if;
-        if not zeroone then
-	        f := rand_poly(t,d,p);
+        if not zeroone and r eq 1 then
+	        f := rand_poly(t,d,p); //keep the prime field as special case to ensure compatiblity with older versions
+	elif not zeroone and r gt 1 then
+		f := rand_poly_higher(t,d,p,K); 
 	else
 		f:= rand_polyzo(t,d,p);
 	end if;
         a:=anumber(f,d,p,K,FF); 
-	polc:=create_poly(f);
+        if r eq 1 then
+		polc:=create_poly(f); //for storage, it's nice to have integer representatives
+	else
+		polc:=create_poly2(f);
+	end if;
         if IsDefined(anumbers,a) then
 	        anumbers[a] := anumbers[a]+1;
 		polist[a]:=polist[a] cat [polc];
@@ -348,16 +381,17 @@ end function;
 Total is how many to search through for interesting examples at level 1
 Freq is how many of each invariant at level 1 to look at
 Depth is how many levels in tower to compute, powers how many powers of Cartier to compute, etc.
+Work over finite field with p^r elements
 */
-analyze_examples := function(d,p,total,freq : depth:=3 ,run_num:=-1 , storing:=false, powers:=5)
-	anumbers,polist := create_examples(d,p,total);
+analyze_examples := function(d,p,total,freq : depth:=3 ,run_num:=-1 , storing:=false, powers:=5 , r:=1)
+	anumbers,polist := create_examples(d,p,total : r:=r );
 	
 	master_list := [];
 	for anum in Keys(anumbers) do
 		master_list cat:= [ Random(polist[anum]) : j in [1..freq]];
 	end for;
 	
-	return data_collection(p,1,d,depth,master_list ,run_num: printing:=true,store:=storing, powers:=powers);
+	return data_collection(p,r,d,depth,master_list ,run_num: printing:=true,store:=storing, powers:=powers);
 end function;
 
 /*Look at some non-basic towers, where we allow variation of level 2 without influencing the ramification invariants
