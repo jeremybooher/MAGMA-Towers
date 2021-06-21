@@ -104,10 +104,10 @@ function max_power(tower)
 end function;
 
 //pull out specific examples
-function filter_data(data: p := -1 , d:= -1)
+function filter_data(data: p := -1 , d:= -1 , min_level:=0)
 	new_data := [];
 	for tower in data do
-		if ( p eq -1 or p eq get_characteristic(tower)) and ( d eq -1 or d eq get_ramification_invariant(tower)) then
+		if ( p eq -1 or p eq get_characteristic(tower)) and ( d eq -1 or d eq get_ramification_invariant(tower)) and (max_level(tower) ge min_level) then
 			Append(~new_data,tower);
 		end if;
 	end for;
@@ -621,6 +621,7 @@ In other words, the constant term has changed
 data must already have been filtered to have correct d,p
 */
 function find_discrepancies(data,p,d,r)
+	max_change := 0;
 	discrep := {};
 	for tower in data do
 		assert( p eq get_characteristic(tower));
@@ -634,11 +635,16 @@ function find_discrepancies(data,p,d,r)
 		
 		for i in [m+1..#vals] do
 			if estimate_constant(p,d,r,i, vals[i]) ne estimate_constant(p,d,r,i-m, vals[i-m]) then
+				if max_change lt Abs( estimate_constant(p,d,r,i, vals[i]) - estimate_constant(p,d,r,i-m, vals[i-m])) then
+					max_change := Abs(estimate_constant(p,d,r,i, vals[i]) - estimate_constant(p,d,r,i-m, vals[i-m]));
+				end if;
 				Include(~discrep,i);
 			end if;
 		end for;
 		
 	end for;
+	
+	print d,max_change;
 	return discrep;
 end function;
 
