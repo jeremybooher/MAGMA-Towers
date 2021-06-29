@@ -18,7 +18,7 @@ assert( get_anumbers(tower) eq [3 , 24, 213, 1914]);
 Consider the Fy - y = x^19 + x^17 + x^13 + x^5 + x^3 over F_2.
 We computed ker V^5 for the first seven levels using our algorithms in the past.
 Check that we still get same answer
-This takes 12-24 hours depending on 
+This takes 12-24 hours depending on the hardware (15 hours on mathmagma)
 */
 
 answer := [ 9, 36, 128, 508, 2028, 8108, 32428 ];
