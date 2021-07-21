@@ -205,6 +205,38 @@ procedure other_base()
 
 end procedure;
 
+//do an example over a base curve which is not P^1 (or an ASW extension of P^1) in characteristic 2
+//again, can't use our program, so it will be slower, but can get more levels
+procedure other_base2()
+	p:=2 ;
+	
+	K:=GF(p);
+	R<x>:=FunctionField(K);
+	P<y> := PolynomialRing(R);
+	f := x^5 +x^2 +  1;
+	deg_f := Degree(f);
+	F<alpha> := ext< R | y^2 - x* y-  f >;
+	
+	assert( Genus(F) eq 2); //if not 2, then not getting hyperelliptic curve as y^2 =f must be singular
+	
+	print Divisor(x *alpha);
+	compute_anumbers(F,4,[x*alpha]);
+
+end procedure;
+
+/*
+Genus is  7
+Level: 1  a-number: [ 2, 4, 5, 5, 5 ]
+Genus is  24
+Level: 2  a-number: [ 5, 9, 12, 14, 16 ]
+Genus is  86
+Level: 3  a-number: [ 21, 32, 41, 47, 52 ]
+Genus is  322
+Level: 4  a-number: [ 77, 122, 153, 176, 197 ]
+*/
+
+
+
 //do an example of a sequence of Artin-Schrier extensions which don't form a Z_3 -tower
 procedure not_tower1()
 	p := 3;
