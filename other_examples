@@ -132,6 +132,16 @@ a-number Took:  137484.080
 Level: 4  a-number: 3284
 */
 
+procedure example_multiple_ramification2()
+	p:=2 ;
+	K<x> := FunctionField(GF(p));
+	print "x^ 3 + x^(-3) + (x-1)^(-5)";
+	//fifth level seems to take > 1 day, so just use 4
+	compute_anumbers(K,4,[x^ 3 + x^(-3) + (x-1)^(-5)]); 
+	print "x^ 3 + x + x^(-3) + (x-1)^(-7)";
+	compute_anumbers(K,4,[x^ 3 + x + x^(-3) + (x-1)^(-7)]);
+end procedure;
+
 //Example with Igusa Tower in Characteristic 3
 //Compute tower over X_1(5) using an explicit equation for the universal curve,
 //  y^2 + (1 + t)xy + ty = x^3 + tx^2
