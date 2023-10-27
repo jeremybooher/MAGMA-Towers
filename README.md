@@ -26,7 +26,7 @@ It uses code for computing with Witt Vectors developed by [Luis Finotti](https:/
 
 The Computations folder includes the text output of many of the computations incorporated into data_storage, data_storage2, and data_storage_small.  It should not be necessary to look at it.  
 
-The Precomputations folder stores a bunch of precomputations about a Zp tower, including a description as a sequence of Artin-Schreier extensions and the key precomputations with the Cartier operator on a subset of the regular differentials.  These steps are usually the most time consuming when doing a computation, so these can substantially speed up further analysis of a tower (for example, looking at additional powers of the Cartier operator).  The precomputations are quite large, so a sample is stored on github and the full [archive](https://www.dropbox.com/sh/wgi3lx9uu5ynaly/AAD1tCy4HF_dKQbXHpkEuMIga?dl=0) is stored elsewhere.
+The Precomputations folder stores a bunch of precomputations about a Zp tower, including a description as a sequence of Artin-Schreier extensions and the key precomputations with the Cartier operator on a subset of the regular differentials.  These steps are usually the most time consuming when doing a computation, so these can substantially speed up further analysis of a tower (for example, looking at additional powers of the Cartier operator).  The precomputations are quite large, so a sample is stored on github and the full [archive](https://www.dropbox.com/sh/gibbqfybzqjo5od/AAAFf2CIgKyccW8HFJRM9Fs2a?dl=0) is stored elsewhere.
 
 # Theory
 
